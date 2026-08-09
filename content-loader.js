@@ -209,27 +209,29 @@ function renderAll(content) {
 }
 
 // Render the static defaults immediately so the page never waits on network.
-document.addEventListener("DOMContentLoaded", () => renderAll(window.DEFAULT_CONTENT));
+document.addEventListener("DOMContentLoaded", () => {
+  renderAll(window.DEFAULT_CONTENT);
+  loadLiveContent();
+  countPageView();
+});
 
-async function loadFromFirestore() {
-  const { db, doc, getDoc, updateDoc, setDoc, increment } = window.fb;
+async function loadLiveContent() {
   try {
-    const snap = await getDoc(doc(db, "site", "content"));
-    if (snap.exists()) {
-      const data = snap.data();
+    const res = await fetch("/api/content");
+    if (!res.ok) return; // e.g. 404 locally without `vercel dev` — static defaults already shown
+    const data = await res.json();
+    if (data && Object.keys(data).length) {
       Object.keys(data).forEach(key => { window.DEFAULT_CONTENT[key] = data[key]; });
       renderAll(window.DEFAULT_CONTENT);
     }
   } catch (err) {
     console.warn("Could not load live content, showing defaults:", err);
   }
-
-  // Fire-and-forget page view counter.
-  try {
-    await updateDoc(doc(db, "stats", "pageviews"), { count: increment(1) });
-  } catch (err) {
-    try { await setDoc(doc(db, "stats", "pageviews"), { count: 1 }); } catch (e2) { /* ignore */ }
-  }
 }
 
-window.addEventListener("firebase-ready", loadFromFirestore);
+function countPageView() {
+  // Once per browser session, not every load — keeps GitHub commit history sane.
+  if (sessionStorage.getItem("pv-counted")) return;
+  sessionStorage.setItem("pv-counted", "1");
+  fetch("/api/pageview", { method: "POST" }).catch(() => {});
+}

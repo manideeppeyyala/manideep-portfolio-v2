@@ -1,72 +1,69 @@
 # Setup Guide
 
-Your site works as a static portfolio right out of the box. Two features need a
-free Firebase project to actually work: the **admin panel** (edit every detail
-of the site live) and **Feedback & Ratings** (visitors leaving reviews). Until
-you do this, the site still looks and works fine — those two features just
-show a "not connected yet" message.
+Your site works as a static portfolio right out of the box. Two features need
+a couple of settings in Vercel to actually work: the **admin panel** (edit
+every detail of the site live) and **Feedback & Ratings** (visitors leaving
+reviews). Both are powered by your GitHub repo — every save is just a commit,
+no database, no billing account, ever.
 
-This takes about 10 minutes.
+This takes about 5 minutes.
 
-## 1. Create a Firebase project
+## 1. Create a GitHub Personal Access Token
 
-1. Go to [console.firebase.google.com](https://console.firebase.google.com) and sign in with your Google account.
-2. Click **Add project**, name it something like `manideep-portfolio`, and finish the wizard (you can skip Google Analytics).
+This lets the site write to your repo on your behalf (to save content and
+feedback). It's free — GitHub never asks for payment info for this.
 
-## 2. Enable Firestore (the database)
+1. Go to [github.com/settings/tokens?type=beta](https://github.com/settings/tokens?type=beta) (Fine-grained tokens)
+2. Click **Generate new token**
+3. Name it `portfolio-admin`, set expiration to whatever you're comfortable with (e.g. 1 year)
+4. Under **Repository access**, choose **Only select repositories** → pick `manideep-s-portfolio`
+5. Under **Permissions → Repository permissions**, find **Contents** and set it to **Read and write**
+6. Click **Generate token** and **copy it immediately** — GitHub only shows it once. It looks like `github_pat_...`
 
-1. In the left sidebar, click **Build → Firestore Database**.
-2. Click **Create database**, choose **Production mode**, pick a region close to you, click **Enable**.
-3. Go to the **Rules** tab, delete everything there, and paste in the contents of `firestore.rules` from this project folder. Click **Publish**.
+## 2. Choose an admin password
 
-## 3. Enable Authentication (so only you can access /admin.html)
+Pick any password you'll remember — this is what unlocks `/admin.html`. Not
+your GitHub password, just something new for this site.
 
-1. In the left sidebar, click **Build → Authentication → Get started**.
-2. Under **Sign-in method**, enable **Email/Password**.
-3. Go to the **Users** tab → **Add user**. Enter your own email and a password you'll remember — this is your admin login. (Do this only for yourself; there's no public sign-up on the admin page.)
+## 3. Add both as environment variables in Vercel
 
-## 4. Get your Firebase config and paste it in
+1. Go to your project on [vercel.com](https://vercel.com) → **Settings → Environment Variables**
+2. Add:
+   - `GITHUB_TOKEN` = the token you copied in step 1
+   - `ADMIN_PASSWORD` = the password you chose in step 2
+3. Click **Save** for each
+4. Go to the **Deployments** tab → click the **⋯** menu on the latest deployment → **Redeploy** (env vars only apply to new deployments)
 
-1. In the left sidebar, click the gear icon → **Project settings**.
-2. Scroll to **Your apps**, click the **</>** (Web) icon to register a new web app. Name it anything, skip Firebase Hosting.
-3. You'll see a `firebaseConfig` object with `apiKey`, `authDomain`, `projectId`, etc. Copy those values into **`firebase-config.js`** in this project folder, replacing the `REPLACE_WITH_...` placeholders.
+## 4. Use the admin panel
 
-```js
-window.FIREBASE_CONFIG = {
-  apiKey: "AIza...",
-  authDomain: "manideep-portfolio.firebaseapp.com",
-  projectId: "manideep-portfolio",
-  storageBucket: "manideep-portfolio.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abc123"
-};
-```
+Visit `https://your-site.vercel.app/admin.html`, enter your `ADMIN_PASSWORD`,
+and edit any section from the sidebar. Each tab has its own **Save** button —
+changes commit straight to your GitHub repo and go live within seconds, no
+redeploy needed. The **Feedback & Ratings** tab lets you read and delete what
+visitors submit. The **Overview** tab shows page views, feedback count, and
+average rating.
 
-Save the file. That's it for Firebase — reload the site and the admin panel + feedback form will be live.
+## How it works (no database needed)
 
-## 5. Deploy to Vercel
-
-1. Go to [vercel.com/new](https://vercel.com/new) and sign in (GitHub login is easiest).
-2. Either:
-   - **Drag and drop**: on the "Import Project" screen, drag the whole `portfolio-website` folder in, or
-   - **Connect GitHub**: push this folder to a new GitHub repo, then import that repo in Vercel.
-3. Framework preset: choose **Other** (it's a static site, no build step needed). Leave build/output settings blank.
-4. Click **Deploy**. Vercel gives you a live URL like `manideep-portfolio.vercel.app` in about 30 seconds.
-5. (Optional) In Vercel project settings → Domains, add a custom domain if you have one.
-
-## 6. Using the admin panel
-
-Visit `https://your-site.vercel.app/admin.html`, sign in with the email/password
-you created in step 3, and edit any section from the sidebar. Each tab has its
-own **Save** button — changes go live immediately, no redeploy needed. The
-**Feedback & Ratings** tab lets you read and delete what visitors submit. The
-**Overview** tab shows page views, feedback count, and average rating.
+- Your site's content lives in `data/content.json`, `data/feedback.json`, and
+  `data/stats.json` inside your GitHub repo — plain files, versioned by git.
+- The public site reads them through `/api/content` and `/api/feedback`
+  (small serverless functions in the `api/` folder, which Vercel runs for
+  free on the Hobby plan — no card required).
+- Saving from the admin panel calls those same API routes, which commit the
+  updated JSON back to GitHub using your token — server-side only, the token
+  is never sent to the browser.
+- Every content change and every piece of feedback shows up as a commit in
+  your repo's history, so you get a free changelog for the whole site.
 
 ## Notes
 
-- `firebase-config.js` is safe to be public — it's not a secret. Firestore's
-  `firestore.rules` is what actually controls who can read/write what.
-- Only create one admin user in step 3. Anyone with that email/password can
-  edit your site, so keep it private.
+- `GITHUB_TOKEN` and `ADMIN_PASSWORD` must stay in Vercel's environment
+  variables, never in code — that's what keeps your repo-write access private.
+- The `/api/*` routes only work once deployed on Vercel. Opening `index.html`
+  or `admin.html` locally (or via a plain `python -m http.server`) will show
+  the static default content and a "couldn't reach the server" message on
+  admin login — that's expected, not a bug.
 - If you ever want to reset a section back to its original text, the defaults
-  are preserved in `content-schema.js` — you can copy values back manually.
+  are preserved in `content-schema.js` and `data/content.json`'s original
+  commit — you can view/restore them from your GitHub history.

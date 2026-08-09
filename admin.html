@@ -18,26 +18,14 @@
 <div class="bg-glow bg-glow-1"></div>
 <div class="bg-glow bg-glow-2"></div>
 
-<!-- SETUP NOTICE (shown if firebase-config.js still has placeholder values) -->
-<div id="setupNotice" class="admin-gate" style="display:none;">
-  <div class="admin-gate-card">
-    <p class="section-eyebrow">SETUP NEEDED</p>
-    <h1 class="section-title">Firebase Isn't Connected Yet</h1>
-    <p class="section-sub">The admin panel needs a Firebase project to store your content, feedback and login. Open <code>SETUP.md</code> in the project folder and follow the steps — it takes about 10 minutes.</p>
-    <a href="index.html" class="btn btn-outline">← Back to site</a>
-  </div>
-</div>
-
 <!-- LOGIN GATE -->
 <div id="loginGate" class="admin-gate" style="display:none;">
   <div class="admin-gate-card">
     <a href="index.html" class="logo">PM<span>.dev</span></a>
     <p class="section-eyebrow" style="margin-top:24px;">ADMIN</p>
     <h1 class="section-title">Sign In</h1>
-    <p class="section-sub">Sign in with the admin account you created in Firebase Authentication.</p>
+    <p class="section-sub">Enter the admin password you set as the <code>ADMIN_PASSWORD</code> environment variable in Vercel. First time here? See <code>SETUP.md</code>.</p>
     <form id="loginForm" class="contact-form">
-      <label>Email</label>
-      <input type="email" id="loginEmail" placeholder="you@email.com" required>
       <label>Password</label>
       <input type="password" id="loginPassword" placeholder="••••••••" required>
       <button type="submit" class="btn btn-gradient full">Sign In →</button>
@@ -85,8 +73,6 @@
 <div id="toast" class="admin-toast"></div>
 
 <script src="content-schema.js"></script>
-<script src="firebase-config.js"></script>
-<script type="module" src="firebase-init.js"></script>
 <script src="admin.js"></script>
 </body>
 </html>

@@ -249,14 +249,11 @@ async function renderOverviewTab() {
   </div>`;
 
   try {
-    const { db, doc, getDoc, collection, getDocs } = window.fb;
-    const [pvSnap, fbSnap] = await Promise.all([
-      getDoc(doc(db, "stats", "pageviews")),
-      getDocs(collection(db, "feedback"))
-    ]);
-    const pv = pvSnap.exists() ? pvSnap.data().count : 0;
-    let count = 0, sum = 0;
-    fbSnap.forEach(d => { count++; sum += (d.data().rating || 0); });
+    const [pvRes, fbRes] = await Promise.all([fetch("/api/pageview"), fetch("/api/feedback")]);
+    const pv = pvRes.ok ? (await pvRes.json()).count || 0 : 0;
+    const items = fbRes.ok ? await fbRes.json() : [];
+    const count = items.length;
+    const sum = items.reduce((s, i) => s + (i.rating || 0), 0);
     const avg = count ? (sum / count).toFixed(1) : "—";
 
     const grid = document.getElementById("statsGrid");
@@ -276,15 +273,14 @@ async function renderFeedbackTab() {
   const main = document.getElementById("adminMain");
   main.innerHTML = `<div class="admin-card"><h2>Feedback &amp; Ratings</h2><div id="feedbackAdminList">Loading…</div></div>`;
   try {
-    const { db, collection, getDocs, query, orderBy, deleteDoc, doc } = window.fb;
-    const q = query(collection(db, "feedback"), orderBy("createdAt", "desc"));
-    const snap = await getDocs(q);
+    const res = await fetch("/api/feedback");
+    if (!res.ok) throw new Error("Request failed");
+    const items = await res.json();
     const list = document.getElementById("feedbackAdminList");
-    if (snap.empty) { list.innerHTML = `<p class="section-sub">No feedback submitted yet.</p>`; return; }
+    if (!items.length) { list.innerHTML = `<p class="section-sub">No feedback submitted yet.</p>`; return; }
 
     list.innerHTML = "";
-    snap.forEach(d => {
-      const data = d.data();
+    items.forEach(data => {
       const row = document.createElement("div");
       row.className = "feedback-admin-row";
       const stars = "★".repeat(data.rating || 0) + "☆".repeat(5 - (data.rating || 0));
@@ -298,9 +294,18 @@ async function renderFeedbackTab() {
       `;
       row.querySelector("button").addEventListener("click", async () => {
         if (!confirm("Delete this feedback entry?")) return;
-        await deleteDoc(doc(db, "feedback", d.id));
-        row.remove();
-        showToast("Feedback deleted", "success");
+        try {
+          const delRes = await fetch("/api/feedback", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json", "x-admin-password": sessionStorage.getItem("adminPassword") || "" },
+            body: JSON.stringify({ id: data.id })
+          });
+          if (!delRes.ok) throw new Error("Delete failed");
+          row.remove();
+          showToast("Feedback deleted", "success");
+        } catch (err) {
+          showToast("Could not delete: " + err.message, "error");
+        }
       });
       list.appendChild(row);
     });
@@ -363,8 +368,12 @@ async function saveSection(key, btn) {
   const original = btn.textContent;
   btn.disabled = true; btn.textContent = "Saving…";
   try {
-    const { db, doc, setDoc } = window.fb;
-    await setDoc(doc(db, "site", "content"), { [key]: state[key] }, { merge: true });
+    const res = await fetch("/api/content", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-password": sessionStorage.getItem("adminPassword") || "" },
+      body: JSON.stringify({ key, value: state[key] })
+    });
+    if (!res.ok) throw new Error((await res.json()).error || "Save failed");
     showToast(`${sectionTitle(key)} saved — live on your site now.`, "success");
   } catch (err) {
     console.error(err);
@@ -389,20 +398,36 @@ document.querySelectorAll(".admin-tab").forEach(btn => {
 });
 
 document.getElementById("logoutBtn")?.addEventListener("click", () => {
-  if (window.fb) window.fb.signOut(window.fb.auth);
+  sessionStorage.removeItem("adminPassword");
+  showGate("loginGate");
 });
 
 document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
   const status = document.getElementById("loginStatus");
-  const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
   status.textContent = "Signing in…";
   status.className = "form-note";
   try {
-    await window.fb.signInWithEmailAndPassword(window.fb.auth, email, password);
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password })
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      status.textContent = res.status === 401
+        ? "Incorrect password."
+        : "Login isn't set up yet — see SETUP.md (ADMIN_PASSWORD env var missing?).";
+      status.className = "form-note error";
+      return;
+    }
+    sessionStorage.setItem("adminPassword", password);
+    await loadContentIntoState();
+    showGate("dashboard");
+    renderTab("overview");
   } catch (err) {
-    status.textContent = "Sign-in failed — check your email and password.";
+    status.textContent = "Could not reach the server. If this is your first visit, the /api routes only work once deployed on Vercel (not on a plain local file server).";
     status.className = "form-note error";
   }
 });
@@ -410,11 +435,10 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
 async function loadContentIntoState() {
   state = JSON.parse(JSON.stringify(window.DEFAULT_CONTENT));
   try {
-    const { db, doc, getDoc } = window.fb;
-    const snap = await getDoc(doc(db, "site", "content"));
-    if (snap.exists()) {
-      const data = snap.data();
-      Object.keys(data).forEach(k => { state[k] = data[k]; });
+    const res = await fetch("/api/content");
+    if (res.ok) {
+      const data = await res.json();
+      Object.keys(data || {}).forEach(k => { state[k] = data[k]; });
     }
   } catch (err) {
     console.warn("Using defaults — could not load saved content:", err);
@@ -422,25 +446,15 @@ async function loadContentIntoState() {
 }
 
 function showGate(id) {
-  ["setupNotice", "loginGate", "dashboard"].forEach(g => {
+  ["loginGate", "dashboard"].forEach(g => {
     document.getElementById(g).style.display = g === id ? (id === "dashboard" ? "block" : "flex") : "none";
   });
 }
 
-window.addEventListener("firebase-unavailable", () => showGate("setupNotice"));
-
-window.addEventListener("firebase-ready", () => {
-  window.fb.onAuthStateChanged(window.fb.auth, async (user) => {
-    if (user) {
-      await loadContentIntoState();
-      showGate("dashboard");
-      renderTab("overview");
-    } else {
-      showGate("loginGate");
-    }
-  });
-});
-
-// If firebase-config.js has placeholders, firebase-init.js never loads the SDK,
-// so also guard here in case the event fires before this script attaches (unlikely, but cheap to check).
-if (window.FIREBASE_CONFIGURED === false) showGate("setupNotice");
+// If a password was saved earlier this browser session, skip straight to the dashboard.
+const savedPassword = sessionStorage.getItem("adminPassword");
+if (savedPassword) {
+  loadContentIntoState().then(() => { showGate("dashboard"); renderTab("overview"); });
+} else {
+  showGate("loginGate");
+}

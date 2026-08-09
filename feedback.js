@@ -1,5 +1,6 @@
 // Wires up the public "Feedback & Ratings" section: star picker, submit to
-// Firestore, live average rating, and a scrolling list of recent testimonials.
+// /api/feedback (backed by a JSON file in the GitHub repo), live average
+// rating, and a scrolling list of recent testimonials.
 
 let selectedRating = 0;
 
@@ -50,22 +51,19 @@ async function submitFeedback(e) {
     status.className = "form-note error";
     return;
   }
-  if (!window.fb) {
-    status.textContent = "Feedback isn't connected yet — the site owner still needs to finish Firebase setup.";
-    status.className = "form-note error";
-    return;
-  }
 
   const submitBtn = form.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
   submitBtn.textContent = "Sending…";
 
   try {
-    const { db, collection, addDoc } = window.fb;
-    await addDoc(collection(db, "feedback"), {
-      name, rating: selectedRating, message,
-      createdAt: new Date().toISOString()
+    const res = await fetch("/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, rating: selectedRating, message })
     });
+    if (!res.ok) throw new Error((await res.json()).error || "Request failed");
+
     status.textContent = "Thanks for the feedback!";
     status.className = "form-note success";
     form.reset();
@@ -85,14 +83,12 @@ async function submitFeedback(e) {
 async function loadTestimonials() {
   const listEl = document.getElementById("testimonialList");
   const avgEl = document.getElementById("avgRatingSummary");
-  if (!window.fb || !listEl) return;
+  if (!listEl) return;
 
   try {
-    const { db, collection, getDocs, query, orderBy } = window.fb;
-    const q = query(collection(db, "feedback"), orderBy("createdAt", "desc"));
-    const snap = await getDocs(q);
-    const items = [];
-    snap.forEach(d => items.push(d.data()));
+    const res = await fetch("/api/feedback");
+    if (!res.ok) throw new Error("Could not load feedback");
+    const items = await res.json();
 
     if (avgEl) {
       if (items.length) {
@@ -118,15 +114,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initStars();
   const form = document.getElementById("feedbackForm");
   if (form) form.addEventListener("submit", submitFeedback);
-});
-
-window.addEventListener("firebase-ready", loadTestimonials);
-window.addEventListener("firebase-unavailable", () => {
-  const status = document.getElementById("feedbackStatus");
-  if (status) {
-    status.textContent = "Feedback isn't connected yet — the site owner still needs to finish Firebase setup.";
-    status.className = "form-note";
-  }
-  const avgEl = document.getElementById("avgRatingSummary");
-  if (avgEl) avgEl.textContent = "";
+  loadTestimonials();
 });
