@@ -105,6 +105,10 @@ async function loadTestimonials() {
         <p class="testimonial-msg">${(i.message || "").replace(/</g, "&lt;")}</p>
         <p class="testimonial-meta">— ${(i.name || "Anonymous").replace(/</g, "&lt;")} · ${i.createdAt ? timeAgo(new Date(i.createdAt)) : ""}</p>
       </div>`).join("") || `<p class="section-sub">No feedback yet — be the first!</p>`;
+
+    // New cards just got created — wire up their scroll-reveal + tilt animations (script.js).
+    window.initRevealTargets && window.initRevealTargets();
+    window.initTiltCards && window.initTiltCards();
   } catch (err) {
     console.warn("Could not load testimonials:", err);
   }

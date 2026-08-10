@@ -38,9 +38,26 @@ document.querySelectorAll('.nav-links a, .footer-links a').forEach(link => {
   link.addEventListener('click', () => navbar.classList.remove('open'));
 });
 
-// ===== Active nav link on scroll =====
+// ===== Active nav link on scroll + sliding indicator =====
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-link');
+const navLinksContainer = document.querySelector('.nav-links');
+let navIndicator = null;
+if (navLinksContainer) {
+  navIndicator = document.createElement('div');
+  navIndicator.className = 'nav-indicator';
+  navLinksContainer.appendChild(navIndicator);
+}
+
+function moveNavIndicator(link) {
+  if (!navIndicator) return;
+  if (!link) { navIndicator.classList.remove('active'); return; }
+  const containerRect = navLinksContainer.getBoundingClientRect();
+  const linkRect = link.getBoundingClientRect();
+  navIndicator.style.left = (linkRect.left - containerRect.left) + 'px';
+  navIndicator.style.width = linkRect.width + 'px';
+  navIndicator.classList.add('active');
+}
 
 function setActiveLink() {
   let current = '';
@@ -48,11 +65,17 @@ function setActiveLink() {
     const top = sec.offsetTop - 140;
     if (window.scrollY >= top) current = sec.getAttribute('id');
   });
+  let activeLink = null;
   navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    const isActive = link.getAttribute('href') === `#${current}`;
+    link.classList.toggle('active', isActive);
+    if (isActive) activeLink = link;
   });
+  moveNavIndicator(activeLink);
 }
 window.addEventListener('scroll', setActiveLink);
+window.addEventListener('resize', setActiveLink);
+setActiveLink();
 
 // ===== Navbar shadow on scroll =====
 window.addEventListener('scroll', () => {
@@ -60,21 +83,80 @@ window.addEventListener('scroll', () => {
 });
 
 // ===== Reveal on scroll =====
-const revealTargets = document.querySelectorAll(
-  '.feature-card, .exp-card, .skill-card, .project-card, .cert-card, .social-card, .research-card, .edu-card, .about-text, .photo-frame'
-);
-revealTargets.forEach(el => el.classList.add('reveal'));
-
-const observer = new IntersectionObserver((entries) => {
+// Re-runnable: content-loader.js rebuilds several sections after live/admin
+// content loads, so this is called again on "content-rendered" to catch the
+// freshly-created cards (see bottom of file).
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+      revealObserver.unobserve(entry.target);
     }
   });
 }, { threshold: 0.12 });
 
-revealTargets.forEach(el => observer.observe(el));
+function initRevealTargets() {
+  const targets = document.querySelectorAll(
+    '.feature-card, .exp-card, .skill-card, .project-card, .cert-card, .social-card, .research-card, .edu-card, .about-text, .photo-frame, .section-title, .testimonial-card'
+  );
+  targets.forEach(el => {
+    if (el.classList.contains('reveal')) return; // already wired (persisted node)
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+  });
+}
+initRevealTargets();
+
+// ===== Magnetic 3D tilt on cards =====
+const tiltCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function initTiltCards() {
+  if (!tiltCapable) return;
+  const cards = document.querySelectorAll(
+    '.project-card, .cert-card, .skill-card, .feature-card, .social-card, .testimonial-card'
+  );
+  cards.forEach(card => {
+    if (card.dataset.tiltReady) return;
+    card.dataset.tiltReady = '1';
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.width / 2, cy = rect.height / 2;
+      const rotateY = ((e.clientX - rect.left - cx) / cx) * 6;
+      const rotateX = -((e.clientY - rect.top - cy) / cy) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.015)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+}
+initTiltCards();
+
+// ===== Subtle parallax on background glows =====
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const glow1 = document.querySelector('.bg-glow-1');
+  const glow2 = document.querySelector('.bg-glow-2');
+  let parallaxTicking = false;
+  window.addEventListener('scroll', () => {
+    if (parallaxTicking) return;
+    parallaxTicking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (glow1) glow1.style.transform = `translateY(${y * 0.08}px)`;
+      if (glow2) glow2.style.transform = `translateY(${-y * 0.05}px)`;
+      parallaxTicking = false;
+    });
+  });
+}
+
+// Re-run reveal + tilt setup whenever content-loader.js swaps in live/admin
+// content, so admin-edited sections get the same animations as the defaults.
+window.addEventListener('content-rendered', () => {
+  initRevealTargets();
+  initTiltCards();
+});
+// feedback.js calls this after it renders/re-renders testimonial cards.
+window.initTiltCards = initTiltCards;
+window.initRevealTargets = initRevealTargets;
 
 // ===== Custom animated cursor =====
 const cursorDot = document.getElementById('cursorDot');
