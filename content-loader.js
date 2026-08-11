@@ -152,6 +152,11 @@ function renderEducation(ed) {
   `;
 }
 
+function icon3d(iconKey, color) {
+  const svg = (window.SOCIAL_ICONS && window.SOCIAL_ICONS[iconKey]) || "";
+  return `<div class="icon-3d icon-3d-${color || "cyan"}"><span class="icon-3d-face">${svg}</span></div>`;
+}
+
 function renderContentSection(c) {
   const bio = document.getElementById("contentBio");
   if (bio) bio.innerHTML = c.bioLine;
@@ -161,11 +166,68 @@ function renderContentSection(c) {
   if (grid) {
     grid.innerHTML = c.socials.map(s => `
       <a href="${s.url}" target="_blank" class="social-card">
-        <div class="social-icon ${ICON_CLASS[s.color] || "icon-cyan"}">${s.icon}</div>
+        ${icon3d(s.icon, s.color)}
         <h3>${s.platform}</h3>
         <p class="social-handle">${s.handle}</p>
         <p class="social-desc">${s.desc}</p>
       </a>`).join("");
+  }
+}
+
+function renderSocialStats(list) {
+  const grid = document.getElementById("analyticsGrid");
+  if (!grid || !list) return;
+
+  grid.innerHTML = list.map((s, i) => `
+    <a href="${s.url}" target="_blank" class="analytics-card">
+      ${icon3d(s.icon, s.color)}
+      <h3>${s.platform}</h3>
+      <p class="analytics-stat" id="stat-${i}">${s.statSource === "manual" ? (s.manualValue || "—") : "…"}</p>
+      <p class="analytics-label">${s.label}</p>
+      <span class="analytics-source">${s.statSource === "manual" ? "Set from admin panel" : "Live"}</span>
+    </a>`).join("");
+
+  list.forEach((s, i) => {
+    if (s.statSource === "github") fetchGithubStat(s.handle, i);
+    if (s.statSource === "youtube") fetchYoutubeStat(s.handle, i);
+  });
+
+  window.initRevealTargets && window.initRevealTargets();
+  window.initTiltCards && window.initTiltCards();
+}
+
+function formatCount(n) {
+  if (n == null) return "—";
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  return String(n);
+}
+
+async function fetchGithubStat(username, index) {
+  const el = document.getElementById(`stat-${index}`);
+  if (!el) return;
+  try {
+    const res = await fetch(`https://api.github.com/users/${username}`);
+    if (!res.ok) throw new Error("GitHub API request failed");
+    const data = await res.json();
+    el.textContent = formatCount(data.followers);
+  } catch (err) {
+    console.warn("Could not load GitHub stats:", err);
+    el.textContent = "—";
+  }
+}
+
+async function fetchYoutubeStat(handle, index) {
+  const el = document.getElementById(`stat-${index}`);
+  if (!el) return;
+  try {
+    const res = await fetch(`/api/youtube-stats?handle=${encodeURIComponent(handle)}`);
+    if (!res.ok) throw new Error("YouTube stats request failed");
+    const data = await res.json();
+    el.textContent = formatCount(data.subscriberCount);
+  } catch (err) {
+    console.warn("Could not load YouTube stats (needs YOUTUBE_API_KEY set up — see SETUP.md):", err);
+    el.textContent = "—";
   }
 }
 
@@ -203,6 +265,7 @@ function renderAll(content) {
   renderResearch(content.research);
   renderEducation(content.education);
   renderContentSection(content.content);
+  renderSocialStats(content.socialStats);
   renderContact(content.contact);
   renderFooter(content.footer);
   window.dispatchEvent(new CustomEvent("content-rendered"));

@@ -140,11 +140,22 @@ window.DEFAULT_CONTENT = {
     bioLine: "Under the brand <strong>Vlogging With Mani</strong>, I create content that bridges technology, career growth and real-world experiences.",
     tags: ["Technology", "Career", "Artificial Intelligence", "Lifestyle", "Student Resources"],
     socials: [
-      { platform: "YouTube", icon: "▶", color: "pink", handle: "@vlogingwithmani2003", desc: "Technology, Career & AI video content", url: "https://www.youtube.com/@vlogingwithmani2003" },
-      { platform: "Instagram", icon: "◉", color: "purple", handle: "@vloggingwithmani", desc: "Lifestyle, tech and career insights", url: "https://www.instagram.com/vloggingwithmani/" },
-      { platform: "Facebook", icon: "◈", color: "cyan", handle: "Vlogging With Mani", desc: "Community updates and highlights", url: "https://www.facebook.com/mani.royals.33/" }
+      { platform: "YouTube", icon: "youtube", color: "pink", handle: "@vlogingwithmani2003", desc: "Technology, Career & AI video content", url: "https://www.youtube.com/@vlogingwithmani2003" },
+      { platform: "Instagram", icon: "instagram", color: "purple", handle: "@vloggingwithmani", desc: "Lifestyle, tech and career insights", url: "https://www.instagram.com/vloggingwithmani/" },
+      { platform: "Facebook", icon: "facebook", color: "cyan", handle: "Vlogging With Mani", desc: "Community updates and highlights", url: "https://www.facebook.com/mani.royals.33/" }
     ]
   },
+
+  // Social Analytics section — "github" and "youtube" sources auto-fetch live
+  // numbers (see content-loader.js). "manual" sources show whatever the admin
+  // typed into manualValue, since Instagram/Facebook don't offer a free,
+  // maintenance-free public stats API for personal accounts.
+  socialStats: [
+    { platform: "YouTube", icon: "youtube", color: "pink", url: "https://www.youtube.com/@vlogingwithmani2003", statSource: "youtube", handle: "@vlogingwithmani2003", label: "Subscribers", manualValue: "" },
+    { platform: "Instagram", icon: "instagram", color: "purple", url: "https://www.instagram.com/vloggingwithmani/", statSource: "manual", handle: "@vloggingwithmani", label: "Followers", manualValue: "" },
+    { platform: "Facebook", icon: "facebook", color: "cyan", url: "https://www.facebook.com/mani.royals.33/", statSource: "manual", handle: "Vlogging With Mani", label: "Followers", manualValue: "" },
+    { platform: "GitHub", icon: "github", color: "cyan", url: "https://github.com/manideeppeyyala", statSource: "github", handle: "manideeppeyyala", label: "Followers", manualValue: "" }
+  ],
 
   contact: {
     email: "manideepyadav380@gmail.com",

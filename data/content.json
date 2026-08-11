@@ -416,7 +416,7 @@
     "socials": [
       {
         "platform": "YouTube",
-        "icon": "▶",
+        "icon": "youtube",
         "color": "pink",
         "handle": "@vlogingwithmani2003",
         "desc": "Technology, Career & AI video content",
@@ -424,7 +424,7 @@
       },
       {
         "platform": "Instagram",
-        "icon": "◉",
+        "icon": "instagram",
         "color": "purple",
         "handle": "@vloggingwithmani",
         "desc": "Lifestyle, tech and career insights",
@@ -432,7 +432,7 @@
       },
       {
         "platform": "Facebook",
-        "icon": "◈",
+        "icon": "facebook",
         "color": "cyan",
         "handle": "Vlogging With Mani",
         "desc": "Community updates and highlights",
@@ -440,6 +440,48 @@
       }
     ]
   },
+  "socialStats": [
+    {
+      "platform": "YouTube",
+      "icon": "youtube",
+      "color": "pink",
+      "url": "https://www.youtube.com/@vlogingwithmani2003",
+      "statSource": "youtube",
+      "handle": "@vlogingwithmani2003",
+      "label": "Subscribers",
+      "manualValue": ""
+    },
+    {
+      "platform": "Instagram",
+      "icon": "instagram",
+      "color": "purple",
+      "url": "https://www.instagram.com/vloggingwithmani/",
+      "statSource": "manual",
+      "handle": "@vloggingwithmani",
+      "label": "Followers",
+      "manualValue": ""
+    },
+    {
+      "platform": "Facebook",
+      "icon": "facebook",
+      "color": "cyan",
+      "url": "https://www.facebook.com/mani.royals.33/",
+      "statSource": "manual",
+      "handle": "Vlogging With Mani",
+      "label": "Followers",
+      "manualValue": ""
+    },
+    {
+      "platform": "GitHub",
+      "icon": "github",
+      "color": "cyan",
+      "url": "https://github.com/manideeppeyyala",
+      "statSource": "github",
+      "handle": "manideeppeyyala",
+      "label": "Followers",
+      "manualValue": ""
+    }
+  ],
   "contact": {
     "email": "manideepyadav380@gmail.com",
     "phone": "+91 70757 43204",

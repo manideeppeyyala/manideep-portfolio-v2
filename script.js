@@ -97,7 +97,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 function initRevealTargets() {
   const targets = document.querySelectorAll(
-    '.feature-card, .exp-card, .skill-card, .project-card, .cert-card, .social-card, .research-card, .edu-card, .about-text, .photo-frame, .section-title, .testimonial-card'
+    '.feature-card, .exp-card, .skill-card, .project-card, .cert-card, .social-card, .analytics-card, .research-card, .edu-card, .about-text, .photo-frame, .section-title, .testimonial-card'
   );
   targets.forEach(el => {
     if (el.classList.contains('reveal')) return; // already wired (persisted node)
@@ -114,7 +114,7 @@ const tiltCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matc
 function initTiltCards() {
   if (!tiltCapable) return;
   const cards = document.querySelectorAll(
-    '.project-card, .cert-card, .skill-card, .feature-card, .social-card, .testimonial-card'
+    '.project-card, .cert-card, .skill-card, .feature-card, .social-card, .analytics-card, .testimonial-card'
   );
   cards.forEach(card => {
     if (card.dataset.tiltReady) return;

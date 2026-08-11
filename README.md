@@ -26,6 +26,8 @@ and a from-scratch backend.
 - **Sections** — Home, About, Experience, Skills, Projects, Achievements & Certifications, Research, Content/Social, Education, Feedback & Ratings, Contact
 - **Admin panel** (`/admin.html`) — password-protected dashboard to edit every section of the live site: hero copy, bio, work experience, skill categories, projects, certifications, research, education, contact info, and footer. Every tab has its own Save button; changes go live in seconds, no redeploy.
 - **Feedback & Ratings** — visitors leave a star rating + comment; the site shows a live average rating and a scrolling wall of testimonials
+- **3D animated social icons** — hand-built SVG brand glyphs in floating, rotating badge cards with an interactive cursor-tilt effect
+- **Social Analytics section** — YouTube subscribers and GitHub followers update automatically via free public APIs; Instagram/Facebook are admin-editable (no free live API exists for personal accounts on those platforms)
 - **Overview dashboard** — page view count, feedback count, and average rating at a glance
 - **Zero-cost backend** — content, feedback, and stats are plain JSON files committed to this repo. Reads/writes go through small Vercel serverless functions (`/api`) using the GitHub Contents API — no database, no Firebase, no card ever required, and every change is a versioned git commit
 

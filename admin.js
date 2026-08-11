@@ -88,13 +88,23 @@ const FIELD_SCHEMAS = {
     { key: "tags", label: "Topic Tags", type: "array-string" },
     { key: "socials", label: "Social Platforms", type: "array-object", itemLabel: "Platform", itemFields: [
       { key: "platform", label: "Platform Name", type: "text" },
-      { key: "icon", label: "Icon Character", type: "text" },
+      { key: "icon", label: "Icon (youtube / instagram / facebook / github / linkedin / email / threads)", type: "text" },
       { key: "color", label: "Color (cyan / purple / pink)", type: "text" },
       { key: "handle", label: "Handle", type: "text" },
       { key: "desc", label: "Description", type: "text" },
       { key: "url", label: "URL", type: "text" }
-    ], blank: { platform: "New Platform", icon: "★", color: "cyan", handle: "", desc: "", url: "" } }
+    ], blank: { platform: "New Platform", icon: "youtube", color: "cyan", handle: "", desc: "", url: "" } }
   ]},
+  socialStats: { type: "array", itemLabel: "Platform", itemFields: [
+    { key: "platform", label: "Platform Name", type: "text" },
+    { key: "icon", label: "Icon (youtube / instagram / facebook / github / linkedin)", type: "text" },
+    { key: "color", label: "Color (cyan / purple / pink)", type: "text" },
+    { key: "url", label: "Profile URL", type: "text" },
+    { key: "statSource", label: "Stat Source (\"github\", \"youtube\", or \"manual\")", type: "text" },
+    { key: "handle", label: "Handle / Username (used for live github or youtube lookup)", type: "text" },
+    { key: "label", label: "Stat Label (e.g. Followers, Subscribers)", type: "text" },
+    { key: "manualValue", label: "Manual Value (only used when Stat Source is \"manual\" — e.g. \"1.2K\")", type: "text" }
+  ], blank: { platform: "New Platform", icon: "instagram", color: "purple", url: "https://", statSource: "manual", handle: "", label: "Followers", manualValue: "" }},
   contact: { type: "object", fields: [
     { key: "email", label: "Email", type: "text" },
     { key: "phone", label: "Phone (display)", type: "text" },
@@ -232,7 +242,7 @@ function renderArraySection(key, schema) {
 function sectionTitle(key) {
   const map = { hero: "Hero", about: "About", experience: "Experience", skills: "Skills", projects: "Projects",
     certifications: "Achievements & Certifications", research: "Research", education: "Education",
-    content: "Content / Social", contact: "Contact", footer: "Footer" };
+    content: "Content / Social", socialStats: "Social Analytics", contact: "Contact", footer: "Footer" };
   return map[key] || key;
 }
 

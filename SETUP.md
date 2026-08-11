@@ -43,6 +43,30 @@ redeploy needed. The **Feedback & Ratings** tab lets you read and delete what
 visitors submit. The **Overview** tab shows page views, feedback count, and
 average rating.
 
+## 5. (Optional) Live YouTube subscriber count
+
+The Social Analytics section can show your real, auto-updating YouTube
+subscriber count. This needs a free YouTube Data API key — no OAuth, no
+billing account, just a key.
+
+1. Go to [console.cloud.google.com](https://console.cloud.google.com) and create a project (or reuse one)
+2. In the search bar, find **"YouTube Data API v3"** and click **Enable**
+3. Go to **APIs & Services → Credentials → Create Credentials → API key**
+4. Copy the key it generates
+5. (Recommended) Click **Edit API key**, under **API restrictions** choose **Restrict key** → select **YouTube Data API v3** only — this limits what the key can be used for even if it ever leaked
+6. In Vercel, add one more environment variable: `YOUTUBE_API_KEY` = the key you copied
+7. Redeploy
+
+If you skip this, the YouTube card just shows "—" instead of a number —
+nothing else breaks.
+
+**Instagram and Facebook:** these platforms don't offer a free API for
+personal-account follower counts without a Meta Business App review and
+regularly-expiring tokens — not a realistic "set once" setup. Instead, go to
+`/admin.html` → **Social Analytics** tab, and type the current follower count
+into the **Manual Value** field for each. Update it whenever you like — no
+code, no redeploy.
+
 ## How it works (no database needed)
 
 - Your site's content lives in `data/content.json`, `data/feedback.json`, and
