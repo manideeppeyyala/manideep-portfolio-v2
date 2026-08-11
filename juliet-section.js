@@ -111,11 +111,8 @@ function initJulietSection() {
   const form = document.getElementById("julietForm");
   const input = document.getElementById("julietInput");
   const suggestions = document.getElementById("julietSuggestions");
-  const emptyIcon = document.querySelector("#julietEmptyIcon .icon-3d-face");
 
   if (!form) return;
-
-  if (emptyIcon && window.SOCIAL_ICONS) emptyIcon.innerHTML = window.SOCIAL_ICONS.ai;
 
   if (suggestions) {
     suggestions.innerHTML = JULIET_EXAMPLE_PROMPTS.map(p => `<button type="button" class="juliet-chip">${p}</button>`).join("");

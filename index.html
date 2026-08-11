@@ -578,13 +578,63 @@
 
     <div class="juliet-console">
       <div class="juliet-console-header">
-        <span class="juliet-status-dot" id="julietStatusDot"></span>
-        <span id="julietStatusText">Checking Juliet's connection…</span>
+        <span class="juliet-avatar juliet-avatar-sm" id="julietAvatarHeader">
+          <svg viewBox="0 0 100 100" class="juliet-svg">
+            <defs>
+              <radialGradient id="julietFaceGrad" cx="50%" cy="42%" r="65%">
+                <stop offset="0%" stop-color="#ffe4f2"/><stop offset="100%" stop-color="#f9a8d4"/>
+              </radialGradient>
+            </defs>
+            <ellipse class="juliet-ear juliet-ear-left" cx="26" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
+            <ellipse class="juliet-ear juliet-ear-right" cx="74" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
+            <circle cx="50" cy="54" r="32" fill="url(#julietFaceGrad)"/>
+            <ellipse cx="35" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(-12 35 50)"/>
+            <ellipse cx="65" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(12 65 50)"/>
+            <g class="juliet-eye">
+              <circle cx="35" cy="51" r="4.4" fill="#fff"/>
+              <circle cx="35.8" cy="51.8" r="2.3" fill="#1a1a2e"/>
+            </g>
+            <g class="juliet-eye">
+              <circle cx="65" cy="51" r="4.4" fill="#fff"/>
+              <circle cx="64.2" cy="51.8" r="2.3" fill="#1a1a2e"/>
+            </g>
+            <circle class="juliet-blush" cx="30" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
+            <circle class="juliet-blush" cx="70" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
+            <ellipse cx="50" cy="64" rx="4.5" ry="3.2" fill="#2a1b2e"/>
+            <path d="M50 67 Q50 72 45 73 M50 67 Q50 72 55 73" stroke="#2a1b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M18 8C10 12 8 22 14 28C18 20 24 14 32 12C28 8 22 6 18 8Z" fill="url(#julietFaceGrad)" opacity="0.9"/>
+            <path d="M82 8C90 12 92 22 86 28C82 20 76 14 68 12C72 8 78 6 82 8Z" fill="url(#julietFaceGrad)" opacity="0.9"/>
+          </svg>
+        </span>
+        <div class="juliet-console-header-text">
+          <span class="juliet-status-dot" id="julietStatusDot"></span>
+          <span id="julietStatusText">Checking Juliet's connection…</span>
+        </div>
       </div>
 
       <div class="juliet-output" id="julietOutput">
         <div class="juliet-empty-state" id="julietEmptyState">
-          <div class="icon-3d icon-3d-purple" id="julietEmptyIcon" style="margin:0 auto 16px;"><span class="icon-3d-face"></span></div>
+          <span class="juliet-avatar" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 100 100" class="juliet-svg">
+              <ellipse class="juliet-ear juliet-ear-left" cx="26" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
+              <ellipse class="juliet-ear juliet-ear-right" cx="74" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
+              <circle cx="50" cy="54" r="32" fill="url(#julietFaceGrad)"/>
+              <ellipse cx="35" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(-12 35 50)"/>
+              <ellipse cx="65" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(12 65 50)"/>
+              <g class="juliet-eye">
+                <circle cx="35" cy="51" r="4.4" fill="#fff"/>
+                <circle cx="35.8" cy="51.8" r="2.3" fill="#1a1a2e"/>
+              </g>
+              <g class="juliet-eye">
+                <circle cx="65" cy="51" r="4.4" fill="#fff"/>
+                <circle cx="64.2" cy="51.8" r="2.3" fill="#1a1a2e"/>
+              </g>
+              <circle class="juliet-blush" cx="30" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
+              <circle class="juliet-blush" cx="70" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
+              <ellipse cx="50" cy="64" rx="4.5" ry="3.2" fill="#2a1b2e"/>
+              <path d="M50 67 Q50 72 45 73 M50 67 Q50 72 55 73" stroke="#2a1b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            </svg>
+          </span>
           <p>Ask Juliet anything — try one of these to start:</p>
         </div>
       </div>
