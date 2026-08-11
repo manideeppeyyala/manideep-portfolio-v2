@@ -5,7 +5,17 @@
 // Request body: { messages: [{ role: "user"|"model", text: "..." }, ...], context: "..." }
 // Response:     { reply: "..." }  or  { error: "...", code: "NOT_CONFIGURED"|"UPSTREAM_ERROR"|... }
 
-const MODEL = "gemini-2.0-flash";
+// Google periodically retires model names. Try newest-first and fall back
+// automatically so this doesn't silently break the next time that happens.
+const MODEL_CANDIDATES = [
+  "gemini-flash-latest",
+  "gemini-2.5-flash",
+  "gemini-2.0-flash-001",
+  "gemini-2.0-flash",
+  "gemini-pro-latest"
+];
+let workingModel = null; // cached for the lifetime of this warm serverless instance
+
 const MAX_MESSAGES = 24;       // conversation turns kept per request (context window guard)
 const MAX_MESSAGE_LEN = 4000;  // per-message character cap (abuse/cost guard)
 
@@ -19,8 +29,17 @@ const SYSTEM_PROMPT_PREFIX = `You are Juliet, a real AI assistant embedded in Pe
 Verified portfolio information about Manideep (treat as ground truth, do not contradict it):
 `;
 
+async function callGemini(model, apiKey, payload) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  return res;
+}
+
 module.exports = async (req, res) => {
-  // Cheap status check the UI uses to show "online/offline" without spending API quota.
   if (req.method === "GET") {
     return res.status(200).json({ configured: !!process.env.GEMINI_API_KEY });
   }
@@ -44,32 +63,36 @@ module.exports = async (req, res) => {
     parts: [{ text: String(m.text || "").slice(0, MAX_MESSAGE_LEN) }]
   }));
 
-  const systemPrompt = SYSTEM_PROMPT_PREFIX + (context || "(no portfolio context provided)");
+  const payload = {
+    contents: trimmed,
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT_PREFIX + (context || "(no portfolio context provided)") }] },
+    generationConfig: { temperature: 0.6, maxOutputTokens: 1600 }
+  };
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
-    const geminiRes = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: trimmed,
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: { temperature: 0.6, maxOutputTokens: 1600 }
-      })
-    });
+    const candidates = workingModel ? [workingModel, ...MODEL_CANDIDATES.filter(m => m !== workingModel)] : MODEL_CANDIDATES;
+    let geminiRes, lastErrBody = "", lastStatus = 0;
 
-    if (geminiRes.status === 429) {
-      return res.status(429).json({ error: "Juliet is getting a lot of questions right now — try again in a moment.", code: "RATE_LIMITED" });
+    for (const model of candidates) {
+      geminiRes = await callGemini(model, apiKey, payload);
+
+      if (geminiRes.status === 429) {
+        return res.status(429).json({ error: "Juliet is getting a lot of questions right now — try again in a moment.", code: "RATE_LIMITED" });
+      }
+      if (geminiRes.ok) {
+        workingModel = model;
+        break;
+      }
+      lastStatus = geminiRes.status;
+      lastErrBody = await geminiRes.text();
+      // 404 = model name not valid for this API version -> try the next candidate.
+      // Any other error (bad key, malformed request, etc.) -> stop, it won't help to retry.
+      if (geminiRes.status !== 404) break;
     }
+
     if (!geminiRes.ok) {
-      const errBody = await geminiRes.text();
-      console.error("Gemini API error:", geminiRes.status, errBody);
-      return res.status(502).json({
-        error: "Juliet's model provider returned an error.",
-        code: "UPSTREAM_ERROR",
-        debugStatus: geminiRes.status,
-        debugBody: errBody.slice(0, 500)
-      });
+      console.error("Gemini API error:", lastStatus, lastErrBody);
+      return res.status(502).json({ error: "Juliet's model provider returned an error.", code: "UPSTREAM_ERROR" });
     }
 
     const data = await geminiRes.json();
