@@ -64,7 +64,12 @@ module.exports = async (req, res) => {
     if (!geminiRes.ok) {
       const errBody = await geminiRes.text();
       console.error("Gemini API error:", geminiRes.status, errBody);
-      return res.status(502).json({ error: "Juliet's model provider returned an error.", code: "UPSTREAM_ERROR" });
+      return res.status(502).json({
+        error: "Juliet's model provider returned an error.",
+        code: "UPSTREAM_ERROR",
+        debugStatus: geminiRes.status,
+        debugBody: errBody.slice(0, 500)
+      });
     }
 
     const data = await geminiRes.json();
