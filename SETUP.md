@@ -67,6 +67,20 @@ regularly-expiring tokens — not a realistic "set once" setup. Instead, go to
 into the **Manual Value** field for each. Update it whenever you like — no
 code, no redeploy.
 
+## 6. (Optional) Connect Bittu to a real AI API
+
+Bittu (the chat assistant) ships with a fast, fully reliable knowledge-matching
+engine — it answers strictly from your real portfolio content and always says
+so honestly when something's outside that knowledge, with zero cost and zero
+setup. There's no genuinely free, reliable, no-key LLM API safe to call
+straight from the browser, so that's the default and it works out of the box.
+
+If you later want a real conversational AI:
+
+1. Build a serverless function (e.g. `api/bittu-chat.js`, same pattern as `api/youtube-stats.js`) that accepts `{ message, context }` and returns `{ reply }`, calling whichever AI provider you choose server-side (their API key stays in a Vercel env var, never exposed to the browser).
+2. In `bittu.js`, set `window.BITTU_CONFIG.aiEndpoint = "/api/bittu-chat"`.
+3. That's it — Bittu tries your endpoint first and automatically falls back to the local knowledge engine if it ever fails, so the chat never breaks.
+
 ## How it works (no database needed)
 
 - Your site's content lives in `data/content.json`, `data/feedback.json`, and

@@ -1,6 +1,6 @@
 // Renders every dynamic section of the public site from window.DEFAULT_CONTENT,
-// then (if Firebase is configured) fetches the live content doc from Firestore,
-// merges it in, and re-renders — so admin edits show up without touching HTML.
+// then fetches the live content doc via /api/content (backed by GitHub), merges
+// it in, and re-renders — so admin edits show up without touching HTML.
 
 const COLOR_CLASS = { cyan: "cat-cyan", purple: "cat-purple", pink: "cat-pink" };
 const ICON_CLASS = { cyan: "icon-cyan", purple: "icon-purple", pink: "icon-pink" };
@@ -54,6 +54,12 @@ function renderAbout(d) {
   }
 }
 
+function icon3d(iconKey, color, size) {
+  const svg = (window.SOCIAL_ICONS && window.SOCIAL_ICONS[iconKey]) || "";
+  const sizeClass = size === "sm" ? " icon-3d-sm" : "";
+  return `<div class="icon-3d icon-3d-${color || "cyan"}${sizeClass}"><span class="icon-3d-face">${svg}</span></div>`;
+}
+
 function renderExperience(list) {
   const el = document.getElementById("experienceList");
   if (!el) return;
@@ -62,9 +68,12 @@ function renderExperience(list) {
       <div class="timeline-dot"></div>
       <div class="exp-card reveal visible">
         <div class="exp-head">
-          <div>
-            <h3>${e.company}</h3>
-            <p class="exp-role">${e.role}</p>
+          <div class="exp-head-title">
+            ${icon3d(e.icon || "briefcase", "cyan", "sm")}
+            <div>
+              <h3>${e.company}</h3>
+              <p class="exp-role">${e.role}</p>
+            </div>
           </div>
           <div class="exp-meta">
             <span class="badge badge-cyan">${e.dateRange}</span>
@@ -85,6 +94,7 @@ function renderSkills(list) {
   if (!el) return;
   el.innerHTML = list.map(s => `
     <div class="skill-card reveal visible">
+      ${icon3d(s.icon || "code", s.color, "sm")}
       <h3 class="skill-cat ${COLOR_CLASS[s.color] || "cat-cyan"}">${s.category}</h3>
       <div class="tag-row">${tagRow(s.tags)}</div>
     </div>`).join("");
@@ -95,7 +105,10 @@ function renderProjects(list) {
   if (!el) return;
   el.innerHTML = list.map(p => `
     <div class="project-card reveal visible">
-      <div class="project-top">${p.badges.map(b => `<span class="badge ${BADGE_CLASS[b.type] || "badge-cyan"}">${b.text}</span>`).join("")}</div>
+      <div class="project-top">
+        ${icon3d(p.icon || "rocket", "purple", "sm")}
+        <div class="project-badges">${p.badges.map(b => `<span class="badge ${BADGE_CLASS[b.type] || "badge-cyan"}">${b.text}</span>`).join("")}</div>
+      </div>
       <h3>${p.title}</h3>
       <p>${p.desc}</p>
       <div class="tag-row">${tagRow(p.tags)}</div>
@@ -108,7 +121,7 @@ function renderCertifications(list) {
   if (!el) return;
   el.innerHTML = list.map(c => `
     <div class="cert-card reveal visible">
-      <div class="cert-icon ${ICON_CLASS[c.color] || "icon-cyan"}">${c.icon}</div>
+      ${icon3d(c.icon || "certificate", c.color, "sm")}
       <span class="badge ${BADGE_CLASS[c.badgeType] || "badge-cyan"}">${c.badgeText}</span>
       <h3>${c.title}</h3>
       <p class="cert-org">${c.org}</p>
@@ -122,6 +135,7 @@ function renderResearch(r) {
   const el = document.getElementById("researchCard");
   if (!el) return;
   el.innerHTML = `
+    ${icon3d("research", "purple", "sm")}
     <span class="badge badge-outline">${r.badge}</span>
     <h3>${r.title}</h3>
     <p class="research-authors">${r.authors}</p>
@@ -138,9 +152,12 @@ function renderEducation(ed) {
   if (!el) return;
   el.innerHTML = `
     <div class="exp-head">
-      <div>
-        <h3>${ed.degree}</h3>
-        <p class="exp-role">${ed.school}</p>
+      <div class="exp-head-title">
+        ${icon3d(ed.icon || "graduation", "cyan", "sm")}
+        <div>
+          <h3>${ed.degree}</h3>
+          <p class="exp-role">${ed.school}</p>
+        </div>
       </div>
       <div class="exp-meta">
         <span class="badge badge-cyan">${ed.dateRange}</span>
@@ -150,11 +167,6 @@ function renderEducation(ed) {
     <p class="exp-sub">Academic Projects</p>
     <ul class="exp-list">${ed.projects.map(p => `<li>${p}</li>`).join("")}</ul>
   `;
-}
-
-function icon3d(iconKey, color) {
-  const svg = (window.SOCIAL_ICONS && window.SOCIAL_ICONS[iconKey]) || "";
-  return `<div class="icon-3d icon-3d-${color || "cyan"}"><span class="icon-3d-face">${svg}</span></div>`;
 }
 
 function renderContentSection(c) {
@@ -178,18 +190,22 @@ function renderSocialStats(list) {
   const grid = document.getElementById("analyticsGrid");
   if (!grid || !list) return;
 
+  // The admin-set manualValue always shows first (so the section never looks
+  // empty/broken) — a successful live fetch (GitHub, YouTube) then upgrades
+  // it in place. If live fetch fails or isn't configured, the manual value
+  // just stays put as an honest, always-visible fallback.
   grid.innerHTML = list.map((s, i) => `
     <a href="${s.url}" target="_blank" class="analytics-card">
       ${icon3d(s.icon, s.color)}
       <h3>${s.platform}</h3>
-      <p class="analytics-stat" id="stat-${i}">${s.statSource === "manual" ? (s.manualValue || "—") : "…"}</p>
+      <p class="analytics-stat" id="stat-${i}">${s.manualValue ? s.manualValue : (s.statSource === "manual" ? "—" : "…")}</p>
       <p class="analytics-label">${s.label}</p>
-      <span class="analytics-source">${s.statSource === "manual" ? "Set from admin panel" : "Live"}</span>
+      <span class="analytics-source" id="source-${i}">${s.statSource === "manual" ? "Set from admin panel" : "Live"}</span>
     </a>`).join("");
 
   list.forEach((s, i) => {
-    if (s.statSource === "github") fetchGithubStat(s.handle, i);
-    if (s.statSource === "youtube") fetchYoutubeStat(s.handle, i);
+    if (s.statSource === "github") fetchGithubStat(s.handle, i, s.manualValue);
+    if (s.statSource === "youtube") fetchYoutubeStat(s.handle, i, s.manualValue);
   });
 
   window.initRevealTargets && window.initRevealTargets();
@@ -203,31 +219,39 @@ function formatCount(n) {
   return String(n);
 }
 
-async function fetchGithubStat(username, index) {
+function updateStat(index, value, sourceLabel) {
   const el = document.getElementById(`stat-${index}`);
-  if (!el) return;
+  const src = document.getElementById(`source-${index}`);
+  if (el) {
+    el.textContent = value;
+    el.classList.remove("stat-pulse");
+    void el.offsetWidth; // restart animation
+    el.classList.add("stat-pulse");
+  }
+  if (src && sourceLabel) src.textContent = sourceLabel;
+}
+
+async function fetchGithubStat(username, index, manualFallback) {
   try {
     const res = await fetch(`https://api.github.com/users/${username}`);
     if (!res.ok) throw new Error("GitHub API request failed");
     const data = await res.json();
-    el.textContent = formatCount(data.followers);
+    updateStat(index, formatCount(data.followers), "Live");
   } catch (err) {
     console.warn("Could not load GitHub stats:", err);
-    el.textContent = "—";
+    updateStat(index, manualFallback || "—", manualFallback ? "Manual (live unavailable)" : "Live — unavailable");
   }
 }
 
-async function fetchYoutubeStat(handle, index) {
-  const el = document.getElementById(`stat-${index}`);
-  if (!el) return;
+async function fetchYoutubeStat(handle, index, manualFallback) {
   try {
     const res = await fetch(`/api/youtube-stats?handle=${encodeURIComponent(handle)}`);
     if (!res.ok) throw new Error("YouTube stats request failed");
     const data = await res.json();
-    el.textContent = formatCount(data.subscriberCount);
+    updateStat(index, formatCount(data.subscriberCount), "Live");
   } catch (err) {
     console.warn("Could not load YouTube stats (needs YOUTUBE_API_KEY set up — see SETUP.md):", err);
-    el.textContent = "—";
+    updateStat(index, manualFallback || "—", manualFallback ? "Manual (live unavailable)" : "Live — unavailable");
   }
 }
 

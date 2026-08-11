@@ -3,8 +3,14 @@
 
 /* ---------- Field schemas (drive the generic form builder) ---------- */
 
+// Valid 3D icon keys: youtube, instagram, facebook, github, linkedin, email,
+// threads, python, database, server, ai, tools, design, people, briefcase,
+// graduation, certificate, research, document, phone, pin, star, chart, git,
+// code, rocket — see icons-3d.js for the full set.
+const ICON_KEY_HINT = "3D Icon key — see icons-3d.js for the list (e.g. python, database, ai, briefcase)";
+
 const FEATURE_ITEM_FIELDS = [
-  { key: "icon", label: "Emoji Icon", type: "text" },
+  { key: "icon", label: "Emoji (shown in the small feature icon, not a 3D badge)", type: "text" },
   { key: "color", label: "Color (cyan / purple / pink)", type: "text" },
   { key: "title", label: "Title", type: "text" },
   { key: "desc", label: "Description", type: "textarea" }
@@ -31,6 +37,7 @@ const FIELD_SCHEMAS = {
       blank: { icon: "✨", color: "cyan", title: "New Feature", desc: "" } }
   ]},
   experience: { type: "array", itemLabel: "Role", itemFields: [
+    { key: "icon", label: ICON_KEY_HINT, type: "text" },
     { key: "company", label: "Company", type: "text" },
     { key: "role", label: "Role / Title", type: "text" },
     { key: "dateRange", label: "Date Range", type: "text" },
@@ -39,13 +46,15 @@ const FIELD_SCHEMAS = {
     { key: "desc", label: "Summary", type: "textarea" },
     { key: "responsibilities", label: "Responsibilities", type: "array-string" },
     { key: "environment", label: "Environment / Tools Tags", type: "array-string" }
-  ], blank: { company: "New Company", role: "Role", dateRange: "2026 — Present", location: "", type: "Full-time", desc: "", responsibilities: [], environment: [] }},
+  ], blank: { icon: "briefcase", company: "New Company", role: "Role", dateRange: "2026 — Present", location: "", type: "Full-time", desc: "", responsibilities: [], environment: [] }},
   skills: { type: "array", itemLabel: "Category", itemFields: [
+    { key: "icon", label: ICON_KEY_HINT, type: "text" },
     { key: "category", label: "Category Name", type: "text" },
     { key: "color", label: "Color (cyan / purple / pink)", type: "text" },
     { key: "tags", label: "Skill Tags", type: "array-string" }
-  ], blank: { category: "New Category", color: "cyan", tags: [] }},
+  ], blank: { icon: "code", category: "New Category", color: "cyan", tags: [] }},
   projects: { type: "array", itemLabel: "Project", itemFields: [
+    { key: "icon", label: ICON_KEY_HINT, type: "text" },
     { key: "badges", label: "Badges", type: "array-object", itemLabel: "Badge", itemFields: [
       { key: "text", label: "Badge Text", type: "text" },
       { key: "type", label: "Color (cyan / purple / pink / outline)", type: "text" }
@@ -55,9 +64,9 @@ const FIELD_SCHEMAS = {
     { key: "tags", label: "Tech Tags", type: "array-string" },
     { key: "linkText", label: "Link Text", type: "text" },
     { key: "linkHref", label: "Link Href", type: "text" }
-  ], blank: { badges: [], title: "New Project", desc: "", tags: [], linkText: "Learn more →", linkHref: "#" }},
+  ], blank: { icon: "rocket", badges: [], title: "New Project", desc: "", tags: [], linkText: "Learn more →", linkHref: "#" }},
   certifications: { type: "array", itemLabel: "Certificate", itemFields: [
-    { key: "icon", label: "Emoji Icon", type: "text" },
+    { key: "icon", label: ICON_KEY_HINT, type: "text" },
     { key: "color", label: "Icon Color (cyan / purple / pink)", type: "text" },
     { key: "badgeType", label: "Badge Color (cyan / purple / pink)", type: "text" },
     { key: "badgeText", label: "Badge Text", type: "text" },
@@ -66,7 +75,7 @@ const FIELD_SCHEMAS = {
     { key: "desc", label: "Description", type: "textarea" },
     { key: "skillsCovered", label: "Skills Covered (optional)", type: "array-string" },
     { key: "linkHref", label: "Certificate File Link (optional)", type: "text" }
-  ], blank: { icon: "🏅", color: "cyan", badgeType: "cyan", badgeText: "Certification", title: "New Certificate", org: "", desc: "", skillsCovered: [], linkHref: "" }},
+  ], blank: { icon: "certificate", color: "cyan", badgeType: "cyan", badgeText: "Certification", title: "New Certificate", org: "", desc: "", skillsCovered: [], linkHref: "" }},
   research: { type: "object", fields: [
     { key: "badge", label: "Badge Text", type: "text" },
     { key: "title", label: "Paper Title", type: "text" },
@@ -77,6 +86,7 @@ const FIELD_SCHEMAS = {
     { key: "linkHref", label: "Certificate Link", type: "text" }
   ]},
   education: { type: "object", fields: [
+    { key: "icon", label: ICON_KEY_HINT, type: "text" },
     { key: "degree", label: "Degree", type: "text" },
     { key: "school", label: "School", type: "text" },
     { key: "dateRange", label: "Date Range", type: "text" },
@@ -103,7 +113,7 @@ const FIELD_SCHEMAS = {
     { key: "statSource", label: "Stat Source (\"github\", \"youtube\", or \"manual\")", type: "text" },
     { key: "handle", label: "Handle / Username (used for live github or youtube lookup)", type: "text" },
     { key: "label", label: "Stat Label (e.g. Followers, Subscribers)", type: "text" },
-    { key: "manualValue", label: "Manual Value (only used when Stat Source is \"manual\" — e.g. \"1.2K\")", type: "text" }
+    { key: "manualValue", label: "Manual Value — shown immediately and used as fallback if live fetch is off/fails (e.g. \"1.2K\")", type: "text" }
   ], blank: { platform: "New Platform", icon: "instagram", color: "purple", url: "https://", statSource: "manual", handle: "", label: "Followers", manualValue: "" }},
   contact: { type: "object", fields: [
     { key: "email", label: "Email", type: "text" },

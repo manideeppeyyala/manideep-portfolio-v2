@@ -73,6 +73,7 @@
   },
   "experience": [
     {
+      "icon": "briefcase",
       "company": "Deloitte",
       "role": "Analyst, Consulting Services",
       "dateRange": "09/2025 — Present",
@@ -102,6 +103,7 @@
   "skills": [
     {
       "category": "Programming Languages",
+      "icon": "code",
       "color": "cyan",
       "tags": [
         "Python",
@@ -113,6 +115,7 @@
     },
     {
       "category": "Backend & Integration",
+      "icon": "server",
       "color": "purple",
       "tags": [
         "RESTful API Concepts",
@@ -123,6 +126,7 @@
     },
     {
       "category": "Databases & Data Engineering",
+      "icon": "database",
       "color": "pink",
       "tags": [
         "SQL (MySQL)",
@@ -138,6 +142,7 @@
     },
     {
       "category": "SmartComm & Enterprise Content Mgmt",
+      "icon": "document",
       "color": "cyan",
       "tags": [
         "SmartComm",
@@ -150,6 +155,7 @@
     },
     {
       "category": "AI & Machine Learning",
+      "icon": "ai",
       "color": "purple",
       "tags": [
         "Artificial Intelligence (AI)",
@@ -162,6 +168,7 @@
     },
     {
       "category": "Enterprise Platforms & Tools",
+      "icon": "tools",
       "color": "pink",
       "tags": [
         "SAP Basics",
@@ -172,6 +179,7 @@
     },
     {
       "category": "Core Engineering",
+      "icon": "git",
       "color": "cyan",
       "tags": [
         "Clean & Maintainable Code",
@@ -182,6 +190,7 @@
     },
     {
       "category": "Design & Digital Marketing",
+      "icon": "design",
       "color": "purple",
       "tags": [
         "Adobe InDesign",
@@ -194,6 +203,7 @@
     },
     {
       "category": "Professional & Soft Skills",
+      "icon": "people",
       "color": "pink",
       "tags": [
         "Communication",
@@ -208,6 +218,7 @@
   ],
   "projects": [
     {
+      "icon": "research",
       "badges": [
         {
           "text": "Machine Learning · Research",
@@ -231,6 +242,7 @@
       "linkHref": "#research"
     },
     {
+      "icon": "server",
       "badges": [
         {
           "text": "Backend · Automation",
@@ -249,6 +261,7 @@
       "linkHref": "#experience"
     },
     {
+      "icon": "chart",
       "badges": [
         {
           "text": "Data Analytics · Power BI",
@@ -269,7 +282,7 @@
   ],
   "certifications": [
     {
-      "icon": "📄",
+      "icon": "research",
       "color": "purple",
       "badgeType": "purple",
       "badgeText": "Research Publication",
@@ -280,7 +293,7 @@
       "linkHref": "assets/certificates/IEEE_ICIRCA_2025_Paper_Presentation.pdf"
     },
     {
-      "icon": "🧩",
+      "icon": "ai",
       "color": "cyan",
       "badgeType": "cyan",
       "badgeText": "Certification",
@@ -297,7 +310,7 @@
       "linkHref": ""
     },
     {
-      "icon": "🗄️",
+      "icon": "database",
       "color": "pink",
       "badgeType": "pink",
       "badgeText": "Certification",
@@ -308,7 +321,7 @@
       "linkHref": ""
     },
     {
-      "icon": "🤖",
+      "icon": "code",
       "color": "cyan",
       "badgeType": "cyan",
       "badgeText": "Certification",
@@ -319,7 +332,7 @@
       "linkHref": ""
     },
     {
-      "icon": "✨",
+      "icon": "ai",
       "color": "purple",
       "badgeType": "purple",
       "badgeText": "Certification",
@@ -330,7 +343,7 @@
       "linkHref": ""
     },
     {
-      "icon": "📊",
+      "icon": "chart",
       "color": "pink",
       "badgeType": "pink",
       "badgeText": "Workshop",
@@ -341,7 +354,7 @@
       "linkHref": "assets/certificates/OfficeMaster_PowerBI_Workshop.jpeg"
     },
     {
-      "icon": "🛠️",
+      "icon": "tools",
       "color": "cyan",
       "badgeType": "cyan",
       "badgeText": "Workshop",
@@ -352,7 +365,7 @@
       "linkHref": "assets/certificates/be10x_AI_Tools_Workshop.pdf"
     },
     {
-      "icon": "👨‍🍳",
+      "icon": "certificate",
       "color": "purple",
       "badgeType": "purple",
       "badgeText": "Certification",
@@ -363,7 +376,7 @@
       "linkHref": "assets/certificates/CodeChef_Kalasalingam_Academy.pdf"
     },
     {
-      "icon": "✉️",
+      "icon": "email",
       "color": "pink",
       "badgeType": "pink",
       "badgeText": "Course",
@@ -395,6 +408,7 @@
     "linkHref": "assets/certificates/IEEE_ICIRCA_2025_Paper_Presentation.pdf"
   },
   "education": {
+    "icon": "graduation",
     "degree": "B.Tech — Computer Science & Engineering (AI & ML)",
     "school": "Kalasalingam Academy of Research and Education, Madurai",
     "dateRange": "Graduated 05/2025",

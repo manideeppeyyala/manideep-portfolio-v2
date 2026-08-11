@@ -114,7 +114,7 @@ const tiltCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matc
 function initTiltCards() {
   if (!tiltCapable) return;
   const cards = document.querySelectorAll(
-    '.project-card, .cert-card, .skill-card, .feature-card, .social-card, .analytics-card, .testimonial-card'
+    '.project-card, .cert-card, .skill-card, .feature-card, .social-card, .analytics-card, .testimonial-card, .exp-card, .edu-card, .research-card'
   );
   cards.forEach(card => {
     if (card.dataset.tiltReady) return;
@@ -130,6 +130,33 @@ function initTiltCards() {
   });
 }
 initTiltCards();
+
+// ===== Magnetic pull on buttons (CTAs lean toward the cursor as it nears) =====
+if (tiltCapable) {
+  const magneticButtons = document.querySelectorAll('.btn');
+  const magRadius = 70;
+  let magX = 0, magY = 0, magTicking = false;
+  window.addEventListener('mousemove', (e) => {
+    magX = e.clientX; magY = e.clientY;
+    if (magTicking) return;
+    magTicking = true;
+    requestAnimationFrame(() => {
+      magneticButtons.forEach(btn => {
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+        const dx = magX - cx, dy = magY - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < magRadius) {
+          const pull = (1 - dist / magRadius) * 10;
+          btn.style.transform = `translate(${dist ? (dx / dist) * pull : 0}px, ${dist ? (dy / dist) * pull : 0}px)`;
+        } else if (btn.style.transform) {
+          btn.style.transform = '';
+        }
+      });
+      magTicking = false;
+    });
+  });
+}
 
 // ===== Subtle parallax on background glows =====
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

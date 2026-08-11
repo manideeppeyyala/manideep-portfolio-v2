@@ -40,6 +40,7 @@ window.DEFAULT_CONTENT = {
 
   experience: [
     {
+      icon: "briefcase",
       company: "Deloitte",
       role: "Analyst, Consulting Services",
       dateRange: "09/2025 — Present",
@@ -61,19 +62,20 @@ window.DEFAULT_CONTENT = {
   ],
 
   skills: [
-    { category: "Programming Languages", color: "cyan", tags: ["Python", "Java", "C", "HTML", "Data Structures"] },
-    { category: "Backend & Integration", color: "purple", tags: ["RESTful API Concepts", "Microservice-Oriented Design", "Backend Data Integrations", "Modular & Reusable Code"] },
-    { category: "Databases & Data Engineering", color: "pink", tags: ["SQL (MySQL)", "Joins & Aggregations", "Window Functions", "ETL (Extract, Transform, Load)", "Data Warehousing", "Data Analytics", "Data Analysis", "Power BI", "Tableau"] },
-    { category: "SmartComm & Enterprise Content Mgmt", color: "cyan", tags: ["SmartComm", "Docuedge", "CCE-16", "CCM", "XECM", "Enterprise Content Management"] },
-    { category: "AI & Machine Learning", color: "purple", tags: ["Artificial Intelligence (AI)", "Machine Learning", "AI Literacy & Foundational Concepts", "Responsible & Ethical AI Adoption", "Use-Case Identification for AI in Business Workflows", "Assessing AI Capabilities & Limitations"] },
-    { category: "Enterprise Platforms & Tools", color: "pink", tags: ["SAP Basics", "Git & GitHub", "Docker (basics)", "Microsoft Office"] },
-    { category: "Core Engineering", color: "cyan", tags: ["Clean & Maintainable Code", "Scalable App Design", "Debugging & Prod Issue Resolution", "Secure Data Handling"] },
-    { category: "Design & Digital Marketing", color: "purple", tags: ["Adobe InDesign", "Adobe Photoshop", "Digital Marketing", "Social Media Marketing", "Social Influence", "Marketing"] },
-    { category: "Professional & Soft Skills", color: "pink", tags: ["Communication", "Interpersonal Skills", "Teamwork", "Project Management", "Training & Development (HR)", "Engineering", "English"] }
+    { category: "Programming Languages", icon: "code", color: "cyan", tags: ["Python", "Java", "C", "HTML", "Data Structures"] },
+    { category: "Backend & Integration", icon: "server", color: "purple", tags: ["RESTful API Concepts", "Microservice-Oriented Design", "Backend Data Integrations", "Modular & Reusable Code"] },
+    { category: "Databases & Data Engineering", icon: "database", color: "pink", tags: ["SQL (MySQL)", "Joins & Aggregations", "Window Functions", "ETL (Extract, Transform, Load)", "Data Warehousing", "Data Analytics", "Data Analysis", "Power BI", "Tableau"] },
+    { category: "SmartComm & Enterprise Content Mgmt", icon: "document", color: "cyan", tags: ["SmartComm", "Docuedge", "CCE-16", "CCM", "XECM", "Enterprise Content Management"] },
+    { category: "AI & Machine Learning", icon: "ai", color: "purple", tags: ["Artificial Intelligence (AI)", "Machine Learning", "AI Literacy & Foundational Concepts", "Responsible & Ethical AI Adoption", "Use-Case Identification for AI in Business Workflows", "Assessing AI Capabilities & Limitations"] },
+    { category: "Enterprise Platforms & Tools", icon: "tools", color: "pink", tags: ["SAP Basics", "Git & GitHub", "Docker (basics)", "Microsoft Office"] },
+    { category: "Core Engineering", icon: "git", color: "cyan", tags: ["Clean & Maintainable Code", "Scalable App Design", "Debugging & Prod Issue Resolution", "Secure Data Handling"] },
+    { category: "Design & Digital Marketing", icon: "design", color: "purple", tags: ["Adobe InDesign", "Adobe Photoshop", "Digital Marketing", "Social Media Marketing", "Social Influence", "Marketing"] },
+    { category: "Professional & Soft Skills", icon: "people", color: "pink", tags: ["Communication", "Interpersonal Skills", "Teamwork", "Project Management", "Training & Development (HR)", "Engineering", "English"] }
   ],
 
   projects: [
     {
+      icon: "research",
       badges: [{ text: "Machine Learning · Research", type: "purple" }, { text: "PUBLISHED", type: "outline" }],
       title: "Smart Agriculture: Crop Recommendation Using Satellite Images",
       desc: "An ML-based system using CNN and EfficientNet to recommend optimal crops for farmers using satellite imagery, remote sensing and soil/weather data. Presented at IEEE ICIRCA 2025.",
@@ -82,6 +84,7 @@ window.DEFAULT_CONTENT = {
       linkHref: "#research"
     },
     {
+      icon: "server",
       badges: [{ text: "Backend · Automation", type: "cyan" }],
       title: "Enterprise Document Processing Pipeline",
       desc: "Backend document-processing pipeline built at Deloitte using Python and SmartComm — validating, transforming and structuring high-volume enterprise data with reusable, modular components.",
@@ -90,6 +93,7 @@ window.DEFAULT_CONTENT = {
       linkHref: "#experience"
     },
     {
+      icon: "chart",
       badges: [{ text: "Data Analytics · Power BI", type: "pink" }],
       title: "AI-Powered Interactive Dashboards",
       desc: "Built interactive, AI-assisted Power BI dashboards translating raw operational data into decision-ready visual insights — created in under 30 minutes using AI-driven workflows.",
@@ -100,15 +104,15 @@ window.DEFAULT_CONTENT = {
   ],
 
   certifications: [
-    { icon: "📄", color: "purple", badgeType: "purple", badgeText: "Research Publication", title: "IEEE Certificate of Presentation", org: "IEEE ICIRCA 2025 · RVS College of Engineering, Coimbatore", desc: "Presented \"Smart Agriculture: Satellite Image-based Crop Recommendation using CNN and EfficientNet\" at the 6th International Conference on Inventive Research in Computing Applications, 25–27 June 2025.", skillsCovered: [], linkHref: "assets/certificates/IEEE_ICIRCA_2025_Paper_Presentation.pdf" },
-    { icon: "🧩", color: "cyan", badgeType: "cyan", badgeText: "Certification", title: "Anthropic Certified: AI Fluency Framework & Foundations", org: "Anthropic · Issued Jul 2026", desc: "Credential ID 42c9k7t9tvcv", skillsCovered: ["AI literacy and foundational concepts", "Use-case identification for AI in business workflows", "Assessing AI capabilities and limitations", "Responsible AI usage", "Ethical and effective AI adoption"], linkHref: "" },
-    { icon: "🗄️", color: "pink", badgeType: "pink", badgeText: "Certification", title: "Databricks Certified Data Engineer Associate", org: "Databricks · Issued Feb 2026 · Expires Feb 2028", desc: "Credential ID 175114048", skillsCovered: [], linkHref: "" },
-    { icon: "🤖", color: "cyan", badgeType: "cyan", badgeText: "Certification", title: "Anthropic Certified: Claude Code in Action!", org: "Anthropic", desc: "", skillsCovered: [], linkHref: "" },
-    { icon: "✨", color: "purple", badgeType: "purple", badgeText: "Certification", title: "Anthropic Certified: Claude 101!", org: "Anthropic", desc: "", skillsCovered: [], linkHref: "" },
-    { icon: "📊", color: "pink", badgeType: "pink", badgeText: "Workshop", title: "PowerBI Workshop — AI-Powered Dashboards", org: "OfficeMaster · Issued Sep 7, 2025", desc: "Holder can create AI-powered interactive dashboards in Power BI in under 30 minutes.", skillsCovered: [], linkHref: "assets/certificates/OfficeMaster_PowerBI_Workshop.jpeg" },
-    { icon: "🛠️", color: "cyan", badgeType: "cyan", badgeText: "Workshop", title: "AI Tools & ChatGPT Workshop", org: "be10x · Issued Aug 1, 2026", desc: "Create presentations using AI in under 5 min, analyse data in under 30 min, code & debug using AI in under 10 min.", skillsCovered: [], linkHref: "assets/certificates/be10x_AI_Tools_Workshop.pdf" },
-    { icon: "👨‍🍳", color: "purple", badgeType: "purple", badgeText: "Certification", title: "Certificate of Completion — Kalasalingam Academy Track", org: "CodeChef · Issued Sep 27, 2023", desc: "Completed all lessons and projects of Kalasalingam Academy of Research and Education. Certificate ID: b61fdf8", skillsCovered: [], linkHref: "assets/certificates/CodeChef_Kalasalingam_Academy.pdf" },
-    { icon: "✉️", color: "pink", badgeType: "pink", badgeText: "Course", title: "Writing Email", org: "LinkedIn Learning · Completed Sep 3, 2025", desc: "Top skills: Email Etiquette, Professional Communication. Certificate ID: 96da224bf968...c9a234efa80dc", skillsCovered: [], linkHref: "assets/certificates/LinkedIn_Writing_Email.pdf" }
+    { icon: "research", color: "purple", badgeType: "purple", badgeText: "Research Publication", title: "IEEE Certificate of Presentation", org: "IEEE ICIRCA 2025 · RVS College of Engineering, Coimbatore", desc: "Presented \"Smart Agriculture: Satellite Image-based Crop Recommendation using CNN and EfficientNet\" at the 6th International Conference on Inventive Research in Computing Applications, 25–27 June 2025.", skillsCovered: [], linkHref: "assets/certificates/IEEE_ICIRCA_2025_Paper_Presentation.pdf" },
+    { icon: "ai", color: "cyan", badgeType: "cyan", badgeText: "Certification", title: "Anthropic Certified: AI Fluency Framework & Foundations", org: "Anthropic · Issued Jul 2026", desc: "Credential ID 42c9k7t9tvcv", skillsCovered: ["AI literacy and foundational concepts", "Use-case identification for AI in business workflows", "Assessing AI capabilities and limitations", "Responsible AI usage", "Ethical and effective AI adoption"], linkHref: "" },
+    { icon: "database", color: "pink", badgeType: "pink", badgeText: "Certification", title: "Databricks Certified Data Engineer Associate", org: "Databricks · Issued Feb 2026 · Expires Feb 2028", desc: "Credential ID 175114048", skillsCovered: [], linkHref: "" },
+    { icon: "code", color: "cyan", badgeType: "cyan", badgeText: "Certification", title: "Anthropic Certified: Claude Code in Action!", org: "Anthropic", desc: "", skillsCovered: [], linkHref: "" },
+    { icon: "ai", color: "purple", badgeType: "purple", badgeText: "Certification", title: "Anthropic Certified: Claude 101!", org: "Anthropic", desc: "", skillsCovered: [], linkHref: "" },
+    { icon: "chart", color: "pink", badgeType: "pink", badgeText: "Workshop", title: "PowerBI Workshop — AI-Powered Dashboards", org: "OfficeMaster · Issued Sep 7, 2025", desc: "Holder can create AI-powered interactive dashboards in Power BI in under 30 minutes.", skillsCovered: [], linkHref: "assets/certificates/OfficeMaster_PowerBI_Workshop.jpeg" },
+    { icon: "tools", color: "cyan", badgeType: "cyan", badgeText: "Workshop", title: "AI Tools & ChatGPT Workshop", org: "be10x · Issued Aug 1, 2026", desc: "Create presentations using AI in under 5 min, analyse data in under 30 min, code & debug using AI in under 10 min.", skillsCovered: [], linkHref: "assets/certificates/be10x_AI_Tools_Workshop.pdf" },
+    { icon: "certificate", color: "purple", badgeType: "purple", badgeText: "Certification", title: "Certificate of Completion — Kalasalingam Academy Track", org: "CodeChef · Issued Sep 27, 2023", desc: "Completed all lessons and projects of Kalasalingam Academy of Research and Education. Certificate ID: b61fdf8", skillsCovered: [], linkHref: "assets/certificates/CodeChef_Kalasalingam_Academy.pdf" },
+    { icon: "email", color: "pink", badgeType: "pink", badgeText: "Course", title: "Writing Email", org: "LinkedIn Learning · Completed Sep 3, 2025", desc: "Top skills: Email Etiquette, Professional Communication. Certificate ID: 96da224bf968...c9a234efa80dc", skillsCovered: [], linkHref: "assets/certificates/LinkedIn_Writing_Email.pdf" }
   ],
 
   research: {
@@ -126,6 +130,7 @@ window.DEFAULT_CONTENT = {
   },
 
   education: {
+    icon: "graduation",
     degree: "B.Tech — Computer Science & Engineering (AI & ML)",
     school: "Kalasalingam Academy of Research and Education, Madurai",
     dateRange: "Graduated 05/2025",
