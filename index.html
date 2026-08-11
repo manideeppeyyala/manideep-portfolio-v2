@@ -581,29 +581,33 @@
         <span class="juliet-avatar juliet-avatar-sm" id="julietAvatarHeader">
           <svg viewBox="0 0 100 100" class="juliet-svg">
             <defs>
-              <radialGradient id="julietFaceGrad" cx="50%" cy="42%" r="65%">
-                <stop offset="0%" stop-color="#ffe4f2"/><stop offset="100%" stop-color="#f9a8d4"/>
+              <radialGradient id="julietFaceGrad" cx="42%" cy="34%" r="72%">
+                <stop offset="0%" stop-color="#fff0f8"/><stop offset="55%" stop-color="#fbcfe8"/><stop offset="100%" stop-color="#f472b6"/>
+              </radialGradient>
+              <radialGradient id="julietEarGrad" cx="35%" cy="28%" r="80%">
+                <stop offset="0%" stop-color="#4a3550"/><stop offset="100%" stop-color="#1f1522"/>
               </radialGradient>
             </defs>
-            <ellipse class="juliet-ear juliet-ear-left" cx="26" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
-            <ellipse class="juliet-ear juliet-ear-right" cx="74" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
-            <circle cx="50" cy="54" r="32" fill="url(#julietFaceGrad)"/>
-            <ellipse cx="35" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(-12 35 50)"/>
-            <ellipse cx="65" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(12 65 50)"/>
-            <g class="juliet-eye">
-              <circle cx="35" cy="51" r="4.4" fill="#fff"/>
-              <circle cx="35.8" cy="51.8" r="2.3" fill="#1a1a2e"/>
+            <circle class="juliet-ear juliet-ear-left" cx="25" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
+            <circle class="juliet-ear juliet-ear-right" cx="75" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
+            <circle cx="50" cy="55" r="32" fill="url(#julietFaceGrad)"/>
+            <ellipse cx="38" cy="40" rx="11" ry="7" fill="#fff" opacity="0.35"/>
+            <ellipse cx="34" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(-10 34 51)"/>
+            <ellipse cx="66" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(10 66 51)"/>
+            <path class="juliet-eye" d="M28 51 Q34 44.5 40 51" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <path class="juliet-eye" d="M60 51 Q66 44.5 72 51" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <circle class="juliet-blush" cx="27" cy="64" r="6" fill="#ec4899" opacity="0.4"/>
+            <circle class="juliet-blush" cx="73" cy="64" r="6" fill="#ec4899" opacity="0.4"/>
+            <ellipse cx="50" cy="61" rx="3.6" ry="2.6" fill="#1f1522"/>
+            <ellipse class="juliet-mouth" cx="50" cy="72" rx="10.5" ry="8.5" fill="#7a2048"/>
+            <ellipse cx="50" cy="67.5" rx="7.4" ry="2.8" fill="#fff"/>
+            <ellipse cx="50" cy="78" rx="4.6" ry="3.1" fill="#ff6b9d"/>
+            <g class="juliet-sparkle juliet-sparkle-1" transform="translate(81 26)">
+              <path d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" fill="#facc15"/>
             </g>
-            <g class="juliet-eye">
-              <circle cx="65" cy="51" r="4.4" fill="#fff"/>
-              <circle cx="64.2" cy="51.8" r="2.3" fill="#1a1a2e"/>
+            <g class="juliet-sparkle juliet-sparkle-2" transform="translate(14 66)">
+              <path d="M0 -4 L1.1 -1.1 L4 0 L1.1 1.1 L0 4 L-1.1 1.1 L-4 0 L-1.1 -1.1 Z" fill="#facc15"/>
             </g>
-            <circle class="juliet-blush" cx="30" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
-            <circle class="juliet-blush" cx="70" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
-            <ellipse cx="50" cy="64" rx="4.5" ry="3.2" fill="#2a1b2e"/>
-            <path d="M50 67 Q50 72 45 73 M50 67 Q50 72 55 73" stroke="#2a1b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-            <path d="M18 8C10 12 8 22 14 28C18 20 24 14 32 12C28 8 22 6 18 8Z" fill="url(#julietFaceGrad)" opacity="0.9"/>
-            <path d="M82 8C90 12 92 22 86 28C82 20 76 14 68 12C72 8 78 6 82 8Z" fill="url(#julietFaceGrad)" opacity="0.9"/>
           </svg>
         </span>
         <div class="juliet-console-header-text">
@@ -616,23 +620,23 @@
         <div class="juliet-empty-state" id="julietEmptyState">
           <span class="juliet-avatar" style="margin:0 auto 16px;">
             <svg viewBox="0 0 100 100" class="juliet-svg">
-              <ellipse class="juliet-ear juliet-ear-left" cx="26" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
-              <ellipse class="juliet-ear juliet-ear-right" cx="74" cy="22" rx="13" ry="13" fill="#2a1b2e"/>
-              <circle cx="50" cy="54" r="32" fill="url(#julietFaceGrad)"/>
-              <ellipse cx="35" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(-12 35 50)"/>
-              <ellipse cx="65" cy="50" rx="11" ry="14" fill="#2a1b2e" transform="rotate(12 65 50)"/>
-              <g class="juliet-eye">
-                <circle cx="35" cy="51" r="4.4" fill="#fff"/>
-                <circle cx="35.8" cy="51.8" r="2.3" fill="#1a1a2e"/>
+              <circle class="juliet-ear juliet-ear-left" cx="25" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
+              <circle class="juliet-ear juliet-ear-right" cx="75" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
+              <circle cx="50" cy="55" r="32" fill="url(#julietFaceGrad)"/>
+              <ellipse cx="38" cy="40" rx="11" ry="7" fill="#fff" opacity="0.35"/>
+              <ellipse cx="34" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(-10 34 51)"/>
+              <ellipse cx="66" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(10 66 51)"/>
+              <path class="juliet-eye" d="M28 51 Q34 44.5 40 51" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              <path class="juliet-eye" d="M60 51 Q66 44.5 72 51" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              <circle class="juliet-blush" cx="27" cy="64" r="6" fill="#ec4899" opacity="0.4"/>
+              <circle class="juliet-blush" cx="73" cy="64" r="6" fill="#ec4899" opacity="0.4"/>
+              <ellipse cx="50" cy="61" rx="3.6" ry="2.6" fill="#1f1522"/>
+              <ellipse class="juliet-mouth" cx="50" cy="72" rx="10.5" ry="8.5" fill="#7a2048"/>
+              <ellipse cx="50" cy="67.5" rx="7.4" ry="2.8" fill="#fff"/>
+              <ellipse cx="50" cy="78" rx="4.6" ry="3.1" fill="#ff6b9d"/>
+              <g class="juliet-sparkle juliet-sparkle-1" transform="translate(81 26)">
+                <path d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" fill="#facc15"/>
               </g>
-              <g class="juliet-eye">
-                <circle cx="65" cy="51" r="4.4" fill="#fff"/>
-                <circle cx="64.2" cy="51.8" r="2.3" fill="#1a1a2e"/>
-              </g>
-              <circle class="juliet-blush" cx="30" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
-              <circle class="juliet-blush" cx="70" cy="63" r="5" fill="#ec4899" opacity="0.35"/>
-              <ellipse cx="50" cy="64" rx="4.5" ry="3.2" fill="#2a1b2e"/>
-              <path d="M50 67 Q50 72 45 73 M50 67 Q50 72 55 73" stroke="#2a1b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
             </svg>
           </span>
           <p>Ask Juliet anything — try one of these to start:</p>
@@ -767,26 +771,37 @@
   <span class="romeo-avatar" id="romeoAvatarFab">
     <svg viewBox="0 0 100 100" class="romeo-svg">
       <defs>
-        <linearGradient id="romeoGradHead" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/>
-        </linearGradient>
+        <radialGradient id="romeoGradHead" cx="38%" cy="30%" r="78%">
+          <stop offset="0%" stop-color="#c4b5fd"/><stop offset="55%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#d946ef"/>
+        </radialGradient>
         <linearGradient id="romeoGradEar" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/>
+          <stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#ec4899"/>
         </linearGradient>
       </defs>
-      <ellipse class="romeo-ear romeo-ear-left" cx="24" cy="38" rx="14" ry="20" transform="rotate(-25 24 38)" fill="url(#romeoGradEar)"/>
-      <ellipse class="romeo-ear romeo-ear-right" cx="76" cy="38" rx="14" ry="20" transform="rotate(25 76 38)" fill="url(#romeoGradEar)"/>
-      <circle cx="50" cy="52" r="30" fill="url(#romeoGradHead)"/>
-      <ellipse cx="50" cy="64" rx="16" ry="12" fill="#fff" opacity="0.92"/>
-      <g class="romeo-eyes">
-        <ellipse class="romeo-eye" cx="38" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
-        <ellipse class="romeo-eye" cx="62" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
-        <circle cx="39.3" cy="46.3" r="1.2" fill="#fff"/>
-        <circle cx="63.3" cy="46.3" r="1.2" fill="#fff"/>
+      <ellipse class="romeo-ear romeo-ear-left" cx="19" cy="39" rx="15" ry="21" transform="rotate(-22 19 39)" fill="url(#romeoGradEar)"/>
+      <ellipse class="romeo-ear romeo-ear-right" cx="81" cy="39" rx="15" ry="21" transform="rotate(22 81 39)" fill="url(#romeoGradEar)"/>
+      <circle cx="50" cy="54" r="31" fill="url(#romeoGradHead)"/>
+      <ellipse cx="38" cy="37" rx="12" ry="8" fill="#fff" opacity="0.3"/>
+      <ellipse cx="50" cy="66" rx="17" ry="13" fill="#fff" opacity="0.94"/>
+      <circle class="romeo-blush" cx="29" cy="62" r="5.5" fill="#f472b6" opacity="0.4"/>
+      <circle class="romeo-blush" cx="71" cy="62" r="5.5" fill="#f472b6" opacity="0.4"/>
+      <g class="romeo-eye">
+        <circle cx="37" cy="47" r="5" fill="#1a1a2e"/>
+        <circle cx="38.4" cy="45.2" r="1.6" fill="#fff"/>
+        <circle cx="35.6" cy="48.6" r="0.8" fill="#fff" opacity="0.85"/>
       </g>
-      <ellipse cx="50" cy="60" rx="4" ry="3" fill="#1a1a2e"/>
-      <path d="M50 63 Q50 68 44 69 M50 63 Q50 68 56 69" stroke="#1a1a2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-      <path class="romeo-tongue" d="M47 68 Q50 76 53 68 Q50 71 47 68Z" fill="#ff6b9d"/>
+      <g class="romeo-eye">
+        <circle cx="63" cy="47" r="5" fill="#1a1a2e"/>
+        <circle cx="64.4" cy="45.2" r="1.6" fill="#fff"/>
+        <circle cx="61.6" cy="48.6" r="0.8" fill="#fff" opacity="0.85"/>
+      </g>
+      <path class="romeo-squint" d="M31 53 Q37 56.5 43 53" stroke="#1a1a2e" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+      <path class="romeo-squint" d="M57 53 Q63 56.5 69 53" stroke="#1a1a2e" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+      <ellipse cx="50" cy="60.5" rx="4.2" ry="3.2" fill="#1a1a2e"/>
+      <ellipse cx="48.6" cy="59.4" rx="1" ry="0.7" fill="#fff" opacity="0.6"/>
+      <ellipse class="romeo-mouth" cx="50" cy="71" rx="11" ry="8.5" fill="#7a2048"/>
+      <ellipse cx="50" cy="67" rx="7.5" ry="2.8" fill="#fff"/>
+      <ellipse class="romeo-tongue" cx="52" cy="80" rx="4.5" ry="7" fill="#ff6b9d" transform="rotate(15 52 80)"/>
     </svg>
   </span>
   <span class="romeo-fab-label">Ask Romeo</span>
@@ -796,19 +811,30 @@
   <div class="romeo-panel-header">
     <span class="romeo-avatar romeo-avatar-sm" id="romeoAvatarFace">
       <svg viewBox="0 0 100 100" class="romeo-svg">
-        <ellipse class="romeo-ear romeo-ear-left" cx="24" cy="38" rx="14" ry="20" transform="rotate(-25 24 38)" fill="url(#romeoGradEar)"/>
-        <ellipse class="romeo-ear romeo-ear-right" cx="76" cy="38" rx="14" ry="20" transform="rotate(25 76 38)" fill="url(#romeoGradEar)"/>
-        <circle cx="50" cy="52" r="30" fill="url(#romeoGradHead)"/>
-        <ellipse cx="50" cy="64" rx="16" ry="12" fill="#fff" opacity="0.92"/>
-        <g class="romeo-eyes">
-          <ellipse class="romeo-eye" cx="38" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
-          <ellipse class="romeo-eye" cx="62" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
-          <circle cx="39.3" cy="46.3" r="1.2" fill="#fff"/>
-          <circle cx="63.3" cy="46.3" r="1.2" fill="#fff"/>
+        <ellipse class="romeo-ear romeo-ear-left" cx="19" cy="39" rx="15" ry="21" transform="rotate(-22 19 39)" fill="url(#romeoGradEar)"/>
+        <ellipse class="romeo-ear romeo-ear-right" cx="81" cy="39" rx="15" ry="21" transform="rotate(22 81 39)" fill="url(#romeoGradEar)"/>
+        <circle cx="50" cy="54" r="31" fill="url(#romeoGradHead)"/>
+        <ellipse cx="38" cy="37" rx="12" ry="8" fill="#fff" opacity="0.3"/>
+        <ellipse cx="50" cy="66" rx="17" ry="13" fill="#fff" opacity="0.94"/>
+        <circle class="romeo-blush" cx="29" cy="62" r="5.5" fill="#f472b6" opacity="0.4"/>
+        <circle class="romeo-blush" cx="71" cy="62" r="5.5" fill="#f472b6" opacity="0.4"/>
+        <g class="romeo-eye">
+          <circle cx="37" cy="47" r="5" fill="#1a1a2e"/>
+          <circle cx="38.4" cy="45.2" r="1.6" fill="#fff"/>
+          <circle cx="35.6" cy="48.6" r="0.8" fill="#fff" opacity="0.85"/>
         </g>
-        <ellipse cx="50" cy="60" rx="4" ry="3" fill="#1a1a2e"/>
-        <path d="M50 63 Q50 68 44 69 M50 63 Q50 68 56 69" stroke="#1a1a2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <path class="romeo-tongue" d="M47 68 Q50 76 53 68 Q50 71 47 68Z" fill="#ff6b9d"/>
+        <g class="romeo-eye">
+          <circle cx="63" cy="47" r="5" fill="#1a1a2e"/>
+          <circle cx="64.4" cy="45.2" r="1.6" fill="#fff"/>
+          <circle cx="61.6" cy="48.6" r="0.8" fill="#fff" opacity="0.85"/>
+        </g>
+        <path class="romeo-squint" d="M31 53 Q37 56.5 43 53" stroke="#1a1a2e" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+        <path class="romeo-squint" d="M57 53 Q63 56.5 69 53" stroke="#1a1a2e" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+        <ellipse cx="50" cy="60.5" rx="4.2" ry="3.2" fill="#1a1a2e"/>
+        <ellipse cx="48.6" cy="59.4" rx="1" ry="0.7" fill="#fff" opacity="0.6"/>
+        <ellipse class="romeo-mouth" cx="50" cy="71" rx="11" ry="8.5" fill="#7a2048"/>
+        <ellipse cx="50" cy="67" rx="7.5" ry="2.8" fill="#fff"/>
+        <ellipse class="romeo-tongue" cx="52" cy="80" rx="4.5" ry="7" fill="#ff6b9d" transform="rotate(15 52 80)"/>
       </svg>
     </span>
     <div>

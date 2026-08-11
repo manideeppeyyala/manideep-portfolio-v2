@@ -131,6 +131,28 @@ function initTiltCards() {
 }
 initTiltCards();
 
+// ===== Romeo/Juliet avatar tilt — elegant "looks toward cursor" hover, not a scale bump =====
+// Applied to the outer wrapper (not the inner .romeo-svg/.juliet-svg, which
+// already owns a CSS "bob" animation on transform — layering the JS tilt on
+// a different element lets both compose without one clobbering the other).
+function initAvatarTilt() {
+  if (!tiltCapable) return;
+  const avatars = document.querySelectorAll('.romeo-avatar, .juliet-avatar');
+  avatars.forEach(avatar => {
+    if (avatar.dataset.tiltReady) return;
+    avatar.dataset.tiltReady = '1';
+    avatar.addEventListener('mousemove', (e) => {
+      const rect = avatar.getBoundingClientRect();
+      const cx = rect.width / 2, cy = rect.height / 2;
+      const rotateY = ((e.clientX - rect.left - cx) / cx) * 18;
+      const rotateX = -((e.clientY - rect.top - cy) / cy) * 18;
+      avatar.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    avatar.addEventListener('mouseleave', () => { avatar.style.transform = ''; });
+  });
+}
+initAvatarTilt();
+
 // ===== Magnetic pull on buttons (CTAs lean toward the cursor as it nears) =====
 if (tiltCapable) {
   const magneticButtons = document.querySelectorAll('.btn');
