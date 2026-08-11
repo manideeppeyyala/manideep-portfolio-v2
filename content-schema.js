@@ -75,6 +75,15 @@ window.DEFAULT_CONTENT = {
 
   projects: [
     {
+      icon: "ai",
+      badges: [{ text: "AI System · Live", type: "purple" }, { text: "FEATURED", type: "outline" }],
+      title: "Juliet AI — Real-Time AI Model Embedded in This Portfolio",
+      desc: "A real, functioning AI assistant built into this site — not a demo. Juliet answers general and technical questions, writes and debugs code, and answers questions about this portfolio grounded in verified resume data (never invented). Powered by Google Gemini through a secure serverless proxy that keeps the API key server-side. Romeo, the chat widget, is Juliet's conversational front-end; there's also a dedicated live console to try her directly.",
+      tags: ["Gemini API", "Vercel Serverless Functions", "Prompt Engineering", "Markdown Rendering", "RAG-style Grounding", "JavaScript"],
+      linkText: "Try Juliet Live →",
+      linkHref: "#juliet"
+    },
+    {
       icon: "research",
       badges: [{ text: "Machine Learning · Research", type: "purple" }, { text: "PUBLISHED", type: "outline" }],
       title: "Smart Agriculture: Crop Recommendation Using Satellite Images",

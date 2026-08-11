@@ -33,6 +33,7 @@
       <li><a href="#achievements" class="nav-link">Achievements</a></li>
       <li><a href="#content" class="nav-link">Content</a></li>
       <li><a href="#analytics" class="nav-link">Analytics</a></li>
+      <li><a href="#juliet" class="nav-link">Juliet AI</a></li>
       <li><a href="#feedback" class="nav-link">Feedback</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
@@ -536,7 +537,7 @@
 <!-- EDUCATION -->
 <section class="section section-alt" id="education">
   <div class="container">
-    <p class="section-eyebrow">08 / EDUCATION</p>
+    <p class="section-eyebrow">09 / EDUCATION</p>
     <h2 class="section-title">Academic <span class="gradient-text">Foundation</span></h2>
 
     <div class="edu-card" id="eduCard">
@@ -559,6 +560,45 @@
   </div>
 </section>
 
+<!-- MEET JULIET -->
+<section class="section section-alt" id="juliet">
+  <div class="container">
+    <p class="section-eyebrow">10 / AI MODEL</p>
+    <h2 class="section-title">Meet Juliet — <span class="gradient-text">My AI Model.</span></h2>
+    <p class="section-sub">A real AI system, not a demo — try it below. Juliet answers general and technical questions, writes and debugs code, and knows this portfolio in detail. She's honest about her limits: no live internet access, and she won't guess at personal facts she isn't sure of.</p>
+
+    <div class="tag-row" style="margin-bottom:32px;">
+      <span class="tag">Code</span>
+      <span class="tag">Q&amp;A</span>
+      <span class="tag">Portfolio Knowledge</span>
+      <span class="tag">Content Generation</span>
+      <span class="tag">Problem Solving</span>
+      <span class="tag">Real-Time Info (when connected)</span>
+    </div>
+
+    <div class="juliet-console">
+      <div class="juliet-console-header">
+        <span class="juliet-status-dot" id="julietStatusDot"></span>
+        <span id="julietStatusText">Checking Juliet's connection…</span>
+      </div>
+
+      <div class="juliet-output" id="julietOutput">
+        <div class="juliet-empty-state" id="julietEmptyState">
+          <div class="icon-3d icon-3d-purple" id="julietEmptyIcon" style="margin:0 auto 16px;"><span class="icon-3d-face"></span></div>
+          <p>Ask Juliet anything — try one of these to start:</p>
+        </div>
+      </div>
+
+      <div class="juliet-suggestions" id="julietSuggestions"></div>
+
+      <form class="juliet-form" id="julietForm">
+        <textarea id="julietInput" rows="2" placeholder="Ask Juliet a question, or paste code to debug…" maxlength="4000"></textarea>
+        <button type="submit" class="btn btn-gradient juliet-send-btn" id="julietSendBtn">Send →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- RESUME CTA -->
 <section class="resume-cta">
   <div class="container">
@@ -575,7 +615,7 @@
 <!-- FEEDBACK & RATINGS -->
 <section class="section section-alt" id="feedback">
   <div class="container">
-    <p class="section-eyebrow">10 / FEEDBACK</p>
+    <p class="section-eyebrow">11 / FEEDBACK</p>
     <h2 class="section-title">Tell Me What You <span class="gradient-text">Think.</span></h2>
     <p class="section-sub">Visited my portfolio? Leave a quick rating and a note — it helps me improve.</p>
 
@@ -608,7 +648,7 @@
 <!-- CONTACT -->
 <section class="section" id="contact">
   <div class="container">
-    <p class="section-eyebrow">09 / CONTACT</p>
+    <p class="section-eyebrow">12 / CONTACT</p>
     <h2 class="section-title">Let's Build Something <span class="gradient-text">Intelligent.</span></h2>
     <p class="section-sub">Have an opportunity, idea, collaboration or interesting problem? Let's talk.</p>
 
@@ -672,78 +712,83 @@
   </div>
 </footer>
 
-<!-- BITTU CHAT ASSISTANT -->
-<button id="bittuFab" class="bittu-fab" aria-label="Chat with Bittu">
-  <span class="bittu-avatar" id="bittuAvatarFab">
-    <svg viewBox="0 0 100 100" class="bittu-svg">
+<!-- ROMEO CHAT WIDGET (interface to Juliet AI) -->
+<button id="romeoFab" class="romeo-fab" aria-label="Chat with Romeo">
+  <span class="romeo-avatar" id="romeoAvatarFab">
+    <svg viewBox="0 0 100 100" class="romeo-svg">
       <defs>
-        <linearGradient id="bittuGradHead" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="romeoGradHead" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/>
         </linearGradient>
-        <linearGradient id="bittuGradEar" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="romeoGradEar" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/>
         </linearGradient>
       </defs>
-      <ellipse class="bittu-ear bittu-ear-left" cx="24" cy="38" rx="14" ry="20" transform="rotate(-25 24 38)" fill="url(#bittuGradEar)"/>
-      <ellipse class="bittu-ear bittu-ear-right" cx="76" cy="38" rx="14" ry="20" transform="rotate(25 76 38)" fill="url(#bittuGradEar)"/>
-      <circle cx="50" cy="52" r="30" fill="url(#bittuGradHead)"/>
+      <ellipse class="romeo-ear romeo-ear-left" cx="24" cy="38" rx="14" ry="20" transform="rotate(-25 24 38)" fill="url(#romeoGradEar)"/>
+      <ellipse class="romeo-ear romeo-ear-right" cx="76" cy="38" rx="14" ry="20" transform="rotate(25 76 38)" fill="url(#romeoGradEar)"/>
+      <circle cx="50" cy="52" r="30" fill="url(#romeoGradHead)"/>
       <ellipse cx="50" cy="64" rx="16" ry="12" fill="#fff" opacity="0.92"/>
-      <g class="bittu-eyes">
-        <ellipse class="bittu-eye" cx="38" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
-        <ellipse class="bittu-eye" cx="62" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
+      <g class="romeo-eyes">
+        <ellipse class="romeo-eye" cx="38" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
+        <ellipse class="romeo-eye" cx="62" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
         <circle cx="39.3" cy="46.3" r="1.2" fill="#fff"/>
         <circle cx="63.3" cy="46.3" r="1.2" fill="#fff"/>
       </g>
       <ellipse cx="50" cy="60" rx="4" ry="3" fill="#1a1a2e"/>
       <path d="M50 63 Q50 68 44 69 M50 63 Q50 68 56 69" stroke="#1a1a2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-      <path class="bittu-tongue" d="M47 68 Q50 76 53 68 Q50 71 47 68Z" fill="#ff6b9d"/>
+      <path class="romeo-tongue" d="M47 68 Q50 76 53 68 Q50 71 47 68Z" fill="#ff6b9d"/>
     </svg>
   </span>
-  <span class="bittu-fab-label">Ask Bittu</span>
+  <span class="romeo-fab-label">Ask Romeo</span>
 </button>
 
-<div id="bittuPanel" class="bittu-panel">
-  <div class="bittu-panel-header">
-    <span class="bittu-avatar bittu-avatar-sm" id="bittuAvatarFace">
-      <svg viewBox="0 0 100 100" class="bittu-svg">
-        <ellipse class="bittu-ear bittu-ear-left" cx="24" cy="38" rx="14" ry="20" transform="rotate(-25 24 38)" fill="url(#bittuGradEar)"/>
-        <ellipse class="bittu-ear bittu-ear-right" cx="76" cy="38" rx="14" ry="20" transform="rotate(25 76 38)" fill="url(#bittuGradEar)"/>
-        <circle cx="50" cy="52" r="30" fill="url(#bittuGradHead)"/>
+<div id="romeoPanel" class="romeo-panel">
+  <div class="romeo-panel-header">
+    <span class="romeo-avatar romeo-avatar-sm" id="romeoAvatarFace">
+      <svg viewBox="0 0 100 100" class="romeo-svg">
+        <ellipse class="romeo-ear romeo-ear-left" cx="24" cy="38" rx="14" ry="20" transform="rotate(-25 24 38)" fill="url(#romeoGradEar)"/>
+        <ellipse class="romeo-ear romeo-ear-right" cx="76" cy="38" rx="14" ry="20" transform="rotate(25 76 38)" fill="url(#romeoGradEar)"/>
+        <circle cx="50" cy="52" r="30" fill="url(#romeoGradHead)"/>
         <ellipse cx="50" cy="64" rx="16" ry="12" fill="#fff" opacity="0.92"/>
-        <g class="bittu-eyes">
-          <ellipse class="bittu-eye" cx="38" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
-          <ellipse class="bittu-eye" cx="62" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
+        <g class="romeo-eyes">
+          <ellipse class="romeo-eye" cx="38" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
+          <ellipse class="romeo-eye" cx="62" cy="48" rx="4" ry="5" fill="#1a1a2e"/>
           <circle cx="39.3" cy="46.3" r="1.2" fill="#fff"/>
           <circle cx="63.3" cy="46.3" r="1.2" fill="#fff"/>
         </g>
         <ellipse cx="50" cy="60" rx="4" ry="3" fill="#1a1a2e"/>
         <path d="M50 63 Q50 68 44 69 M50 63 Q50 68 56 69" stroke="#1a1a2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <path class="bittu-tongue" d="M47 68 Q50 76 53 68 Q50 71 47 68Z" fill="#ff6b9d"/>
+        <path class="romeo-tongue" d="M47 68 Q50 76 53 68 Q50 71 47 68Z" fill="#ff6b9d"/>
       </svg>
     </span>
     <div>
-      <p class="bittu-title">Bittu</p>
-      <p class="bittu-subtitle">Ask about Manideep's work</p>
+      <p class="romeo-title">Romeo</p>
+      <p class="romeo-subtitle">Powered by Juliet AI</p>
     </div>
-    <button id="bittuClose" class="bittu-close" aria-label="Close chat">✕</button>
+    <button id="romeoClose" class="romeo-close" aria-label="Close chat">✕</button>
   </div>
 
-  <div class="bittu-log" id="bittuLog"></div>
+  <div class="romeo-log" id="romeoLog"></div>
 
-  <div class="bittu-suggestions" id="bittuSuggestions"></div>
+  <div class="romeo-suggestions" id="romeoSuggestions"></div>
 
-  <form class="bittu-form" id="bittuForm">
-    <input type="text" id="bittuInput" placeholder="Ask Bittu something…" autocomplete="off">
-    <button type="submit" class="bittu-send" aria-label="Send">→</button>
+  <form class="romeo-form" id="romeoForm">
+    <input type="text" id="romeoInput" placeholder="Ask Romeo something…" autocomplete="off">
+    <button type="submit" class="romeo-send" aria-label="Send">→</button>
   </form>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<script src="markdown-render.js"></script>
 <script src="content-schema.js"></script>
 <script src="icons-3d.js"></script>
 <script src="content-loader.js"></script>
 <script src="feedback.js"></script>
 <script src="script.js"></script>
-<script src="bittu-knowledge.js"></script>
-<script src="bittu.js"></script>
+<script src="juliet-knowledge.js"></script>
+<script src="juliet-client.js"></script>
+<script src="juliet-section.js"></script>
+<script src="romeo.js"></script>
 </body>
 </html>

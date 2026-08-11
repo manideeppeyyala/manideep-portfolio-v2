@@ -1,10 +1,10 @@
-// Bittu's knowledge layer: builds a plain-text knowledge base strictly from
-// window.DEFAULT_CONTENT (the same data the site itself renders from — real
-// resume/portfolio content, live-merged with admin edits by content-loader.js).
-// Bittu is never allowed to say anything about Manideep that isn't derived
-// from this object — see bittu.js for the matching/response logic.
+// The shared knowledge layer for Juliet (the AI model) and Romeo (its chat
+// interface). Built strictly from window.DEFAULT_CONTENT — the same data the
+// site itself renders from, live-merged with admin edits by content-loader.js.
+// Neither Juliet nor Romeo is allowed to state anything about Manideep that
+// isn't derived from this object.
 
-function buildBittuKnowledge() {
+function buildPortfolioKnowledge() {
   const d = window.DEFAULT_CONTENT;
   if (!d) return null;
 
@@ -39,4 +39,26 @@ function buildBittuKnowledge() {
   };
 }
 
-window.getBittuKnowledge = buildBittuKnowledge;
+// A single text block Juliet's system prompt embeds as ground-truth context.
+function buildPortfolioContextText() {
+  const k = buildPortfolioKnowledge();
+  if (!k) return "";
+  return [
+    `Name: ${k.name}`,
+    `Current roles: ${k.roles}`,
+    `About: ${k.aboutBio}`,
+    `Currently exploring: ${k.exploring}`,
+    `Skills:\n${k.skillsList}`,
+    `Experience:\n${k.expList}`,
+    `Projects:\n${k.projList}`,
+    `Certifications:\n${k.certList}`,
+    `Education: ${k.educationLine} Academic projects: ${k.educationProjects}`,
+    `Published research: ${k.researchTitle} — ${k.researchDesc}`,
+    `Contact: ${k.contactEmail}, ${k.contactPhone}, based in ${k.contactLocation}`,
+    `Social platforms:\n${k.socialList}`,
+    `Current social stats:\n${k.statsList}`
+  ].join("\n\n");
+}
+
+window.getPortfolioKnowledge = buildPortfolioKnowledge;
+window.getPortfolioContextText = buildPortfolioContextText;

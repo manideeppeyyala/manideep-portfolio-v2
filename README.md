@@ -30,7 +30,8 @@ and a from-scratch backend.
 - **Social Analytics section** — YouTube subscribers and GitHub followers update automatically via free public APIs; Instagram/Facebook are admin-editable (no free live API exists for personal accounts on those platforms). Every stat also has an admin-set manual value shown immediately and used as a graceful fallback if a live fetch fails.
 - **3D icon system across every section** — Skills, Projects, Certifications, Experience, and Education each get a floating, rotating 3D badge icon (tech-accurate: Python, database, AI, briefcase, graduation cap, etc.), all cursor-tilt interactive
 - **Magnetic buttons** — every CTA leans gently toward the cursor as it approaches, not just on direct hover
-- **Bittu — the portfolio chat assistant** — a persistent side popup with a 3D animated dog avatar (idle bob, ear wiggle, blinking eyes). Answers questions about experience, skills, projects, education, certifications, and socials using a knowledge layer built strictly from real portfolio content — never invents facts, and says so plainly when something's outside its knowledge. Ships with a fast local matching engine (free, zero setup) and a documented extension point for a real AI API later.
+- **Juliet — a real AI model embedded in the site** — powered by Google Gemini through a secure serverless proxy (`api/juliet-chat.js`); the API key never reaches the browser. Answers general and technical questions, writes and debugs code, holds multi-turn conversations, and answers questions about this portfolio grounded strictly in real content (see `juliet-knowledge.js`) — she says so plainly when something's outside her knowledge or needs real-time information she doesn't have, rather than guessing. Try her directly in the **"Meet Juliet"** section, or as a featured project.
+- **Romeo — Juliet's chat interface** — a persistent side popup with a 3D animated dog avatar (idle bob, ear wiggle, blinking eyes). Routes every message to Juliet; if she isn't configured yet or a request fails, Romeo automatically and transparently falls back to a local, portfolio-grounded knowledge engine (clearly labeled "local knowledge" in the UI) so the widget never fakes a response or breaks.
 - **Overview dashboard** — page view count, feedback count, and average rating at a glance
 - **Zero-cost backend** — content, feedback, and stats are plain JSON files committed to this repo. Reads/writes go through small Vercel serverless functions (`/api`) using the GitHub Contents API — no database, no Firebase, no card ever required, and every change is a versioned git commit
 
@@ -58,11 +59,19 @@ portfolio-website/
 ├── content-loader.js      # Renders public site from content-schema / live API
 ├── feedback.js            # Feedback form + testimonials + rating widget
 ├── admin.js               # Admin dashboard logic (auth, forms, save/load)
+├── icons-3d.js            # 3D icon SVG library (social + tech/section icons)
+├── juliet-knowledge.js    # Portfolio knowledge base, built from content-schema.js
+├── juliet-client.js       # Shared client: askJuliet() — calls the real backend
+├── juliet-section.js      # "Meet Juliet" dedicated section UI logic
+├── romeo.js               # Romeo chat widget (Juliet + local knowledge fallback)
+├── markdown-render.js     # Safe Markdown rendering + copy-to-clipboard for code
 ├── api/
 │   ├── content.js         # GET live content / POST admin-only section updates
 │   ├── feedback.js        # GET all feedback / POST public submission / DELETE admin-only
 │   ├── login.js            # POST password check
-│   └── pageview.js        # GET/POST page view counter
+│   ├── pageview.js        # GET/POST page view counter
+│   ├── youtube-stats.js   # GET live YouTube subscriber count
+│   └── juliet-chat.js     # POST to Juliet (Gemini) — the real AI backend
 ├── lib/github.js          # Shared helper: read/write JSON files via the GitHub API
 ├── data/                  # content.json, feedback.json, stats.json — the "database"
 ├── vercel.json             # Deployment headers/config
