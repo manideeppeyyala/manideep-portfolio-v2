@@ -108,6 +108,8 @@ async function julietHandleSend(text) {
       julietAddError("Juliet isn't activated yet — the site owner needs to add a GEMINI_API_KEY (see SETUP.md). Nothing fake to show here — that's the honest status.");
     } else if (result.code === "RATE_LIMITED") {
       julietAddError("Juliet is getting a lot of questions right now — try again in a moment.");
+    } else if (result.code === "MODEL_OVERLOADED") {
+      julietAddError("The AI model is experiencing high demand right now (this happens on the free tier at peak times) — try again in a moment.");
     } else {
       julietAddError(`Something went wrong reaching Juliet (${result.error || "unknown error"}). Try again in a moment.`);
     }

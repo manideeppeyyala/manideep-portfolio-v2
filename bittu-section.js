@@ -115,6 +115,8 @@ async function bittuHandleChatSend(text) {
       bittuAddError("Bittu's chat isn't activated yet — GEMINI_API_KEY isn't configured (see SETUP.md).");
     } else if (result.code === "RATE_LIMITED") {
       bittuAddError("Bittu's getting a lot of questions right now — try again in a moment.");
+    } else if (result.code === "MODEL_OVERLOADED") {
+      bittuAddError("The AI model is experiencing high demand right now (this happens on the free tier at peak times) — try again in a moment.");
     } else {
       bittuAddError(`Something went wrong (${result.error || "unknown error"}). Try again.`);
     }
