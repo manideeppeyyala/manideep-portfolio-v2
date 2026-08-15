@@ -28,6 +28,6 @@ module.exports = async (req, res) => {
     temperature: 0.85
   });
 
-  if (!result.ok) return res.status(result.status).json({ error: result.error, code: result.code });
+  if (!result.ok) return res.status(result.status).json({ error: result.error, code: result.code, debugStatus: result.debugStatus, debugBody: result.debugBody });
   return res.status(200).json({ reply: result.reply });
 };
