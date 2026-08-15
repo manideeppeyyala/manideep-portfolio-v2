@@ -101,7 +101,7 @@ and point `api/juliet-chat.js` / `api/bittu-chat.js` at it), keeping the same
 `{ reply }` response shape — nothing in `romeo.js`, `juliet-section.js`, or
 `bittu-section.js` needs to change.
 
-## 7. Bittu (creative AI: chat, image, video)
+## 7. Bittu (creative AI: chat + image)
 
 Bittu's **chat** uses the exact same `GEMINI_API_KEY` from step 6 above — no
 separate setup. If Juliet is activated, Bittu's chat is too.
@@ -111,14 +111,12 @@ Bittu's **image generation** needs *zero* setup — it uses
 verified working directly before this was wired up. It works immediately,
 even before you add a Gemini key.
 
-Bittu's **video generation** is honestly not connected — no free,
-production-viable video-generation API exists right now (every real option
-is paid). The Video tab always shows this plainly, with a suggested
-alternative, rather than faking a result. If that changes and you want to
-wire one up: implement the real provider call in `api/bittu-video.js`
-(follow the pattern in `api/bittu-image.js`) and flip `available` to `true`
-— `bittu-section.js` already renders whatever that endpoint returns, so no
-frontend changes are needed.
+## 8. Editing the "Meet Juliet" and "Meet Bittu" sections
+
+The intro text and capability tags for both AI sections are admin-editable
+just like every other section — go to `/admin.html` → **Meet Juliet Section**
+or **Meet Bittu Section** tab, edit, and Save. Changes go live within
+seconds, same as everything else in the admin panel.
 
 ## How it works (no database needed)
 

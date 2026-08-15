@@ -188,5 +188,15 @@ window.DEFAULT_CONTENT = {
 
   footer: {
     tagline: "SmartComm Developer | AI & Data Engineer | Creator"
+  },
+
+  julietSection: {
+    intro: "A real AI system, not a demo — try it below. Juliet answers general and technical questions, writes and debugs code, and knows this portfolio in detail. She's honest about her limits: no live internet access, and she won't guess at personal facts she isn't sure of.",
+    tags: ["Code", "Q&A", "Portfolio Knowledge", "Content Generation", "Problem Solving", "Real-Time Info (when connected)"]
+  },
+
+  bittuSection: {
+    intro: "Bittu is the playful, creative member of the AI trio — general conversation, brainstorming and content generation, plus real image generation. Nothing here fakes a result: if a capability isn't connected, Bittu says so and offers what he can actually do instead.",
+    tags: ["General Q&A", "Creative Writing", "Brainstorming", "Image Generation"]
   }
 };

@@ -1,8 +1,7 @@
 // Logic for the dedicated "Meet Bittu" section: tab switching between
-// Chat / Image / Video, plus each pane's own state machine. Like the Juliet
-// section, this never fakes a result — Image shows real generations from a
-// verified free provider, and Video shows an honest "not connected" status
-// pulled live from /api/bittu-video rather than a hardcoded claim.
+// Chat / Image, plus each pane's own state machine. Like the Juliet section,
+// this never fakes a result — Image shows real generations from a verified
+// free provider (Pollinations.ai).
 
 const BITTU_SUGGESTIONS = [
   "Give me 5 taglines for a tech portfolio",
@@ -23,7 +22,7 @@ async function checkBittuStatus() {
     const data = await res.json();
     if (data.configured) {
       dot.className = "bittu-status-dot online";
-      text.textContent = "Bittu is online — chat is live, image generation is live, video is honestly not yet available.";
+      text.textContent = "Bittu is online — chat and image generation are both live.";
     } else {
       dot.className = "bittu-status-dot offline";
       text.textContent = "Bittu's chat isn't activated yet — the site owner needs to add GEMINI_API_KEY (see SETUP.md). Image generation works either way (no key needed).";
@@ -180,35 +179,11 @@ async function bittuGenerateImage(prompt) {
   }
 }
 
-/* ---------- Video pane (honest unavailable state) ---------- */
-
-async function bittuCheckVideo(promptTyped) {
-  const result = document.getElementById("bittuVideoResult");
-  result.innerHTML = `<div class="bittu-loading"><span class="bittu-spinner"></span> Checking video generation…</div>`;
-  try {
-    const res = await fetch("/api/bittu-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: promptTyped || "" }) });
-    const data = await res.json();
-    if (data.available) {
-      result.innerHTML = `<p class="bittu-image-placeholder">Video generation is live — this build hasn't wired the result UI for it yet.</p>`;
-    } else {
-      result.innerHTML = `
-        <div class="bittu-unavailable">
-          <p class="bittu-unavailable-title">🎬 Video generation isn't connected yet</p>
-          <p>${data.reason}</p>
-          <p class="bittu-unavailable-alt">${data.alternative}</p>
-        </div>`;
-    }
-  } catch (err) {
-    result.innerHTML = `<p class="bittu-image-placeholder error">Couldn't reach the video service right now.</p>`;
-  }
-}
-
 /* ---------- Init ---------- */
 
 function initBittuSection() {
   const chatForm = document.getElementById("bittuChatForm");
   const imageForm = document.getElementById("bittuImageForm");
-  const videoForm = document.getElementById("bittuVideoForm");
   const suggestions = document.getElementById("bittuSuggestions");
 
   if (!chatForm) return;
@@ -237,14 +212,7 @@ function initBittuSection() {
     bittuGenerateImage(input.value);
   });
 
-  videoForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const input = document.getElementById("bittuVideoInput");
-    bittuCheckVideo(input.value);
-  });
-
   checkBittuStatus();
-  bittuCheckVideo(""); // show the honest video status immediately, not just on submit
 }
 
 document.addEventListener("DOMContentLoaded", initBittuSection);

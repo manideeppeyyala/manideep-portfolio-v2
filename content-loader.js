@@ -279,6 +279,22 @@ function renderFooter(f) {
   if (tagline) tagline.textContent = f.tagline;
 }
 
+function renderJulietSection(j) {
+  if (!j) return;
+  const intro = document.getElementById("julietIntro");
+  if (intro) intro.textContent = j.intro;
+  const tags = document.getElementById("julietTags");
+  if (tags) tags.innerHTML = tagRow(j.tags);
+}
+
+function renderBittuSection(b) {
+  if (!b) return;
+  const intro = document.getElementById("bittuIntro");
+  if (intro) intro.textContent = b.intro;
+  const tags = document.getElementById("bittuTags");
+  if (tags) tags.innerHTML = tagRow(b.tags);
+}
+
 function renderAll(content) {
   renderHero(content.hero);
   renderAbout(content.about);
@@ -290,6 +306,8 @@ function renderAll(content) {
   renderEducation(content.education);
   renderContentSection(content.content);
   renderSocialStats(content.socialStats);
+  renderJulietSection(content.julietSection);
+  renderBittuSection(content.bittuSection);
   renderContact(content.contact);
   renderFooter(content.footer);
   window.dispatchEvent(new CustomEvent("content-rendered"));

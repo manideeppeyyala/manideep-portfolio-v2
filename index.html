@@ -566,9 +566,9 @@
   <div class="container">
     <p class="section-eyebrow">10 / AI MODEL</p>
     <h2 class="section-title">Meet Juliet — <span class="gradient-text">My AI Model.</span></h2>
-    <p class="section-sub">A real AI system, not a demo — try it below. Juliet answers general and technical questions, writes and debugs code, and knows this portfolio in detail. She's honest about her limits: no live internet access, and she won't guess at personal facts she isn't sure of.</p>
+    <p class="section-sub" id="julietIntro">A real AI system, not a demo — try it below. Juliet answers general and technical questions, writes and debugs code, and knows this portfolio in detail. She's honest about her limits: no live internet access, and she won't guess at personal facts she isn't sure of.</p>
 
-    <div class="tag-row" style="margin-bottom:32px;">
+    <div class="tag-row" id="julietTags" style="margin-bottom:32px;">
       <span class="tag">Code</span>
       <span class="tag">Q&amp;A</span>
       <span class="tag">Portfolio Knowledge</span>
@@ -582,38 +582,39 @@
         <span class="juliet-avatar juliet-avatar-sm" id="julietAvatarHeader">
           <svg viewBox="0 0 100 100" class="juliet-svg">
             <defs>
-              <radialGradient id="julietFaceGrad" cx="42%" cy="34%" r="72%">
-                <stop offset="0%" stop-color="#fdf0f4"/><stop offset="55%" stop-color="#f7c9d9"/><stop offset="100%" stop-color="#e0708f"/>
+              <radialGradient id="julietFaceGrad" cx="40%" cy="30%" r="78%">
+                <stop offset="0%" stop-color="#fffbfb"/><stop offset="60%" stop-color="#ffe3e8"/><stop offset="100%" stop-color="#f5b8c4"/>
               </radialGradient>
-              <radialGradient id="julietEarGrad" cx="35%" cy="28%" r="80%">
-                <stop offset="0%" stop-color="#5a3a44"/><stop offset="100%" stop-color="#2a1a20"/>
+              <radialGradient id="julietEarGrad" cx="35%" cy="26%" r="82%">
+                <stop offset="0%" stop-color="#5a2530"/><stop offset="100%" stop-color="#180a0d"/>
               </radialGradient>
             </defs>
-            <circle class="juliet-ear juliet-ear-left" cx="25" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
-            <circle class="juliet-ear juliet-ear-right" cx="75" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
-            <circle cx="50" cy="55" r="32" fill="url(#julietFaceGrad)"/>
-            <ellipse cx="38" cy="40" rx="11" ry="7" fill="#fff" opacity="0.35"/>
-            <ellipse cx="34" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(-10 34 51)"/>
-            <ellipse cx="66" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(10 66 51)"/>
-            <circle class="juliet-blush" cx="27" cy="61" r="6" fill="#e0708f" opacity="0.35"/>
-            <circle class="juliet-blush" cx="73" cy="61" r="6" fill="#e0708f" opacity="0.35"/>
+            <circle class="juliet-ear juliet-ear-left" cx="24" cy="19" r="12.5" fill="url(#julietEarGrad)"/>
+            <circle class="juliet-ear juliet-ear-right" cx="76" cy="19" r="12.5" fill="url(#julietEarGrad)"/>
+            <ellipse cx="50" cy="56" rx="33" ry="31" fill="url(#julietFaceGrad)"/>
+            <ellipse cx="37" cy="39" rx="12" ry="7" fill="#fff" opacity="0.4"/>
+            <ellipse cx="33" cy="49" rx="11.5" ry="16" fill="url(#julietEarGrad)" transform="rotate(-16 33 49)"/>
+            <ellipse cx="67" cy="49" rx="11.5" ry="16" fill="url(#julietEarGrad)" transform="rotate(16 67 49)"/>
+            <ellipse cx="50" cy="70" rx="18.5" ry="14" fill="#fffbfb"/>
+            <circle class="juliet-blush" cx="25" cy="66" r="6.5" fill="#f0405a" opacity="0.3"/>
+            <circle class="juliet-blush" cx="75" cy="66" r="6.5" fill="#f0405a" opacity="0.3"/>
             <g class="juliet-eye">
-              <ellipse cx="35" cy="49" rx="4.4" ry="5" fill="#2a1a20"/>
-              <circle cx="36.2" cy="47.2" r="1.5" fill="#fff"/>
+              <circle cx="34.5" cy="48.5" r="3.8" fill="#fff"/>
+              <circle cx="35.4" cy="49.3" r="2.5" fill="#180a0d"/>
+              <circle cx="34.4" cy="47.6" r="0.9" fill="#fff"/>
             </g>
             <g class="juliet-eye">
-              <ellipse cx="65" cy="49" rx="4.4" ry="5" fill="#2a1a20"/>
-              <circle cx="66.2" cy="47.2" r="1.5" fill="#fff"/>
+              <circle cx="65.5" cy="48.5" r="3.8" fill="#fff"/>
+              <circle cx="64.6" cy="49.3" r="2.5" fill="#180a0d"/>
+              <circle cx="65.6" cy="47.6" r="0.9" fill="#fff"/>
             </g>
-            <path d="M29 44.5 Q35 41.5 41 43.5" stroke="#2a1a20" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
-            <path d="M59 43.5 Q65 41.5 71 44.5" stroke="#2a1a20" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
-            <ellipse cx="50" cy="60.5" rx="3.4" ry="2.4" fill="#2a1a20"/>
-            <path class="juliet-mouth" d="M42 68.5 Q50 73 58 68.5" stroke="#7a2048" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <g class="juliet-sparkle juliet-sparkle-1" transform="translate(81 26)">
-              <path d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" fill="#f0b429"/>
+            <ellipse cx="50" cy="63.5" rx="4.4" ry="3.1" fill="#180a0d"/>
+            <path class="juliet-mouth" d="M39 71 Q50 80 61 71" stroke="#b8123f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <g class="juliet-sparkle juliet-sparkle-1" transform="translate(81 24)">
+              <path d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" fill="#ffcf6b"/>
             </g>
-            <g class="juliet-sparkle juliet-sparkle-2" transform="translate(14 66)">
-              <path d="M0 -4 L1.1 -1.1 L4 0 L1.1 1.1 L0 4 L-1.1 1.1 L-4 0 L-1.1 -1.1 Z" fill="#f0b429"/>
+            <g class="juliet-sparkle juliet-sparkle-2" transform="translate(13 68)">
+              <path d="M0 -4 L1.1 -1.1 L4 0 L1.1 1.1 L0 4 L-1.1 1.1 L-4 0 L-1.1 -1.1 Z" fill="#ffcf6b"/>
             </g>
           </svg>
         </span>
@@ -627,28 +628,29 @@
         <div class="juliet-empty-state" id="julietEmptyState">
           <span class="juliet-avatar" style="margin:0 auto 16px;">
             <svg viewBox="0 0 100 100" class="juliet-svg">
-              <circle class="juliet-ear juliet-ear-left" cx="25" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
-              <circle class="juliet-ear juliet-ear-right" cx="75" cy="21" r="13.5" fill="url(#julietEarGrad)"/>
-              <circle cx="50" cy="55" r="32" fill="url(#julietFaceGrad)"/>
-              <ellipse cx="38" cy="40" rx="11" ry="7" fill="#fff" opacity="0.35"/>
-              <ellipse cx="34" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(-10 34 51)"/>
-              <ellipse cx="66" cy="51" rx="10.5" ry="13" fill="url(#julietEarGrad)" transform="rotate(10 66 51)"/>
-              <circle class="juliet-blush" cx="27" cy="61" r="6" fill="#e0708f" opacity="0.35"/>
-              <circle class="juliet-blush" cx="73" cy="61" r="6" fill="#e0708f" opacity="0.35"/>
+              <circle class="juliet-ear juliet-ear-left" cx="24" cy="19" r="12.5" fill="url(#julietEarGrad)"/>
+              <circle class="juliet-ear juliet-ear-right" cx="76" cy="19" r="12.5" fill="url(#julietEarGrad)"/>
+              <ellipse cx="50" cy="56" rx="33" ry="31" fill="url(#julietFaceGrad)"/>
+              <ellipse cx="37" cy="39" rx="12" ry="7" fill="#fff" opacity="0.4"/>
+              <ellipse cx="33" cy="49" rx="11.5" ry="16" fill="url(#julietEarGrad)" transform="rotate(-16 33 49)"/>
+              <ellipse cx="67" cy="49" rx="11.5" ry="16" fill="url(#julietEarGrad)" transform="rotate(16 67 49)"/>
+              <ellipse cx="50" cy="70" rx="18.5" ry="14" fill="#fffbfb"/>
+              <circle class="juliet-blush" cx="25" cy="66" r="6.5" fill="#f0405a" opacity="0.3"/>
+              <circle class="juliet-blush" cx="75" cy="66" r="6.5" fill="#f0405a" opacity="0.3"/>
               <g class="juliet-eye">
-                <ellipse cx="35" cy="49" rx="4.4" ry="5" fill="#2a1a20"/>
-                <circle cx="36.2" cy="47.2" r="1.5" fill="#fff"/>
+                <circle cx="34.5" cy="48.5" r="3.8" fill="#fff"/>
+                <circle cx="35.4" cy="49.3" r="2.5" fill="#180a0d"/>
+                <circle cx="34.4" cy="47.6" r="0.9" fill="#fff"/>
               </g>
               <g class="juliet-eye">
-                <ellipse cx="65" cy="49" rx="4.4" ry="5" fill="#2a1a20"/>
-                <circle cx="66.2" cy="47.2" r="1.5" fill="#fff"/>
+                <circle cx="65.5" cy="48.5" r="3.8" fill="#fff"/>
+                <circle cx="64.6" cy="49.3" r="2.5" fill="#180a0d"/>
+                <circle cx="65.6" cy="47.6" r="0.9" fill="#fff"/>
               </g>
-              <path d="M29 44.5 Q35 41.5 41 43.5" stroke="#2a1a20" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
-              <path d="M59 43.5 Q65 41.5 71 44.5" stroke="#2a1a20" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
-              <ellipse cx="50" cy="60.5" rx="3.4" ry="2.4" fill="#2a1a20"/>
-              <path class="juliet-mouth" d="M42 68.5 Q50 73 58 68.5" stroke="#7a2048" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <g class="juliet-sparkle juliet-sparkle-1" transform="translate(81 26)">
-                <path d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" fill="#f0b429"/>
+              <ellipse cx="50" cy="63.5" rx="4.4" ry="3.1" fill="#180a0d"/>
+              <path class="juliet-mouth" d="M39 71 Q50 80 61 71" stroke="#b8123f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <g class="juliet-sparkle juliet-sparkle-1" transform="translate(81 24)">
+                <path d="M0 -6 L1.7 -1.7 L6 0 L1.7 1.7 L0 6 L-1.7 1.7 L-6 0 L-1.7 -1.7 Z" fill="#ffcf6b"/>
               </g>
             </svg>
           </span>
@@ -671,14 +673,13 @@
   <div class="container">
     <p class="section-eyebrow">11 / CREATIVE AI</p>
     <h2 class="section-title">Meet Bittu — <span class="gradient-text">Creative Multimodal AI.</span></h2>
-    <p class="section-sub">Bittu is the playful, creative member of the AI trio — general conversation, brainstorming and content generation, plus real (and honestly-labeled) image and video tools. Nothing here fakes a result: if a capability isn't connected, Bittu says so and offers what he can actually do instead.</p>
+    <p class="section-sub" id="bittuIntro">Bittu is the playful, creative member of the AI trio — general conversation, brainstorming and content generation, plus real image generation. Nothing here fakes a result: if a capability isn't connected, Bittu says so and offers what he can actually do instead.</p>
 
-    <div class="tag-row" style="margin-bottom:32px;">
+    <div class="tag-row" id="bittuTags" style="margin-bottom:32px;">
       <span class="tag">General Q&amp;A</span>
       <span class="tag">Creative Writing</span>
       <span class="tag">Brainstorming</span>
       <span class="tag">Image Generation</span>
-      <span class="tag">Video Workflow (in progress)</span>
     </div>
 
     <div class="bittu-console">
@@ -686,35 +687,38 @@
         <span class="bittu-avatar bittu-avatar-sm" id="bittuAvatarHeader">
           <svg viewBox="0 0 100 100" class="bittu-svg">
             <defs>
-              <radialGradient id="bittuGradHead" cx="38%" cy="30%" r="78%">
-                <stop offset="0%" stop-color="#ffe4ad"/><stop offset="55%" stop-color="#f0a860"/><stop offset="100%" stop-color="#d9633f"/>
+              <radialGradient id="bittuFaceGrad" cx="40%" cy="30%" r="78%">
+                <stop offset="0%" stop-color="#fffaf5"/><stop offset="60%" stop-color="#ffe8d2"/><stop offset="100%" stop-color="#f0bd94"/>
               </radialGradient>
-              <linearGradient id="bittuGradEar" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#ffcf6b"/><stop offset="100%" stop-color="#e8734a"/>
-              </linearGradient>
+              <radialGradient id="bittuEarGrad" cx="35%" cy="26%" r="82%">
+                <stop offset="0%" stop-color="#4a3018"/><stop offset="100%" stop-color="#180f08"/>
+              </radialGradient>
             </defs>
-            <path class="bittu-ear bittu-ear-left" d="M21 37 Q9 21 22 7 Q31 20 27 37 Z" fill="url(#bittuGradEar)"/>
-            <path class="bittu-ear bittu-ear-right" d="M79 37 Q91 21 78 7 Q69 20 73 37 Z" fill="url(#bittuGradEar)"/>
-            <circle cx="50" cy="54" r="31" fill="url(#bittuGradHead)"/>
-            <ellipse cx="38" cy="37" rx="12" ry="8" fill="#fff" opacity="0.3"/>
-            <ellipse cx="50" cy="66" rx="17" ry="13" fill="#fff8ec" opacity="0.95"/>
-            <circle class="bittu-blush" cx="29" cy="62" r="5.5" fill="#e8734a" opacity="0.32"/>
-            <circle class="bittu-blush" cx="71" cy="62" r="5.5" fill="#e8734a" opacity="0.32"/>
+            <circle class="bittu-ear bittu-ear-left" cx="24" cy="19" r="12.5" fill="url(#bittuEarGrad)"/>
+            <circle class="bittu-ear bittu-ear-right" cx="76" cy="19" r="12.5" fill="url(#bittuEarGrad)"/>
+            <ellipse cx="50" cy="56" rx="33" ry="31" fill="url(#bittuFaceGrad)"/>
+            <ellipse cx="37" cy="39" rx="12" ry="7" fill="#fff" opacity="0.4"/>
+            <ellipse cx="33" cy="49" rx="11.5" ry="16" fill="url(#bittuEarGrad)" transform="rotate(-16 33 49)"/>
+            <ellipse cx="67" cy="49" rx="11.5" ry="16" fill="url(#bittuEarGrad)" transform="rotate(16 67 49)"/>
+            <ellipse cx="50" cy="70" rx="18.5" ry="14" fill="#fffaf5"/>
+            <circle class="bittu-blush" cx="25" cy="66" r="6.5" fill="#ff8a5c" opacity="0.32"/>
+            <circle class="bittu-blush" cx="75" cy="66" r="6.5" fill="#ff8a5c" opacity="0.32"/>
             <g class="bittu-eye">
-              <ellipse cx="37" cy="47" rx="4.8" ry="5.3" fill="#4a2f1f"/>
-              <circle cx="38.4" cy="45.2" r="1.6" fill="#fff"/>
+              <circle cx="34.5" cy="48.5" r="3.8" fill="#fff"/>
+              <circle cx="35.4" cy="49.3" r="2.5" fill="#180f08"/>
+              <circle cx="34.4" cy="47.6" r="0.9" fill="#fff"/>
             </g>
             <g class="bittu-eye">
-              <ellipse cx="63" cy="47" rx="4.8" ry="5.3" fill="#4a2f1f"/>
-              <circle cx="64.4" cy="45.2" r="1.6" fill="#fff"/>
+              <circle cx="65.5" cy="48.5" r="3.8" fill="#fff"/>
+              <circle cx="64.6" cy="49.3" r="2.5" fill="#180f08"/>
+              <circle cx="65.6" cy="47.6" r="0.9" fill="#fff"/>
             </g>
-            <ellipse cx="50" cy="60.5" rx="4.2" ry="3.2" fill="#4a2f1f"/>
-            <ellipse cx="48.6" cy="59.4" rx="1" ry="0.7" fill="#fff" opacity="0.6"/>
-            <path class="bittu-mouth" d="M41 70 Q50 75.5 59 70" stroke="#7a3a1f" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="50" cy="63.5" rx="4.4" ry="3.1" fill="#180f08"/>
+            <path class="bittu-mouth" d="M39 71 Q50 80 61 71" stroke="#c94a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
             <g class="bittu-paint">
-              <circle cx="82" cy="30" r="2.3" fill="#f0b429"/>
-              <circle cx="88" cy="36" r="1.9" fill="#e0708f"/>
-              <circle cx="80" cy="39" r="1.6" fill="#e8825a"/>
+              <circle cx="83" cy="29" r="2.4" fill="#ffcf6b"/>
+              <circle cx="89" cy="35" r="2" fill="#f0405a"/>
+              <circle cx="81" cy="38" r="1.7" fill="#ff8a5c"/>
             </g>
           </svg>
         </span>
@@ -727,7 +731,6 @@
       <div class="bittu-tabs" role="tablist">
         <button type="button" class="bittu-tab active" data-tab="chat" role="tab" aria-selected="true">💬 Chat</button>
         <button type="button" class="bittu-tab" data-tab="image" role="tab" aria-selected="false">🎨 Image</button>
-        <button type="button" class="bittu-tab" data-tab="video" role="tab" aria-selected="false">🎬 Video</button>
       </div>
 
       <!-- CHAT PANE -->
@@ -736,28 +739,31 @@
           <div class="bittu-empty-state" id="bittuChatEmpty">
             <span class="bittu-avatar" style="margin:0 auto 16px;">
               <svg viewBox="0 0 100 100" class="bittu-svg">
-                <path class="bittu-ear bittu-ear-left" d="M21 37 Q9 21 22 7 Q31 20 27 37 Z" fill="url(#bittuGradEar)"/>
-                <path class="bittu-ear bittu-ear-right" d="M79 37 Q91 21 78 7 Q69 20 73 37 Z" fill="url(#bittuGradEar)"/>
-                <circle cx="50" cy="54" r="31" fill="url(#bittuGradHead)"/>
-                <ellipse cx="38" cy="37" rx="12" ry="8" fill="#fff" opacity="0.3"/>
-                <ellipse cx="50" cy="66" rx="17" ry="13" fill="#fff8ec" opacity="0.95"/>
-                <circle class="bittu-blush" cx="29" cy="62" r="5.5" fill="#e8734a" opacity="0.32"/>
-                <circle class="bittu-blush" cx="71" cy="62" r="5.5" fill="#e8734a" opacity="0.32"/>
+                <circle class="bittu-ear bittu-ear-left" cx="24" cy="19" r="12.5" fill="url(#bittuEarGrad)"/>
+                <circle class="bittu-ear bittu-ear-right" cx="76" cy="19" r="12.5" fill="url(#bittuEarGrad)"/>
+                <ellipse cx="50" cy="56" rx="33" ry="31" fill="url(#bittuFaceGrad)"/>
+                <ellipse cx="37" cy="39" rx="12" ry="7" fill="#fff" opacity="0.4"/>
+                <ellipse cx="33" cy="49" rx="11.5" ry="16" fill="url(#bittuEarGrad)" transform="rotate(-16 33 49)"/>
+                <ellipse cx="67" cy="49" rx="11.5" ry="16" fill="url(#bittuEarGrad)" transform="rotate(16 67 49)"/>
+                <ellipse cx="50" cy="70" rx="18.5" ry="14" fill="#fffaf5"/>
+                <circle class="bittu-blush" cx="25" cy="66" r="6.5" fill="#ff8a5c" opacity="0.32"/>
+                <circle class="bittu-blush" cx="75" cy="66" r="6.5" fill="#ff8a5c" opacity="0.32"/>
                 <g class="bittu-eye">
-                  <ellipse cx="37" cy="47" rx="4.8" ry="5.3" fill="#4a2f1f"/>
-                  <circle cx="38.4" cy="45.2" r="1.6" fill="#fff"/>
+                  <circle cx="34.5" cy="48.5" r="3.8" fill="#fff"/>
+                  <circle cx="35.4" cy="49.3" r="2.5" fill="#180f08"/>
+                  <circle cx="34.4" cy="47.6" r="0.9" fill="#fff"/>
                 </g>
                 <g class="bittu-eye">
-                  <ellipse cx="63" cy="47" rx="4.8" ry="5.3" fill="#4a2f1f"/>
-                  <circle cx="64.4" cy="45.2" r="1.6" fill="#fff"/>
+                  <circle cx="65.5" cy="48.5" r="3.8" fill="#fff"/>
+                  <circle cx="64.6" cy="49.3" r="2.5" fill="#180f08"/>
+                  <circle cx="65.6" cy="47.6" r="0.9" fill="#fff"/>
                 </g>
-                <ellipse cx="50" cy="60.5" rx="4.2" ry="3.2" fill="#4a2f1f"/>
-                <ellipse cx="48.6" cy="59.4" rx="1" ry="0.7" fill="#fff" opacity="0.6"/>
-                <path class="bittu-mouth" d="M41 70 Q50 75.5 59 70" stroke="#7a3a1f" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <ellipse cx="50" cy="63.5" rx="4.4" ry="3.1" fill="#180f08"/>
+                <path class="bittu-mouth" d="M39 71 Q50 80 61 71" stroke="#c94a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
                 <g class="bittu-paint">
-                  <circle cx="82" cy="30" r="2.3" fill="#f0b429"/>
-                  <circle cx="88" cy="36" r="1.9" fill="#e0708f"/>
-                  <circle cx="80" cy="39" r="1.6" fill="#e8825a"/>
+                  <circle cx="83" cy="29" r="2.4" fill="#ffcf6b"/>
+                  <circle cx="89" cy="35" r="2" fill="#f0405a"/>
+                  <circle cx="81" cy="38" r="1.7" fill="#ff8a5c"/>
                 </g>
               </svg>
             </span>
@@ -781,78 +787,7 @@
           <button type="submit" class="btn btn-gradient bittu-send-btn" id="bittuImageSendBtn">Generate →</button>
         </form>
       </div>
-
-      <!-- VIDEO PANE -->
-      <div class="bittu-pane" id="bittuPaneVideo">
-        <div class="bittu-video-result" id="bittuVideoResult">
-          <p class="bittu-image-placeholder">Checking video generation availability…</p>
-        </div>
-        <form class="bittu-console-form" id="bittuVideoForm">
-          <textarea id="bittuVideoInput" rows="2" placeholder="Describe the video you'd want to create…" maxlength="500"></textarea>
-          <button type="submit" class="btn btn-outline bittu-send-btn" id="bittuVideoSendBtn">Check →</button>
-        </form>
-      </div>
     </div>
-  </div>
-</section>
-
-<!-- AI PROVIDERS DOCS -->
-<section class="section section-alt" id="ai-providers">
-  <div class="container">
-    <p class="section-eyebrow">12 / AI PROVIDERS</p>
-    <h2 class="section-title">What's Actually <span class="gradient-text">Behind This.</span></h2>
-    <p class="section-sub">Every AI capability on this site is backed by a real, currently-verified provider — documented honestly, including what's <em>not</em> available yet. No API keys are ever exposed to the browser; every call to a provider happens server-side in <code>/api</code>.</p>
-
-    <div class="provider-table-wrap">
-      <table class="provider-table">
-        <thead>
-          <tr><th>Provider</th><th>Capability</th><th>Free Tier</th><th>Limits</th><th>Auth</th><th>Used By</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Google Gemini API</td>
-            <td>Text generation, code, conversation</td>
-            <td><span class="provider-status ok">✓ Verified free</span></td>
-            <td>Generous free-tier rate limits; no card required for a key. Limits change over time — current numbers at <a href="https://ai.google.dev/pricing" target="_blank">ai.google.dev/pricing</a>.</td>
-            <td>Server-side API key (<code>GEMINI_API_KEY</code>)</td>
-            <td>Juliet, Bittu (chat)</td>
-          </tr>
-          <tr>
-            <td>Pollinations.ai</td>
-            <td>Image generation</td>
-            <td><span class="provider-status ok">✓ Verified free</span></td>
-            <td>No published hard limit at time of writing; no key, no signup. Best-effort service — not a paid SLA.</td>
-            <td>None required</td>
-            <td>Bittu (image tool)</td>
-          </tr>
-          <tr>
-            <td>—</td>
-            <td>Video generation</td>
-            <td><span class="provider-status unavailable">✕ Not connected</span></td>
-            <td>No production-viable free video-generation API currently exists (Runway/Pika/Luma/Veo etc. are all paid). Bittu's Video tool explains this honestly rather than faking a result.</td>
-            <td>—</td>
-            <td>Bittu (video tool, inactive)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="provider-notes-grid">
-      <div class="provider-note">
-        <h3>Security</h3>
-        <p>All provider keys live only in Vercel environment variables and are read by server-side functions in <code>/api</code>. The browser never sees a key — every request from the frontend hits our own API route first, which then calls the provider.</p>
-      </div>
-      <div class="provider-note">
-        <h3>Fallback Strategy</h3>
-        <p>If Juliet's backend is unreachable, Romeo automatically falls back to a local, portfolio-grounded answer engine instead of breaking. Bittu's Image/Video tools show a clear, honest status instead of a silent failure or a fake result.</p>
-      </div>
-      <div class="provider-note">
-        <h3>Dev vs. Production</h3>
-        <p>Locally (a plain static server, no <code>vercel dev</code>), <code>/api</code> routes aren't available — every AI surface shows its honest "not connected" state. Once deployed on Vercel with the right environment variables set, everything activates automatically.</p>
-      </div>
-    </div>
-
-    <p class="provider-verified-note">Verified by directly testing each provider's live API before wiring it up — see <a href="https://github.com/manideeppeyyala/manideep-s-portfolio" target="_blank">the repo</a> for exact setup steps.</p>
   </div>
 </section>
 
@@ -872,7 +807,7 @@
 <!-- FEEDBACK & RATINGS -->
 <section class="section section-alt" id="feedback">
   <div class="container">
-    <p class="section-eyebrow">13 / FEEDBACK</p>
+    <p class="section-eyebrow">12 / FEEDBACK</p>
     <h2 class="section-title">Tell Me What You <span class="gradient-text">Think.</span></h2>
     <p class="section-sub">Visited my portfolio? Leave a quick rating and a note — it helps me improve.</p>
 
@@ -905,7 +840,7 @@
 <!-- CONTACT -->
 <section class="section" id="contact">
   <div class="container">
-    <p class="section-eyebrow">14 / CONTACT</p>
+    <p class="section-eyebrow">13 / CONTACT</p>
     <h2 class="section-title">Let's Build Something <span class="gradient-text">Intelligent.</span></h2>
     <p class="section-sub">Have an opportunity, idea, collaboration or interesting problem? Let's talk.</p>
 
@@ -974,33 +909,34 @@
   <span class="romeo-avatar" id="romeoAvatarFab">
     <svg viewBox="0 0 100 100" class="romeo-svg">
       <defs>
-        <radialGradient id="romeoGradHead" cx="38%" cy="30%" r="78%">
-          <stop offset="0%" stop-color="#f5f5f5"/><stop offset="55%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#4a4a4a"/>
+        <radialGradient id="romeoFaceGrad" cx="40%" cy="30%" r="78%">
+          <stop offset="0%" stop-color="#ffffff"/><stop offset="60%" stop-color="#f2f2f2"/><stop offset="100%" stop-color="#d4d4d4"/>
         </radialGradient>
-        <linearGradient id="romeoGradEar" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#d4d4d4"/><stop offset="100%" stop-color="#5a5a5a"/>
-        </linearGradient>
+        <radialGradient id="romeoEarGrad" cx="35%" cy="26%" r="82%">
+          <stop offset="0%" stop-color="#4a4a4a"/><stop offset="100%" stop-color="#141414"/>
+        </radialGradient>
       </defs>
-      <ellipse class="romeo-ear romeo-ear-left" cx="21" cy="38" rx="14" ry="19" transform="rotate(-16 21 38)" fill="url(#romeoGradEar)"/>
-      <ellipse class="romeo-ear romeo-ear-right" cx="79" cy="38" rx="14" ry="19" transform="rotate(16 79 38)" fill="url(#romeoGradEar)"/>
-      <circle cx="50" cy="54" r="31" fill="url(#romeoGradHead)"/>
-      <ellipse cx="38" cy="37" rx="12" ry="8" fill="#fff" opacity="0.35"/>
-      <ellipse cx="50" cy="66" rx="17" ry="13" fill="#fafafa" opacity="0.96"/>
-      <circle class="romeo-blush" cx="30" cy="63" r="5" fill="#c9a8a0" opacity="0.22"/>
-      <circle class="romeo-blush" cx="70" cy="63" r="5" fill="#c9a8a0" opacity="0.22"/>
-      <path class="romeo-brow" d="M31 40 Q37 37 43 39.5" stroke="#3a3a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/>
-      <path class="romeo-brow" d="M57 39.5 Q63 37 69 40" stroke="#3a3a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/>
+      <circle class="romeo-ear romeo-ear-left" cx="24" cy="19" r="12.5" fill="url(#romeoEarGrad)"/>
+      <circle class="romeo-ear romeo-ear-right" cx="76" cy="19" r="12.5" fill="url(#romeoEarGrad)"/>
+      <ellipse cx="50" cy="56" rx="33" ry="31" fill="url(#romeoFaceGrad)"/>
+      <ellipse cx="37" cy="39" rx="12" ry="7" fill="#fff" opacity="0.4"/>
+      <ellipse cx="33" cy="49" rx="11.5" ry="16" fill="url(#romeoEarGrad)" transform="rotate(-16 33 49)"/>
+      <ellipse cx="67" cy="49" rx="11.5" ry="16" fill="url(#romeoEarGrad)" transform="rotate(16 67 49)"/>
+      <ellipse cx="50" cy="70" rx="18.5" ry="14" fill="#ffffff"/>
+      <circle class="romeo-blush" cx="25" cy="66" r="6.5" fill="#c9a8a0" opacity="0.2"/>
+      <circle class="romeo-blush" cx="75" cy="66" r="6.5" fill="#c9a8a0" opacity="0.2"/>
       <g class="romeo-eye">
-        <ellipse cx="37" cy="48" rx="4.6" ry="5.2" fill="#2e2e2e"/>
-        <circle cx="38.2" cy="46.2" r="1.5" fill="#fff"/>
+        <circle cx="34.5" cy="48.5" r="3.8" fill="#fff"/>
+        <circle cx="35.4" cy="49.3" r="2.5" fill="#141414"/>
+        <circle cx="34.4" cy="47.6" r="0.9" fill="#fff"/>
       </g>
       <g class="romeo-eye">
-        <ellipse cx="63" cy="48" rx="4.6" ry="5.2" fill="#2e2e2e"/>
-        <circle cx="64.2" cy="46.2" r="1.5" fill="#fff"/>
+        <circle cx="65.5" cy="48.5" r="3.8" fill="#fff"/>
+        <circle cx="64.6" cy="49.3" r="2.5" fill="#141414"/>
+        <circle cx="65.6" cy="47.6" r="0.9" fill="#fff"/>
       </g>
-      <ellipse cx="50" cy="60.5" rx="4" ry="3" fill="#2e2e2e"/>
-      <ellipse cx="48.7" cy="59.5" rx="0.9" ry="0.6" fill="#fff" opacity="0.6"/>
-      <path class="romeo-mouth" d="M42 69.5 Q50 74.5 58 69.5" stroke="#3a3a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="50" cy="63.5" rx="4.4" ry="3.1" fill="#141414"/>
+      <path class="romeo-mouth" d="M39 71 Q50 80 61 71" stroke="#2a2a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
     </svg>
   </span>
   <span class="romeo-fab-label">Ask Romeo</span>
@@ -1010,26 +946,27 @@
   <div class="romeo-panel-header">
     <span class="romeo-avatar romeo-avatar-sm" id="romeoAvatarFace">
       <svg viewBox="0 0 100 100" class="romeo-svg">
-        <ellipse class="romeo-ear romeo-ear-left" cx="21" cy="38" rx="14" ry="19" transform="rotate(-16 21 38)" fill="url(#romeoGradEar)"/>
-        <ellipse class="romeo-ear romeo-ear-right" cx="79" cy="38" rx="14" ry="19" transform="rotate(16 79 38)" fill="url(#romeoGradEar)"/>
-        <circle cx="50" cy="54" r="31" fill="url(#romeoGradHead)"/>
-        <ellipse cx="38" cy="37" rx="12" ry="8" fill="#fff" opacity="0.35"/>
-        <ellipse cx="50" cy="66" rx="17" ry="13" fill="#fafafa" opacity="0.96"/>
-        <circle class="romeo-blush" cx="30" cy="63" r="5" fill="#c9a8a0" opacity="0.22"/>
-        <circle class="romeo-blush" cx="70" cy="63" r="5" fill="#c9a8a0" opacity="0.22"/>
-        <path class="romeo-brow" d="M31 40 Q37 37 43 39.5" stroke="#3a3a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/>
-        <path class="romeo-brow" d="M57 39.5 Q63 37 69 40" stroke="#3a3a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <circle class="romeo-ear romeo-ear-left" cx="24" cy="19" r="12.5" fill="url(#romeoEarGrad)"/>
+        <circle class="romeo-ear romeo-ear-right" cx="76" cy="19" r="12.5" fill="url(#romeoEarGrad)"/>
+        <ellipse cx="50" cy="56" rx="33" ry="31" fill="url(#romeoFaceGrad)"/>
+        <ellipse cx="37" cy="39" rx="12" ry="7" fill="#fff" opacity="0.4"/>
+        <ellipse cx="33" cy="49" rx="11.5" ry="16" fill="url(#romeoEarGrad)" transform="rotate(-16 33 49)"/>
+        <ellipse cx="67" cy="49" rx="11.5" ry="16" fill="url(#romeoEarGrad)" transform="rotate(16 67 49)"/>
+        <ellipse cx="50" cy="70" rx="18.5" ry="14" fill="#ffffff"/>
+        <circle class="romeo-blush" cx="25" cy="66" r="6.5" fill="#c9a8a0" opacity="0.2"/>
+        <circle class="romeo-blush" cx="75" cy="66" r="6.5" fill="#c9a8a0" opacity="0.2"/>
         <g class="romeo-eye">
-          <ellipse cx="37" cy="48" rx="4.6" ry="5.2" fill="#2e2e2e"/>
-          <circle cx="38.2" cy="46.2" r="1.5" fill="#fff"/>
+          <circle cx="34.5" cy="48.5" r="3.8" fill="#fff"/>
+          <circle cx="35.4" cy="49.3" r="2.5" fill="#141414"/>
+          <circle cx="34.4" cy="47.6" r="0.9" fill="#fff"/>
         </g>
         <g class="romeo-eye">
-          <ellipse cx="63" cy="48" rx="4.6" ry="5.2" fill="#2e2e2e"/>
-          <circle cx="64.2" cy="46.2" r="1.5" fill="#fff"/>
+          <circle cx="65.5" cy="48.5" r="3.8" fill="#fff"/>
+          <circle cx="64.6" cy="49.3" r="2.5" fill="#141414"/>
+          <circle cx="65.6" cy="47.6" r="0.9" fill="#fff"/>
         </g>
-        <ellipse cx="50" cy="60.5" rx="4" ry="3" fill="#2e2e2e"/>
-        <ellipse cx="48.7" cy="59.5" rx="0.9" ry="0.6" fill="#fff" opacity="0.6"/>
-        <path class="romeo-mouth" d="M42 69.5 Q50 74.5 58 69.5" stroke="#3a3a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="50" cy="63.5" rx="4.4" ry="3.1" fill="#141414"/>
+        <path class="romeo-mouth" d="M39 71 Q50 80 61 71" stroke="#2a2a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       </svg>
     </span>
     <div>

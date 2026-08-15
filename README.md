@@ -22,15 +22,14 @@ and a from-scratch backend.
 
 ## Features
 
-- **Signature visual identity** — a deliberately non-generic warm palette: deep architectural neutrals, mineral-toned surfaces, and a restrained amber → copper → rose → wine gradient, replacing the typical blue→purple→pink "AI site" look. See [Visual Identity & Color System](#visual-identity--color-system).
+- **Signature visual identity** — a deliberately non-generic, cheery warm-red gradient (coral → red → cherry → rose-red) on deep warm neutrals, replacing the typical blue→purple→pink "AI site" look. See [Visual Identity & Color System](#visual-identity--color-system).
 - **Design** — animated cursor, typed-role hero, orbiting skill nodes, scroll-triggered reveals, magnetic buttons, cursor-tilt 3D cards; fully responsive across mobile/tablet/desktop
-- **Sections** — Home, About, Experience, Skills, Projects, Achievements & Certifications, Research, Content/Social, Analytics, Education, Meet Juliet, Meet Bittu, AI Providers docs, Feedback & Ratings, Contact
-- **Admin panel** (`/admin.html`) — password-protected dashboard to edit every section of the live site. Every tab has its own Save button; changes go live in seconds, no redeploy.
+- **Sections** — Home, About, Experience, Skills, Projects, Achievements & Certifications, Research, Content/Social, Analytics, Education, Meet Juliet, Meet Bittu, Feedback & Ratings, Contact
+- **Admin panel** (`/admin.html`) — password-protected dashboard to edit every section of the live site, including the Meet Juliet and Meet Bittu intro text/tags. Every tab has its own Save button; changes go live in seconds, no redeploy.
 - **Feedback & Ratings** — visitors leave a star rating + comment; the site shows a live average rating and a scrolling wall of testimonials
 - **3D icon system across every section** — hand-built SVG glyphs (social brands + tech/section icons) in floating, rotating badge cards, all cursor-tilt interactive
 - **Social Analytics section** — YouTube subscribers and GitHub followers update automatically via free public APIs; Instagram/Facebook are admin-editable with a live-shown manual fallback value
-- **An AI trio with distinct personas** — **Juliet** (generative AI), **Romeo** (her chat interface, and the site's guide), and **Bittu** (creative multimodal AI: chat, image generation, honestly-unavailable video). Full writeup: [The AI Trio: Romeo, Juliet & Bittu](#the-ai-trio-romeo-juliet--bittu).
-- **AI Providers docs section** — an on-site table documenting exactly which providers power what, their verified free-tier status, limits, and what's honestly not connected yet
+- **An AI trio, all realistic happy pandas** — **Juliet** (generative AI, cherry-red tint), **Romeo** (her chat interface and the site's guide, classic black & white), and **Bittu** (creative multimodal AI: chat + real image generation, warm coral-orange tint). Full writeup: [The AI Trio: Romeo, Juliet & Bittu](#the-ai-trio-romeo-juliet--bittu).
 - **Overview dashboard** — page view count, feedback count, and average rating at a glance
 - **Zero-cost backend** — content, feedback, and stats are plain JSON files committed to this repo. Reads/writes go through small Vercel serverless functions (`/api`) using the GitHub Contents API — no database, no card ever required, and every content change is a versioned git commit
 
@@ -62,7 +61,7 @@ portfolio-website/
 ├── juliet-knowledge.js    # Portfolio knowledge base, built from content-schema.js
 ├── juliet-client.js       # Shared client: askJuliet() / askBittu() — call the real backends
 ├── juliet-section.js      # "Meet Juliet" dedicated section UI logic
-├── bittu-section.js       # "Meet Bittu" dedicated section UI logic (chat/image/video tabs)
+├── bittu-section.js       # "Meet Bittu" dedicated section UI logic (chat/image tabs)
 ├── romeo.js               # Romeo chat widget (Juliet + local knowledge fallback)
 ├── markdown-render.js     # Safe Markdown rendering + copy-to-clipboard for code
 ├── api/
@@ -73,8 +72,7 @@ portfolio-website/
 │   ├── youtube-stats.js   # GET live YouTube subscriber count
 │   ├── juliet-chat.js     # POST to Juliet (Gemini) — real AI backend, portfolio-grounded
 │   ├── bittu-chat.js      # POST to Bittu (Gemini) — real AI backend, creative persona
-│   ├── bittu-image.js     # POST prompt -> Pollinations.ai image URL (free, no key)
-│   └── bittu-video.js     # Always returns an honest "not available" status + alternative
+│   └── bittu-image.js     # POST prompt -> Pollinations.ai image URL (free, no key)
 ├── lib/
 │   ├── github.js          # Shared helper: read/write JSON files via the GitHub API
 │   └── gemini.js          # Shared Gemini client used by both juliet-chat.js and bittu-chat.js
@@ -110,9 +108,9 @@ via a plain static server) still renders the full site from
 ## Visual Identity & Color System
 
 The site's palette was deliberately redesigned away from the generic
-"blue → purple → pink AI site" look toward something warmer and more
-distinctive: deep architectural neutrals, mineral-toned surfaces, and a
-restrained amber → copper → rose → wine gradient family.
+"blue → purple → pink AI site" look toward something warmer, bolder, and more
+distinctive: deep warm-black neutrals with a cheery coral → red → cherry →
+rose-red gradient family — energetic without tipping into neon.
 
 **Where it lives:** entirely in the `:root` custom properties at the top of
 `style.css`. The variable *names* (`--cyan`, `--blue`, `--purple`, `--pink`)
@@ -125,17 +123,19 @@ risk, no visual benefit). A comment in `:root` explains this mapping for
 future maintainers.
 
 **Token families:**
-- Base: `--bg`, `--bg-alt`, `--card`, `--card-border`, `--text` and its dim
-  variants — all shifted to warm off-black/off-white instead of cool grey.
+- Base: `--bg` (`#100b0a`), `--bg-alt`, `--card`, `--card-border`, `--text`
+  and its dim variants — all shifted to warm off-black/off-white instead of
+  cool grey.
 - Accent (semantic meaning, not literal color anymore): `--cyan` = warm
-  amber/gold (primary), `--blue` = copper (secondary), `--purple` = muted
-  rose (tertiary), `--pink` = deep wine (quaternary).
-- New: `--metallic` (champagne-to-bronze gradient, for premium highlight
-  moments), `--glow-amber` (glow/shadow color).
+  coral-orange `#ff8a5c` (primary), `--blue` = cheery coral-red `#ff6b6b`
+  (secondary), `--purple` = vivid cherry red `#f0405a` (tertiary), `--pink`
+  = bold rose-red `#d81159` (quaternary).
+- New: `--metallic` (warm champagne-to-rust gradient, for premium highlight
+  moments), `--glow-amber` (glow/shadow color, now a coral-red glow).
 - Character accents: `--romeo-grad`/`--romeo-accent` (black-and-white),
-  `--juliet-grad`/`--juliet-accent` (warm rose), `--bittu-grad`/
-  `--bittu-accent` (playful amber-coral) — same warm-neutral universe,
-  distinct per character.
+  `--juliet-grad`/`--juliet-accent` (pink-to-cherry-red), `--bittu-grad`/
+  `--bittu-accent` (peach-to-coral) — same warm universe, distinct per
+  character.
 
 Because every gradient, button, tag, and icon in the site already read its
 color from these tokens, changing the token *values* alone restyled the
@@ -148,23 +148,22 @@ Three AI personas, one shared warm visual language, three distinct roles:
 | | Romeo | Juliet | Bittu |
 |---|---|---|---|
 | Role | Personal guide / chat interface | Generative AI (the real model) | Creative multimodal AI |
-| Species | Dog | Panda | Dog (perky-eared, distinct from Romeo) |
-| Palette | Black & white (`--romeo-grad`) | Warm rose (`--juliet-grad`) | Amber-coral (`--bittu-grad`) |
-| Expression | Gentle warm smile | Gentle warm smile, open eyes | Gentle warm smile, perky ears |
-| Where | Persistent side popup, every page | Dedicated "Meet Juliet" section | Dedicated "Meet Bittu" section (Chat/Image/Video tabs) |
-| Backend | Routes to Juliet, falls back to local knowledge | `api/juliet-chat.js` → Gemini | `api/bittu-chat.js` → Gemini, `api/bittu-image.js` → Pollinations, `api/bittu-video.js` → honest "not available" |
+| Species | Panda | Panda | Panda |
+| Palette | Classic black & white (`--romeo-grad`) | Pink-to-cherry-red (`--juliet-grad`) | Peach-to-coral (`--bittu-grad`) |
+| Expression | Happy, smiling, breathing-smile animation | Happy, smiling, gold sparkle accents | Happy, smiling, paint-dot accents |
+| Where | Persistent side popup, every page | Dedicated "Meet Juliet" section | Dedicated "Meet Bittu" section (Chat/Image tabs) |
+| Backend | Routes to Juliet, falls back to local knowledge | `api/juliet-chat.js` → Gemini | `api/bittu-chat.js` → Gemini, `api/bittu-image.js` → Pollinations |
 
-**Design:** all three share the same construction technique (layered inline
-SVG, radial-gradient "glossy 3D" shading, a glossy highlight ellipse, blush,
-soft round or perky ears) and the same *gentle warm smile* — no wide-open
-laughing mouths, no teeth, no tongue — communicating "intelligent, friendly,
-trustworthy, approachable" rather than "cartoonish." Romeo and Juliet were
-earlier iterations that used a more exaggerated laughing expression; that
-was intentionally toned down in this pass to read as more professional and
-premium, per explicit design direction. Bittu is genuinely new: perky
-upright ears (vs. Romeo's floppy ears / Juliet's round panda ears), warm
-brown eyes, and a small three-dot "paint palette" accent instead of Juliet's
-sparkle stars — a distinct but visually compatible third identity.
+**Design:** all three characters are built as realistic pandas — the same
+construction technique (layered inline SVG, radial-gradient "glossy 3D"
+shading on face and ears, a glossy highlight ellipse, soft blush, rounded
+panda ears and the characteristic dark eye-patches) with a genuinely happy,
+smiling expression on each (`smileBreathe` animation gives the mouth a
+gentle, alive breathing motion rather than a static line). They're
+differentiated purely by color and small accent details: Romeo is classic
+black-and-white, Juliet has a warm pink-to-cherry-red tint plus gold sparkle
+accents, and Bittu has a peach-to-coral tint plus a small three-dot "paint
+palette" accent — one consistent panda identity, three distinct personalities.
 
 **Technical approach — why SVG + CSS, not WebGL/Three.js/GSAP:** the project
 has no framework, no build step, and no 3D library. The task's own
@@ -205,12 +204,10 @@ abstraction — swapping models/providers means editing one file, not two).
 `GEMINI_API_KEY` lives only in Vercel's environment variables. Bittu's image
 tool (`api/bittu-image.js`) uses Pollinations.ai, verified working by a
 direct test call before integration — no key needed, so it works even before
-`GEMINI_API_KEY` is set. Bittu's video tool (`api/bittu-video.js`) always
-returns an honest `available: false` with a reason and a suggested
-alternative — there is currently no production-viable free video-generation
-API (checked against Runway/Pika/Luma/Veo's current pricing, all paid); the
-frontend renders whatever that endpoint says, so flipping on a real provider
-later needs no frontend changes.
+`GEMINI_API_KEY` is set. There is no video-generation feature — it was
+deliberately left out rather than shipped as a fake or perpetually
+"unavailable" capability; Bittu's section only offers what's genuinely live
+today (chat + image).
 
 **Dependencies added:** none for the visuals (hand-authored SVG + CSS).
 Backend: none — `lib/gemini.js` and the Pollinations call both use the
@@ -228,11 +225,11 @@ literally — what was actually run:
 - Live browser verification (local static server + the deployed Vercel
   site): all avatar instances render with the correct animations applied
   (checked via `getComputedStyle(...).animationName`), tab switching in the
-  Bittu section, the full image-generation pipeline (mocked backend →
-  real `<img>` load → download/regenerate buttons), and the honest
-  video-unavailable state were all exercised directly, not just visually
-  inspected. Pollinations.ai was verified with a real direct API call
-  (returned a genuine 512×512 image) before being wired into the UI.
+  Bittu section, and the full image-generation pipeline (mocked backend →
+  real `<img>` load → download/regenerate buttons) were all exercised
+  directly, not just visually inspected. Pollinations.ai was verified with a
+  real direct API call (returned a genuine 512×512 image) before being wired
+  into the UI.
 - Mobile viewport (375×812) checked for layout/overflow on both the
   redesigned avatars and the new Bittu tabs — no issues.
 - Once a `GEMINI_API_KEY` was added, the live deployment was tested with
@@ -246,8 +243,9 @@ that character's other instances — update the `<defs>` block, not each
 instance, to keep them in sync. To swap the Gemini model list, edit
 `MODEL_CANDIDATES` in `lib/gemini.js` (already tries several current model
 names in order and remembers whichever works, so a future Google rename
-shouldn't silently break things again). To activate real video generation,
-see SETUP.md section 7.
+shouldn't silently break things again). The Meet Juliet and Meet Bittu
+sections' intro text and capability tags are admin-editable — see
+SETUP.md section 8.
 
 ## Setup from scratch
 

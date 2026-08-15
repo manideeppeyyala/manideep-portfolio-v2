@@ -127,6 +127,14 @@ const FIELD_SCHEMAS = {
   ]},
   footer: { type: "object", fields: [
     { key: "tagline", label: "Footer Tagline", type: "text" }
+  ]},
+  julietSection: { type: "object", fields: [
+    { key: "intro", label: "Intro Text", type: "textarea" },
+    { key: "tags", label: "Capability Tags", type: "array-string" }
+  ]},
+  bittuSection: { type: "object", fields: [
+    { key: "intro", label: "Intro Text", type: "textarea" },
+    { key: "tags", label: "Capability Tags", type: "array-string" }
   ]}
 };
 
@@ -252,7 +260,8 @@ function renderArraySection(key, schema) {
 function sectionTitle(key) {
   const map = { hero: "Hero", about: "About", experience: "Experience", skills: "Skills", projects: "Projects",
     certifications: "Achievements & Certifications", research: "Research", education: "Education",
-    content: "Content / Social", socialStats: "Social Analytics", contact: "Contact", footer: "Footer" };
+    content: "Content / Social", socialStats: "Social Analytics", contact: "Contact", footer: "Footer",
+    julietSection: "Meet Juliet Section", bittuSection: "Meet Bittu Section" };
   return map[key] || key;
 }
 
