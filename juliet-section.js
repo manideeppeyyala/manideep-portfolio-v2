@@ -89,11 +89,21 @@ async function julietHandleSend(text) {
   const result = await window.askJuliet(julietHistory.slice(-16));
   julietHideTyping();
 
+  const avatar = document.getElementById("julietAvatarHeader");
+  const flashState = (cls) => {
+    avatar?.classList.remove("char-success", "char-error");
+    void avatar?.offsetWidth;
+    avatar?.classList.add(cls);
+    setTimeout(() => avatar?.classList.remove(cls), 800);
+  };
+
   if (result.ok) {
     julietHistory.push({ role: "model", text: result.reply });
     julietAddMessage(result.reply, "bot");
+    flashState("char-success");
   } else {
     julietHistory.pop(); // don't keep a turn Juliet never actually answered
+    flashState("char-error");
     if (result.code === "NOT_CONFIGURED") {
       julietAddError("Juliet isn't activated yet — the site owner needs to add a GEMINI_API_KEY (see SETUP.md). Nothing fake to show here — that's the honest status.");
     } else if (result.code === "RATE_LIMITED") {

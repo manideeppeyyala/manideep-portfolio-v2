@@ -1,16 +1,17 @@
-// Shared client for talking to Juliet's real backend (/api/juliet-chat).
-// Used by both Romeo (the chat widget) and the dedicated "Meet Juliet"
-// section. Never fakes a response: if the real backend isn't configured or
-// fails, it returns a typed result the caller uses to show an honest state
-// (Romeo additionally falls back to the local knowledge engine on top of this).
+// Shared client for talking to the site's real AI backends (Juliet at
+// /api/juliet-chat, Bittu at /api/bittu-chat — both ultimately call Google
+// Gemini via lib/gemini.js, see api/*.js). Used by Romeo, the "Meet Juliet"
+// section, and the "Meet Bittu" section. Never fakes a response: if a real
+// backend isn't configured or a request fails, this returns a typed result
+// the caller uses to show an honest state (Romeo additionally falls back to
+// a local knowledge engine on top of this for Juliet specifically).
 
-async function askJuliet(conversationHistory) {
-  const context = window.getPortfolioContextText ? window.getPortfolioContextText() : "";
+async function askAI(endpoint, conversationHistory, extraBody) {
   try {
-    const res = await fetch("/api/juliet-chat", {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: conversationHistory, context })
+      body: JSON.stringify(Object.assign({ messages: conversationHistory }, extraBody || {}))
     });
     const data = await res.json().catch(() => ({}));
 
@@ -26,4 +27,14 @@ async function askJuliet(conversationHistory) {
   }
 }
 
+function askJuliet(conversationHistory) {
+  const context = window.getPortfolioContextText ? window.getPortfolioContextText() : "";
+  return askAI("/api/juliet-chat", conversationHistory, { context });
+}
+
+function askBittu(conversationHistory) {
+  return askAI("/api/bittu-chat", conversationHistory);
+}
+
 window.askJuliet = askJuliet;
+window.askBittu = askBittu;

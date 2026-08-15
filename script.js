@@ -137,7 +137,7 @@ initTiltCards();
 // a different element lets both compose without one clobbering the other).
 function initAvatarTilt() {
   if (!tiltCapable) return;
-  const avatars = document.querySelectorAll('.romeo-avatar, .juliet-avatar');
+  const avatars = document.querySelectorAll('.romeo-avatar, .juliet-avatar, .bittu-avatar');
   avatars.forEach(avatar => {
     if (avatar.dataset.tiltReady) return;
     avatar.dataset.tiltReady = '1';

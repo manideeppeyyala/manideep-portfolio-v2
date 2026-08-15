@@ -2,19 +2,40 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #060608;
-  --bg-alt: #0a0a10;
-  --card: rgba(255,255,255,0.035);
-  --card-border: rgba(255,255,255,0.09);
-  --text: #f2f2f5;
-  --text-dim: #9a9aa8;
-  --text-dimmer: #6b6b78;
-  --cyan: #22d3ee;
-  --blue: #6366f1;
-  --purple: #a855f7;
-  --pink: #ec4899;
+  /* ===== Signature visual identity: deep architectural neutrals + warm
+     luminous accents + restrained spectral gradient. Deliberately not the
+     generic blue->purple->pink "AI site" palette. Variable NAMES below
+     (--cyan/--blue/--purple/--pink) are kept for backward compatibility
+     with class names used throughout content-schema.js/data (.badge-cyan,
+     .icon-purple, color:"cyan" etc.) — only the VALUES changed, which is
+     why this single block restyles the entire site. */
+  --bg: #0d0b09;
+  --bg-alt: #17130f;
+  --card: rgba(248,240,227,0.04);
+  --card-border: rgba(248,240,227,0.09);
+  --text: #f5efe4;
+  --text-dim: #a89f90;
+  --text-dimmer: #746b5e;
+
+  --cyan: #f0b429;   /* warm amber/gold — primary accent */
+  --blue: #e8825a;   /* copper — secondary accent */
+  --purple: #e0708f; /* muted rose — tertiary accent */
+  --pink: #c65a72;   /* deep wine — quaternary accent */
+
   --grad: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple), var(--pink));
-  --grad-btn: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+  --grad-btn: linear-gradient(90deg, #ffcf6b, #f0a860, #e8734a);
+  --metallic: linear-gradient(135deg, #f0e6cc, #c9a668, #8a6a3f);
+  --glow-amber: rgba(240,180,41,0.45);
+
+  /* Character-specific accent language — same warm-neutral universe,
+     distinct identities. */
+  --romeo-grad: linear-gradient(135deg, #f2f2f2, #a8a8a8, #4a4a4a);   /* Romeo: black & white, analytical */
+  --romeo-accent: #b8b8b8;
+  --juliet-grad: linear-gradient(135deg, #f7c9d9, #e0708f, #a2455c); /* Juliet: warm rose, generative */
+  --juliet-accent: #e0708f;
+  --bittu-grad: linear-gradient(135deg, #ffd479, #f0a860, #e8734a);  /* Bittu: playful amber-coral, creative */
+  --bittu-accent: #f0a860;
+
   --radius: 18px;
   --mono: 'JetBrains Mono', monospace;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -621,31 +642,46 @@ img { max-width: 100%; display: block; }
 .romeo-avatar-sm { width: 40px; height: 40px; }
 .romeo-svg { width: 100%; height: 100%; overflow: visible; }
 
-.romeo-ear-left { transform-origin: 19px 39px; animation: romeoEarWiggleL 3.2s ease-in-out infinite; }
-.romeo-ear-right { transform-origin: 81px 39px; animation: romeoEarWiggleR 3.2s ease-in-out infinite; animation-delay: 0.15s; }
-@keyframes romeoEarWiggleL { 0%, 80%, 100% { transform: rotate(-22deg); } 90% { transform: rotate(-32deg); } }
-@keyframes romeoEarWiggleR { 0%, 80%, 100% { transform: rotate(22deg); } 90% { transform: rotate(32deg); } }
+.romeo-ear-left { transform-origin: 21px 38px; animation: romeoEarWiggleL 4s ease-in-out infinite; }
+.romeo-ear-right { transform-origin: 79px 38px; animation: romeoEarWiggleR 4s ease-in-out infinite; animation-delay: 0.15s; }
+@keyframes romeoEarWiggleL { 0%, 85%, 100% { transform: rotate(-16deg); } 92% { transform: rotate(-21deg); } }
+@keyframes romeoEarWiggleR { 0%, 85%, 100% { transform: rotate(16deg); } 92% { transform: rotate(21deg); } }
 
 .romeo-eye { transform-origin: center; animation: romeoBlink 4.5s ease-in-out infinite; }
 @keyframes romeoBlink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.12); } }
 
-.romeo-squint { transform-origin: center; animation: romeoLaughSquint 2.4s ease-in-out infinite; }
-@keyframes romeoLaughSquint { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.4); } }
+/* Subtle, occasional brow raise — reads as "attentive/thinking," not laughing. */
+.romeo-brow { transform-origin: center; animation: browRaise 6s ease-in-out infinite; }
+.romeo-brow:nth-of-type(2) { animation-delay: 0.1s; }
+@keyframes browRaise { 0%, 88%, 100% { transform: translateY(0); } 94% { transform: translateY(-1.2px); } }
 
-.romeo-mouth { transform-origin: 50px 71px; animation: laughPulse 2.4s ease-in-out infinite; }
+/* Gentle warm smile — a soft breathing scale, not a laugh pulse. */
+.romeo-mouth, .juliet-mouth { transform-origin: 50px 71px; animation: smileBreathe 3.4s ease-in-out infinite; }
+@keyframes smileBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04, 1.06); } }
+
 .romeo-blush, .juliet-blush { animation: cheekPulse 2.6s ease-in-out infinite; }
 @keyframes cheekPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.62; } }
-@keyframes laughPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08, 1.14); } }
 
-.romeo-tongue { transform-origin: 52px 80px; animation: romeoTongue 2.4s ease-in-out infinite; }
-@keyframes romeoTongue { 0%, 100% { transform: rotate(15deg) translateY(0); } 50% { transform: rotate(19deg) translateY(1.5px); } }
-
-#romeoAvatarFab, #romeoAvatarFace { animation: romeoBob 3s ease-in-out infinite; }
-@keyframes romeoBob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-4px) rotate(-3deg); } }
+#romeoAvatarFab, #romeoAvatarFace { animation: romeoBob 3.4s ease-in-out infinite; }
+@keyframes romeoBob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(-2deg); } }
 
 .romeo-thinking .romeo-ear-left, .romeo-thinking .romeo-ear-right { animation-duration: 0.6s; }
-.romeo-thinking .romeo-mouth { animation-duration: 0.7s; }
 .romeo-thinking { animation: romeoBob 0.6s ease-in-out infinite !important; }
+
+/* Reusable character state framework — shared by Romeo, Juliet and Bittu's
+   avatar wrappers. Applied briefly (one-shot) via JS, then removed. */
+@keyframes charSuccessPulse {
+  0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 0 transparent); }
+  40% { transform: scale(1.1) rotate(-3deg); filter: drop-shadow(0 0 10px var(--glow-amber)); }
+  100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 0 transparent); }
+}
+.char-success { animation: charSuccessPulse 0.7s ease; }
+@keyframes charErrorTilt {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  30% { transform: rotate(-5deg) translateY(2px); }
+  65% { transform: rotate(3deg) translateY(1px); }
+}
+.char-error { animation: charErrorTilt 0.55s ease; }
 
 /* Floating action button */
 .romeo-fab {
@@ -744,12 +780,7 @@ img { max-width: 100%; display: block; }
 @keyframes julietEarPulseL { 0%, 85%, 100% { transform: scale(1) rotate(0deg); } 92% { transform: scale(1.12) rotate(-8deg); } }
 @keyframes julietEarPulseR { 0%, 85%, 100% { transform: scale(1) rotate(0deg); } 92% { transform: scale(1.12) rotate(8deg); } }
 
-/* Juliet's eyes are already a closed, upward "laughing" curve — instead of a
-   blink, they crinkle a little more, like laughing harder. */
-.juliet-eye { transform-origin: center; animation: julietLaughCrinkle 2.8s ease-in-out infinite; }
-@keyframes julietLaughCrinkle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.65) translateY(1px); } }
-
-.juliet-mouth { transform-origin: 50px 72px; animation: laughPulse 2.6s ease-in-out infinite; animation-delay: 0.2s; }
+.juliet-eye { transform-origin: center; animation: romeoBlink 5s ease-in-out infinite; animation-delay: 0.3s; }
 
 .juliet-sparkle { transform-origin: center; animation: sparkleTwinkle 2.2s ease-in-out infinite; }
 .juliet-sparkle-2 { animation-delay: 0.9s; }
@@ -785,21 +816,45 @@ img { max-width: 100%; display: block; }
 }
 .code-copy-btn:hover { color: var(--cyan); border-color: rgba(34,211,238,0.4); }
 
+/* ===== Bittu's 3D avatar (playful, perky-eared, warm amber/coral) ===== */
+.bittu-avatar {
+  display: inline-flex; width: 64px; height: 64px; flex-shrink: 0;
+  perspective: 320px; transition: transform 0.25s ease-out;
+}
+.bittu-avatar-sm { width: 44px; height: 44px; }
+.bittu-svg { width: 100%; height: 100%; overflow: visible; animation: julietBob 3.2s ease-in-out infinite; }
+
+.bittu-ear-left { transform-origin: 22px 36px; animation: bittuEarPerkL 3.6s ease-in-out infinite; }
+.bittu-ear-right { transform-origin: 78px 36px; animation: bittuEarPerkR 3.6s ease-in-out infinite; animation-delay: 0.2s; }
+@keyframes bittuEarPerkL { 0%, 82%, 100% { transform: rotate(0deg) scale(1); } 90% { transform: rotate(-6deg) scale(1.05); } }
+@keyframes bittuEarPerkR { 0%, 82%, 100% { transform: rotate(0deg) scale(1); } 90% { transform: rotate(6deg) scale(1.05); } }
+
+.bittu-eye { transform-origin: center; animation: romeoBlink 4.2s ease-in-out infinite; animation-delay: 0.5s; }
+.bittu-mouth { transform-origin: 50px 71px; animation: smileBreathe 3s ease-in-out infinite; animation-delay: 0.3s; }
+.bittu-blush { animation: cheekPulse 2.4s ease-in-out infinite; animation-delay: 0.4s; }
+
+.bittu-paint { animation: sparkleTwinkle 2.4s ease-in-out infinite; transform-origin: 84px 33px; }
+
+#bittuAvatarHeader { animation: romeoBob 3.2s ease-in-out infinite; }
+
+.bittu-thinking .bittu-ear-left, .bittu-thinking .bittu-ear-right { animation-duration: 0.7s; }
+.bittu-thinking { animation: romeoBob 0.7s ease-in-out infinite !important; }
+
 /* ===== Meet Juliet section ===== */
 .juliet-console {
   background: var(--card); border: 1px solid var(--card-border); border-radius: 22px;
   overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
-.juliet-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-dimmer); flex-shrink: 0; }
-.juliet-status-dot.online { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: statusPulse 2s ease-in-out infinite; }
-.juliet-status-dot.offline { background: var(--pink); }
+.juliet-status-dot, .bittu-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-dimmer); flex-shrink: 0; }
+.juliet-status-dot.online, .bittu-status-dot.online { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: statusPulse 2s ease-in-out infinite; }
+.juliet-status-dot.offline, .bittu-status-dot.offline { background: var(--pink); }
 @keyframes statusPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-.juliet-output {
+.juliet-output, .bittu-output {
   min-height: 320px; max-height: 480px; overflow-y: auto; padding: 24px;
   display: flex; flex-direction: column; gap: 14px;
 }
-.juliet-empty-state { margin: auto; text-align: center; color: var(--text-dimmer); max-width: 320px; }
+.juliet-empty-state, .bittu-empty-state { margin: auto; text-align: center; color: var(--text-dimmer); max-width: 320px; }
 .juliet-msg { max-width: 88%; padding: 14px 18px; border-radius: 16px; font-size: 14px; line-height: 1.6; animation: romeoMsgIn 0.3s ease; }
 .juliet-msg-user { align-self: flex-end; background: var(--grad-btn); color: #0a0a10; font-weight: 500; border-bottom-right-radius: 4px; }
 .juliet-msg-bot { align-self: flex-start; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: var(--text-dim); border-bottom-left-radius: 4px; }
@@ -811,25 +866,86 @@ img { max-width: 100%; display: block; }
 .juliet-typing span:nth-child(2) { animation-delay: 0.15s; }
 .juliet-typing span:nth-child(3) { animation-delay: 0.3s; }
 
-.juliet-suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 24px 16px; }
+.juliet-suggestions, .bittu-suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 24px 16px; }
 .juliet-chip {
   font-size: 12.5px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); cursor: pointer; transition: color 0.2s, border-color 0.2s;
 }
 .juliet-chip:hover { color: var(--purple); border-color: rgba(168,85,247,0.4); }
 
-.juliet-form { display: flex; gap: 10px; padding: 18px 20px; border-top: 1px solid rgba(255,255,255,0.08); align-items: flex-end; }
-.juliet-form textarea {
+.juliet-form, .bittu-console-form { display: flex; gap: 10px; padding: 18px 20px; border-top: 1px solid rgba(255,255,255,0.08); align-items: flex-end; }
+.juliet-form textarea, .bittu-console-form textarea {
   flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
   padding: 12px 16px; color: var(--text); font-family: var(--sans); font-size: 14px; resize: none;
 }
-.juliet-form textarea:focus { outline: none; border-color: var(--purple); }
-.juliet-send-btn { flex-shrink: 0; }
-.juliet-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.juliet-form textarea:focus, .bittu-console-form textarea:focus { outline: none; border-color: var(--purple); }
+.juliet-send-btn, .bittu-send-btn { flex-shrink: 0; }
+.juliet-send-btn:disabled, .bittu-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ===== Meet Bittu section ===== */
+.bittu-console { background: var(--card); border: 1px solid var(--card-border); border-radius: 22px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.bittu-console-header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+.bittu-tabs { display: flex; gap: 4px; padding: 12px 20px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.bittu-tab {
+  background: none; border: none; color: var(--text-dimmer); font-family: var(--display); font-weight: 600; font-size: 13.5px;
+  padding: 10px 16px; cursor: pointer; border-radius: 10px 10px 0 0; transition: color 0.2s, background 0.2s; position: relative; top: 1px;
+}
+.bittu-tab:hover { color: var(--text-dim); }
+.bittu-tab.active { color: var(--bittu-accent); background: rgba(240,168,96,0.08); border-bottom: 2px solid var(--bittu-accent); }
+
+.bittu-pane { display: none; }
+.bittu-pane.active { display: block; }
+
+.bittu-image-result, .bittu-video-result {
+  min-height: 280px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center;
+}
+.bittu-image-placeholder { color: var(--text-dimmer); max-width: 380px; }
+.bittu-image-placeholder.error { color: var(--pink); }
+.bittu-generated-image { max-width: 100%; max-height: 420px; border-radius: 14px; box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+.bittu-image-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.bittu-provider-tag { font-family: var(--mono); font-size: 11px; color: var(--text-dimmer); }
+
+.bittu-loading { display: flex; align-items: center; gap: 10px; color: var(--text-dim); }
+.bittu-spinner {
+  width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15);
+  border-top-color: var(--bittu-accent); animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.bittu-unavailable { max-width: 420px; }
+.bittu-unavailable-title { font-family: var(--display); font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.bittu-unavailable p { color: var(--text-dim); font-size: 14px; margin-bottom: 8px; }
+.bittu-unavailable-alt { color: var(--bittu-accent) !important; font-weight: 500; }
+
+/* ===== AI Providers docs table ===== */
+.provider-table-wrap { overflow-x: auto; margin-bottom: 32px; border-radius: 16px; border: 1px solid var(--card-border); }
+.provider-table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); }
+.provider-table th, .provider-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--card-border); vertical-align: top; }
+.provider-table th { font-family: var(--display); color: var(--text); background: rgba(255,255,255,0.03); font-size: 12.5px; letter-spacing: 0.3px; }
+.provider-table td { color: var(--text-dim); }
+.provider-table td:first-child { color: var(--text); font-weight: 600; white-space: nowrap; }
+.provider-table a { color: var(--cyan); text-decoration: underline; }
+.provider-status { font-weight: 600; white-space: nowrap; }
+.provider-status.ok { color: #7cc98a; }
+.provider-status.unavailable { color: var(--pink); }
+
+.provider-notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+.provider-note { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; }
+.provider-note h3 { font-family: var(--display); font-size: 14.5px; margin-bottom: 8px; color: var(--cyan); }
+.provider-note p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+.provider-verified-note { font-size: 12.5px; color: var(--text-dimmer); font-family: var(--mono); }
+.provider-verified-note a { color: var(--cyan); }
+
+@media (max-width: 900px) {
+  .provider-notes-grid { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 640px) {
-  .juliet-output { min-height: 260px; max-height: 380px; padding: 16px; }
-  .juliet-form { padding: 14px; }
+  .juliet-output, .bittu-output { min-height: 260px; max-height: 380px; padding: 16px; }
+  .juliet-form, .bittu-console-form { padding: 14px; }
+  .bittu-tabs { padding: 10px 12px 0; }
+  .bittu-tab { padding: 8px 10px; font-size: 12.5px; }
 }
 
 /* Reveal animation */

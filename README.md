@@ -22,18 +22,17 @@ and a from-scratch backend.
 
 ## Features
 
-- **Design** — dark, gradient-accented theme with an animated cursor, typed-role hero, orbiting skill nodes, and scroll-triggered reveals; fully responsive across mobile/tablet/desktop
-- **Sections** — Home, About, Experience, Skills, Projects, Achievements & Certifications, Research, Content/Social, Education, Feedback & Ratings, Contact
-- **Admin panel** (`/admin.html`) — password-protected dashboard to edit every section of the live site: hero copy, bio, work experience, skill categories, projects, certifications, research, education, contact info, and footer. Every tab has its own Save button; changes go live in seconds, no redeploy.
+- **Signature visual identity** — a deliberately non-generic warm palette: deep architectural neutrals, mineral-toned surfaces, and a restrained amber → copper → rose → wine gradient, replacing the typical blue→purple→pink "AI site" look. See [Visual Identity & Color System](#visual-identity--color-system).
+- **Design** — animated cursor, typed-role hero, orbiting skill nodes, scroll-triggered reveals, magnetic buttons, cursor-tilt 3D cards; fully responsive across mobile/tablet/desktop
+- **Sections** — Home, About, Experience, Skills, Projects, Achievements & Certifications, Research, Content/Social, Analytics, Education, Meet Juliet, Meet Bittu, AI Providers docs, Feedback & Ratings, Contact
+- **Admin panel** (`/admin.html`) — password-protected dashboard to edit every section of the live site. Every tab has its own Save button; changes go live in seconds, no redeploy.
 - **Feedback & Ratings** — visitors leave a star rating + comment; the site shows a live average rating and a scrolling wall of testimonials
-- **3D animated social icons** — hand-built SVG brand glyphs in floating, rotating badge cards with an interactive cursor-tilt effect
-- **Social Analytics section** — YouTube subscribers and GitHub followers update automatically via free public APIs; Instagram/Facebook are admin-editable (no free live API exists for personal accounts on those platforms). Every stat also has an admin-set manual value shown immediately and used as a graceful fallback if a live fetch fails.
-- **3D icon system across every section** — Skills, Projects, Certifications, Experience, and Education each get a floating, rotating 3D badge icon (tech-accurate: Python, database, AI, briefcase, graduation cap, etc.), all cursor-tilt interactive
-- **Magnetic buttons** — every CTA leans gently toward the cursor as it approaches, not just on direct hover
-- **Juliet — a real AI model embedded in the site** — powered by Google Gemini through a secure serverless proxy (`api/juliet-chat.js`); the API key never reaches the browser. Answers general and technical questions, writes and debugs code, holds multi-turn conversations, and answers questions about this portfolio grounded strictly in real content (see `juliet-knowledge.js`) — she says so plainly when something's outside her knowledge or needs real-time information she doesn't have, rather than guessing. Try her directly in the **"Meet Juliet"** section, or as a featured project.
-- **Romeo — Juliet's chat interface** — a persistent side popup with a cute, laughing 3D-animated dog avatar. Routes every message to Juliet; if she isn't configured yet or a request fails, Romeo automatically and transparently falls back to a local, portfolio-grounded knowledge engine (clearly labeled "local knowledge" in the UI) so the widget never fakes a response or breaks. See [Romeo & Juliet Visual Identity](#romeo--juliet-visual-identity) below for the full design writeup.
+- **3D icon system across every section** — hand-built SVG glyphs (social brands + tech/section icons) in floating, rotating badge cards, all cursor-tilt interactive
+- **Social Analytics section** — YouTube subscribers and GitHub followers update automatically via free public APIs; Instagram/Facebook are admin-editable with a live-shown manual fallback value
+- **An AI trio with distinct personas** — **Juliet** (generative AI), **Romeo** (her chat interface, and the site's guide), and **Bittu** (creative multimodal AI: chat, image generation, honestly-unavailable video). Full writeup: [The AI Trio: Romeo, Juliet & Bittu](#the-ai-trio-romeo-juliet--bittu).
+- **AI Providers docs section** — an on-site table documenting exactly which providers power what, their verified free-tier status, limits, and what's honestly not connected yet
 - **Overview dashboard** — page view count, feedback count, and average rating at a glance
-- **Zero-cost backend** — content, feedback, and stats are plain JSON files committed to this repo. Reads/writes go through small Vercel serverless functions (`/api`) using the GitHub Contents API — no database, no Firebase, no card ever required, and every change is a versioned git commit
+- **Zero-cost backend** — content, feedback, and stats are plain JSON files committed to this repo. Reads/writes go through small Vercel serverless functions (`/api`) using the GitHub Contents API — no database, no card ever required, and every content change is a versioned git commit
 
 ## Tech Stack
 
@@ -61,8 +60,9 @@ portfolio-website/
 ├── admin.js               # Admin dashboard logic (auth, forms, save/load)
 ├── icons-3d.js            # 3D icon SVG library (social + tech/section icons)
 ├── juliet-knowledge.js    # Portfolio knowledge base, built from content-schema.js
-├── juliet-client.js       # Shared client: askJuliet() — calls the real backend
+├── juliet-client.js       # Shared client: askJuliet() / askBittu() — call the real backends
 ├── juliet-section.js      # "Meet Juliet" dedicated section UI logic
+├── bittu-section.js       # "Meet Bittu" dedicated section UI logic (chat/image/video tabs)
 ├── romeo.js               # Romeo chat widget (Juliet + local knowledge fallback)
 ├── markdown-render.js     # Safe Markdown rendering + copy-to-clipboard for code
 ├── api/
@@ -71,8 +71,13 @@ portfolio-website/
 │   ├── login.js            # POST password check
 │   ├── pageview.js        # GET/POST page view counter
 │   ├── youtube-stats.js   # GET live YouTube subscriber count
-│   └── juliet-chat.js     # POST to Juliet (Gemini) — the real AI backend
-├── lib/github.js          # Shared helper: read/write JSON files via the GitHub API
+│   ├── juliet-chat.js     # POST to Juliet (Gemini) — real AI backend, portfolio-grounded
+│   ├── bittu-chat.js      # POST to Bittu (Gemini) — real AI backend, creative persona
+│   ├── bittu-image.js     # POST prompt -> Pollinations.ai image URL (free, no key)
+│   └── bittu-video.js     # Always returns an honest "not available" status + alternative
+├── lib/
+│   ├── github.js          # Shared helper: read/write JSON files via the GitHub API
+│   └── gemini.js          # Shared Gemini client used by both juliet-chat.js and bittu-chat.js
 ├── data/                  # content.json, feedback.json, stats.json — the "database"
 ├── vercel.json             # Deployment headers/config
 ├── assets/                # Resume PDF, profile photo, certificate files
@@ -102,100 +107,147 @@ via a plain static server) still renders the full site from
 `content-schema.js`'s defaults — the admin panel will just show a
 "couldn't reach the server" message until deployed.
 
-## Romeo & Juliet Visual Identity
+## Visual Identity & Color System
 
-Both characters' faces were redesigned from an earlier simpler version to be
-cute, expressive, and clearly laughing, while keeping the same architecture
-(no new dependencies, same files, same integration points).
+The site's palette was deliberately redesigned away from the generic
+"blue → purple → pink AI site" look toward something warmer and more
+distinctive: deep architectural neutrals, mineral-toned surfaces, and a
+restrained amber → copper → rose → wine gradient family.
 
-**What changed:** every Romeo face (FAB button + chat panel header) and every
-Juliet face (console header + empty-state) in `index.html` was replaced with
-new hand-authored inline SVG artwork, plus new/updated CSS animations in
-`style.css` and a new hover interaction in `script.js`. Nothing about the
-chat logic, backend, knowledge grounding, or layout changed — this was a
-visual-only pass.
+**Where it lives:** entirely in the `:root` custom properties at the top of
+`style.css`. The variable *names* (`--cyan`, `--blue`, `--purple`, `--pink`)
+were deliberately **kept** even though their *values* no longer resemble
+those colors — hundreds of class names throughout `content-schema.js`,
+`content-loader.js`, `icons-3d.js`, and `data/content.json` reference color
+keys like `"cyan"`/`"purple"`/`"pink"` to pick a badge/icon/tag color, and
+renaming the token names would have meant touching all of that (much higher
+risk, no visual benefit). A comment in `:root` explains this mapping for
+future maintainers.
 
-**Design:**
-- **Romeo** (dog) — purple-to-magenta radial-gradient head with a glossy
-  highlight, floppy pink/magenta ears, big round sparkly eyes with a happy
-  squint-curve underneath, rosy blush, an open laughing mouth with visible
-  teeth, and a tongue lolling to the side.
-- **Juliet** (panda) — soft pink/white gradient face, round black ears and
-  eye-patches, closed upward-arc "laughing so hard her eyes are closed"
-  expression (deliberately different from Romeo's open sparkly eyes so the
-  two read as distinct personalities), rosy blush, an open laughing mouth,
-  and two twinkling gold sparkle accents for a touch of "AI magic."
-- Both share the same construction technique, proportions, line weights, and
-  brand color family (the site's cyan/purple/pink gradient) so they read as
-  a compatible pair despite being different characters.
+**Token families:**
+- Base: `--bg`, `--bg-alt`, `--card`, `--card-border`, `--text` and its dim
+  variants — all shifted to warm off-black/off-white instead of cool grey.
+- Accent (semantic meaning, not literal color anymore): `--cyan` = warm
+  amber/gold (primary), `--blue` = copper (secondary), `--purple` = muted
+  rose (tertiary), `--pink` = deep wine (quaternary).
+- New: `--metallic` (champagne-to-bronze gradient, for premium highlight
+  moments), `--glow-amber` (glow/shadow color).
+- Character accents: `--romeo-grad`/`--romeo-accent` (black-and-white),
+  `--juliet-grad`/`--juliet-accent` (warm rose), `--bittu-grad`/
+  `--bittu-accent` (playful amber-coral) — same warm-neutral universe,
+  distinct per character.
 
-**Technical approach — why SVG + CSS, not WebGL:** the project has no 3D
-library and no build step. Introducing Three.js (or similar) for two small
-avatars would add a new dependency, meaningful bundle weight, and real
-mobile-performance/compatibility risk for a feature that's decorative, not
-core. Layered inline SVG with CSS 3D transforms achieves a genuinely
-dimensional, glossy, "premium 3D logo" look (radial gradients simulate
-lighting/depth, `perspective` + `rotateX/rotateY` give real 3D rotation) at a
-fraction of the cost, with guaranteed cross-device compatibility. This is a
-deliberate choice, not a limitation — reuse the existing architecture per the
-request's own priority order.
+Because every gradient, button, tag, and icon in the site already read its
+color from these tokens, changing the token *values* alone restyled the
+entire site consistently — no per-component rewrites needed.
+
+## The AI Trio: Romeo, Juliet & Bittu
+
+Three AI personas, one shared warm visual language, three distinct roles:
+
+| | Romeo | Juliet | Bittu |
+|---|---|---|---|
+| Role | Personal guide / chat interface | Generative AI (the real model) | Creative multimodal AI |
+| Species | Dog | Panda | Dog (perky-eared, distinct from Romeo) |
+| Palette | Black & white (`--romeo-grad`) | Warm rose (`--juliet-grad`) | Amber-coral (`--bittu-grad`) |
+| Expression | Gentle warm smile | Gentle warm smile, open eyes | Gentle warm smile, perky ears |
+| Where | Persistent side popup, every page | Dedicated "Meet Juliet" section | Dedicated "Meet Bittu" section (Chat/Image/Video tabs) |
+| Backend | Routes to Juliet, falls back to local knowledge | `api/juliet-chat.js` → Gemini | `api/bittu-chat.js` → Gemini, `api/bittu-image.js` → Pollinations, `api/bittu-video.js` → honest "not available" |
+
+**Design:** all three share the same construction technique (layered inline
+SVG, radial-gradient "glossy 3D" shading, a glossy highlight ellipse, blush,
+soft round or perky ears) and the same *gentle warm smile* — no wide-open
+laughing mouths, no teeth, no tongue — communicating "intelligent, friendly,
+trustworthy, approachable" rather than "cartoonish." Romeo and Juliet were
+earlier iterations that used a more exaggerated laughing expression; that
+was intentionally toned down in this pass to read as more professional and
+premium, per explicit design direction. Bittu is genuinely new: perky
+upright ears (vs. Romeo's floppy ears / Juliet's round panda ears), warm
+brown eyes, and a small three-dot "paint palette" accent instead of Juliet's
+sparkle stars — a distinct but visually compatible third identity.
+
+**Technical approach — why SVG + CSS, not WebGL/Three.js/GSAP:** the project
+has no framework, no build step, and no 3D library. The task's own
+instructions say to use technologies already present and avoid unnecessary
+dependencies — so all three characters use the same hand-authored inline SVG
++ CSS 3D transform technique (`perspective` + `rotateX/rotateY`), not a new
+rendering library. This keeps zero added dependencies, zero mobile
+performance/compatibility risk, and full reuse of infrastructure already
+built and tested (the same tilt-hover mechanism used on project/skill cards
+throughout the site).
 
 **Animation (all in `style.css`, respecting `prefers-reduced-motion`):**
-- Idle: gentle float/bob (`romeoBob` / on `.juliet-svg`), ear wiggle/pulse,
-  a "laugh crinkle" on the eyes, a breathing scale pulse on the open mouth
-  (`laughPulse`, shared by both), a blush opacity pulse (`cheekPulse`,
-  shared), Romeo's tongue wags, Juliet's sparkles twinkle on a staggered
-  delay.
-- "Thinking" state (while waiting on a reply): ear and mouth animations
-  speed up via `.romeo-thinking`, giving a subtle "excited" tell.
+idle float/bob, ear motion (wiggle for Romeo, pulse for Juliet, a quick
+"perk" twitch for Bittu — three distinct motions), blinking, a subtle
+breathing scale on the smile (`smileBreathe`, shared by all three), a blush
+opacity pulse (`cheekPulse`, shared), Juliet's sparkles and Bittu's paint
+dots twinkle. A **reusable character-state framework** (`.char-success` /
+`.char-error`, generic classes any avatar wrapper can receive) gives a brief
+warm glow-pulse on a successful reply and a calm head-tilt on an error —
+applied consistently to Romeo, Juliet, and Bittu's avatars whenever their
+respective chat handlers resolve or fail. A `.{character}-thinking` class
+speeds up the idle animation while a reply is in flight.
 
 **Hover/interaction:** rather than a scale-up, hovering (or the cursor
 approaching, on devices with a real pointer) tilts each avatar in 3D toward
-the cursor position — `initAvatarTilt()` in `script.js`, the same
-mousemove-driven `perspective`/`rotateX`/`rotateY` technique already used for
-the site's project/skill cards, applied here to the avatar's outer wrapper
-(`.romeo-avatar` / `.juliet-avatar`) so it composes cleanly with the inner
-SVG's own idle "bob" animation instead of fighting it. Gated behind the same
-`tiltCapable` check as the rest of the site (`hover: hover` + `pointer: fine`
-+ not `prefers-reduced-motion`), so touch/mobile devices simply keep the
-idle animations with no broken hover state.
+the cursor position — `initAvatarTilt()` in `script.js`, applied to
+`.romeo-avatar, .juliet-avatar, .bittu-avatar`, composing with each avatar's
+own idle "bob" animation (JS tilt targets the outer wrapper, the CSS bob
+animates the inner SVG — different elements, no fighting over the
+`transform` property). Gated behind the same `tiltCapable` check as the rest
+of the site, so touch/mobile devices simply keep the idle animations with no
+broken hover state.
 
-**Dependencies added:** none. Everything is hand-authored inline SVG and
-plain CSS, consistent with the rest of the site.
+**AI architecture:** `Frontend → /api/*.js (Vercel serverless) → Provider`.
+`lib/gemini.js` is the single shared Gemini client both `api/juliet-chat.js`
+and `api/bittu-chat.js` call with different system prompts (provider
+abstraction — swapping models/providers means editing one file, not two).
+`GEMINI_API_KEY` lives only in Vercel's environment variables. Bittu's image
+tool (`api/bittu-image.js`) uses Pollinations.ai, verified working by a
+direct test call before integration — no key needed, so it works even before
+`GEMINI_API_KEY` is set. Bittu's video tool (`api/bittu-video.js`) always
+returns an honest `available: false` with a reason and a suggested
+alternative — there is currently no production-viable free video-generation
+API (checked against Runway/Pika/Luma/Veo's current pricing, all paid); the
+frontend renders whatever that endpoint says, so flipping on a real provider
+later needs no frontend changes.
 
-**Files affected:** `index.html` (4 SVG instances replaced), `style.css`
-(avatar animation keyframes rewritten/added, `perspective`/`transition`
-added to the avatar wrappers), `script.js` (new `initAvatarTilt()`).
-`romeo.js`, `juliet-section.js`, `juliet-client.js`, `juliet-knowledge.js`,
-and `api/juliet-chat.js` were **not** touched — the chat logic, backend, and
-knowledge grounding are unchanged.
+**Dependencies added:** none for the visuals (hand-authored SVG + CSS).
+Backend: none — `lib/gemini.js` and the Pollinations call both use the
+platform's native `fetch`, no SDK installed.
 
 **Verification performed:** this project has no `package.json` build/lint
 scripts (plain static site, no bundler), so "run the build" doesn't apply
-literally. What was actually run and checked:
+literally — what was actually run:
 - `node --check` on every `.js` file (syntax validation) — all pass.
-- Repo-wide `grep` audit for the old chatbot name ("Bittu") and any orphaned
-  CSS class/animation references — found and fixed two dead keyframe
-  references (`.juliet-msg`/`.juliet-typing` were pointing at animation names
-  that had been renamed during an earlier Romeo rename and never updated) —
-  now fixed as part of this pass.
+- Repo-wide `grep` audit for "Bit2"/"Bit 2"/"Bit Two" (must never appear) —
+  zero matches. Separately audited for orphaned CSS animation references
+  after each rename/redesign pass (e.g. a stale `.juliet-msg` keyframe
+  reference left over from an earlier rename was found and fixed).
 - Manual brace-balance check on `style.css`.
-- Live browser verification (local static server + the deployed Vercel site):
-  confirmed all 4 avatar instances render, every listed animation is
-  actually applied (`getComputedStyle(...).animationName` checked per
-  element), the hover-tilt handler is attached to all 4 avatars, and the
-  chat panel opens/closes and sends messages correctly with the new faces
-  in place.
-- Mobile viewport (375×812) checked for layout/overflow — no issues.
+- Live browser verification (local static server + the deployed Vercel
+  site): all avatar instances render with the correct animations applied
+  (checked via `getComputedStyle(...).animationName`), tab switching in the
+  Bittu section, the full image-generation pipeline (mocked backend →
+  real `<img>` load → download/regenerate buttons), and the honest
+  video-unavailable state were all exercised directly, not just visually
+  inspected. Pollinations.ai was verified with a real direct API call
+  (returned a genuine 512×512 image) before being wired into the UI.
+- Mobile viewport (375×812) checked for layout/overflow on both the
+  redesigned avatars and the new Bittu tabs — no issues.
+- Once a `GEMINI_API_KEY` was added, the live deployment was tested with
+  real prompts: general Q&A, portfolio-specific questions, code generation,
+  debugging, multi-turn follow-up context, and Markdown/table output —
+  each checked against the actual model response, not assumed.
 
-**Maintenance notes:** if you want to swap Romeo/Juliet's colors, edit the
-gradient `<stop>` colors inside the relevant `<defs>` block in `index.html`
-(`romeoGradHead`/`romeoGradEar` for Romeo, `julietFaceGrad`/`julietEarGrad`
-for Juliet) — there are two SVG instances per character and both share the
-same gradient IDs, so update both `<defs>` blocks (currently only defined
-once each, in the first instance of each character, and referenced by ID
-from the second — keep it that way rather than duplicating `<defs>`, to
-avoid the two instances drifting out of sync).
+**Maintenance notes:** each character's gradient lives in one `<defs>` block
+per character (first SVG instance in `index.html`), referenced by ID from
+that character's other instances — update the `<defs>` block, not each
+instance, to keep them in sync. To swap the Gemini model list, edit
+`MODEL_CANDIDATES` in `lib/gemini.js` (already tries several current model
+names in order and remembers whichever works, so a future Google rename
+shouldn't silently break things again). To activate real video generation,
+see SETUP.md section 7.
 
 ## Setup from scratch
 

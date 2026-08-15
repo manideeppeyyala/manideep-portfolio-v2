@@ -142,6 +142,13 @@ async function romeoHandleSend(text) {
   romeoHideTyping();
   avatar?.classList.remove("romeo-thinking");
   romeoAddMessage(reply, "bot", source);
+
+  // Reusable character state framework: brief success/error flash on the avatar.
+  const flashCls = source === "juliet" ? "char-success" : "char-error";
+  avatar?.classList.remove("char-success", "char-error");
+  void avatar?.offsetWidth;
+  avatar?.classList.add(flashCls);
+  setTimeout(() => avatar?.classList.remove(flashCls), 800);
 }
 
 function initRomeo() {

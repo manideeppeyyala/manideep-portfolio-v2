@@ -95,9 +95,30 @@ so plainly if asked something that needs current information, rather than
 guessing.
 
 **If you ever want to swap providers** (OpenAI, Anthropic, etc.), everything
-routes through one file: edit `api/juliet-chat.js` to call a different
-provider's API instead of Gemini, keeping the same request/response shape —
-nothing in `romeo.js` or `juliet-section.js` needs to change.
+routes through one shared file: edit `lib/gemini.js`'s `chatWithGemini()` to
+call a different provider's API instead (or add a sibling `lib/<provider>.js`
+and point `api/juliet-chat.js` / `api/bittu-chat.js` at it), keeping the same
+`{ reply }` response shape — nothing in `romeo.js`, `juliet-section.js`, or
+`bittu-section.js` needs to change.
+
+## 7. Bittu (creative AI: chat, image, video)
+
+Bittu's **chat** uses the exact same `GEMINI_API_KEY` from step 6 above — no
+separate setup. If Juliet is activated, Bittu's chat is too.
+
+Bittu's **image generation** needs *zero* setup — it uses
+[Pollinations.ai](https://pollinations.ai), a free, no-key image API,
+verified working directly before this was wired up. It works immediately,
+even before you add a Gemini key.
+
+Bittu's **video generation** is honestly not connected — no free,
+production-viable video-generation API exists right now (every real option
+is paid). The Video tab always shows this plainly, with a suggested
+alternative, rather than faking a result. If that changes and you want to
+wire one up: implement the real provider call in `api/bittu-video.js`
+(follow the pattern in `api/bittu-image.js`) and flip `available` to `true`
+— `bittu-section.js` already renders whatever that endpoint returns, so no
+frontend changes are needed.
 
 ## How it works (no database needed)
 
